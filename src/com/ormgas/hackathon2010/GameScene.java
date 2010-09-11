@@ -2,10 +2,12 @@ package com.ormgas.hackathon2010;
 
 import com.stickycoding.rokon.Scene;
 import com.stickycoding.rokon.device.Accelerometer;
+import com.stickycoding.rokon.device.Graphics;
 
 public class GameScene extends Scene {
 
-	AccelerometerHandler accelerometerHandler;
+	private AccelerometerHandler accelerometerHandler;
+	private TrackingWindow window;
 	
 	@Override
 	public void onGameLoop() {
@@ -27,6 +29,10 @@ public class GameScene extends Scene {
 	public void onReady() {
 		this.accelerometerHandler = new AccelerometerHandler();
 		Accelerometer.startListening(accelerometerHandler);
+
+		TrackingWindow window = new TrackingWindow(0, 0, Graphics.getWidthPixels(), Graphics.getHeightPixels());
+		window.setBounds(0, 0, Textures.background.getWidth(), Textures.background.getHeight());
+		this.setWindow(window);		
 	}
 
 	@Override
@@ -34,4 +40,7 @@ public class GameScene extends Scene {
 		Accelerometer.startListening(accelerometerHandler);		
 	}
 
+	public TrackingWindow getWindow() {
+		return this.window;
+	}
 }
