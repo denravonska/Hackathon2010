@@ -26,7 +26,7 @@ public class GameScene extends Scene implements IGameEventHandler {
 
 	@Override
 	public void onGameLoop() {
-		player.setHeading(accelerometerHandler.getRotation());
+		player.setHeading(accelerometerHandler.getRotation() * 2);
 	}
 	
 	@Override
