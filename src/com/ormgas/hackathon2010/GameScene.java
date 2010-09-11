@@ -16,7 +16,7 @@ public class GameScene extends Scene implements IGameEventHandler {
 	//private int rotationTicks = 100;
 	
 	public GameScene(SceneHandler sceneHandler) {
-		super(1, 32);
+		super(1, 8);
 	}
 
 	@Override

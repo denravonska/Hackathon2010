@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.ormgas.hackathon2010.gameobjects.AirplaneObject;
 import com.ormgas.hackathon2010.gameobjects.BulletObject;
+import com.stickycoding.rokon.MathHelper;
 import com.stickycoding.rokon.Scene;
 import com.stickycoding.rokon.Texture;
 import com.stickycoding.rokon.Time;
@@ -28,14 +29,14 @@ public class Player extends AirplaneObject
 		{
 			// Shoot bullets
 			BulletObject bullet = new BulletObject(0, 0, this.x, this.y, this.getHeading(), Textures.bullet);
-			bullet.setVelocity((int)this.getVelocity() * 2);
-			bullet.grow(10.0f, 5.0f);
+			bullet.setVelocity(500, this.getHeading());
+			bullet.setRotation((float)(Math.PI / 2) + this.getRotation());
+			bullet.setAngularVelocity(0);
+			bullet.grow(10.0f, 3.0f);
 			this.getParentScene().add(bullet);
 		
 			mLastShootTick = Time.getTicks();
 		}
-		
-		Log.d("apa", String.valueOf(mLastShootTick));
 	}
 	
 	public void shooting(boolean shoot)

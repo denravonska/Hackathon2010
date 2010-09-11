@@ -1,5 +1,6 @@
 package com.ormgas.hackathon2010.gameobjects;
 
+import com.stickycoding.rokon.RokonActivity;
 import com.stickycoding.rokon.Texture;
 
 public class BulletObject extends FlyingObject {
@@ -17,5 +18,20 @@ public class BulletObject extends FlyingObject {
 	
 	public void setOwnerId(int ownerId) {
 		mOwnerId = ownerId;
+	}
+	
+	@Override
+	public void onUpdate()
+	{
+		super.onUpdate();
+		
+		float height = RokonActivity.getGameHeight();
+		float width = RokonActivity.getGameWidth();
+		
+		if(this.x < 0 || this.x > width || this.y < 0 || this.y > height)
+		{
+			this.getParentScene().remove(this);
+		}
+		
 	}
 }
