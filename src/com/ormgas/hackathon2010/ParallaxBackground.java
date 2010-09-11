@@ -11,8 +11,6 @@ public class ParallaxBackground extends Background
 	private ArrayList<Float> mLayersScroll;
 	private int size;
 	
-	
-	
 	public ParallaxBackground(int layers)
 	{
 		size = layers;

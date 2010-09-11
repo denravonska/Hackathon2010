@@ -6,7 +6,7 @@ import com.stickycoding.rokon.Sprite;
 public class PulsatingSpriteModifier extends Modifier
 {
 	private float color = 0.0f;
-	private float size = 0.01f;
+	private float size = 1.0f;
 	
 	private boolean grow = false;
 	

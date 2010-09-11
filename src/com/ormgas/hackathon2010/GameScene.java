@@ -1,11 +1,10 @@
 package com.ormgas.hackathon2010;
 
-import com.ormgas.hackathon2010.gameobjects.AirplaneObject;
-import com.ormgas.hackathon2010.gameobjects.FlyingObject;
+import android.view.MotionEvent;
+
 import com.ormgas.hackathon2010.networking.ServerClient.GameEvent;
 import com.stickycoding.rokon.RokonActivity;
 import com.stickycoding.rokon.Scene;
-import com.stickycoding.rokon.Sprite;
 import com.stickycoding.rokon.Texture;
 import com.stickycoding.rokon.TextureAtlas;
 import com.stickycoding.rokon.device.Accelerometer;
@@ -17,7 +16,7 @@ public class GameScene extends Scene implements IGameEventHandler {
 	private AccelerometerHandler accelerometerHandler;
 	private Texture planeTexture;
 	private TextureAtlas atlas;
-	private AirplaneObject player;
+	private Player player;
 	//private int rotationTicks = 100;
 	
 	public GameScene(SceneHandler sceneHandler) {
@@ -73,7 +72,7 @@ public class GameScene extends Scene implements IGameEventHandler {
 		window.setParallaxBackground(parallaxBackground);
 		this.setWindow(window);		
 		
-		player = new AirplaneObject(0, 100f, 200f, 50f, planeTexture);
+		player = new Player(0, 100f, 200f, 50f, planeTexture);
 		player.setVelocity(100);
 		this.add(player);
 		window.track(player);
@@ -89,4 +88,17 @@ public class GameScene extends Scene implements IGameEventHandler {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public void onTouchDown(float x, float y, MotionEvent event, int pointerCount, int pointerId)
+	{
+		player.shooting(true);
+	}
+	
+	@Override
+	public void onTouchUp(float x, float y, MotionEvent event, int pointerCount, int pointerId)
+	{
+		player.shooting(false);
+	}
+
 }
