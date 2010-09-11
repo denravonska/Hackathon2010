@@ -1,16 +1,27 @@
 package com.ormgas.hackathon2010.Modifiers;
 
+import com.ormgas.hackathon2010.Sounds;
 import com.ormgas.hackathon2010.Textures;
+import com.ormgas.hackathon2010.gameobjects.BulletObject;
 import com.stickycoding.rokon.Modifier;
 import com.stickycoding.rokon.Sprite;
+import com.stickycoding.rokon.Time;
 
 public class ExplosionModifier extends Modifier {
 	private float mColor;
+	private long deadline;
 	
 	@Override
 	public void onStart(Sprite sprite) {
 		mColor = 1.0f;
+
+		sprite.setVelocity(0);
+		sprite.setWidth(Textures.explosion.getTileWidth());
+		sprite.setHeight(Textures.explosion.getTileHeight()); 
+		sprite.setTextureTile(Textures.explosion, 1);
 		
+		sprite.animate(1, 7, 70);
+		deadline = Time.getTicks() + 800; 
 		//sprite.setTextureTile(Textures.explosion0, 0);
 		//sprite.setTextureTile(Textures.explosion1, 1);
 		//sprite.setTextureTile(Textures.explosion2, 2);
@@ -29,15 +40,8 @@ public class ExplosionModifier extends Modifier {
 	
 	@Override
 	public void onUpdate(Sprite sprite) {
-		sprite.setRGBA(1.0f, mColor, mColor, mColor);
-		mColor -= 0.1;
-		
-		
-
-		if (mColor >= 1.0f) {
+		if(Time.getLastTicks() > this.deadline) {
 			end();
 		}
-		
-		
 	}
 }
