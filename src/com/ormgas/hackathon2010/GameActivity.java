@@ -4,9 +4,6 @@ import com.stickycoding.rokon.DrawPriority;
 import com.stickycoding.rokon.RokonActivity;
 import com.stickycoding.rokon.device.Graphics;
 
-import android.os.Bundle;
-import android.view.Display;
-
 public class GameActivity extends RokonActivity
 {
 	public static final float sizeWidth = 8.0f;
@@ -21,12 +18,6 @@ public class GameActivity extends RokonActivity
     	debugMode();
     	forceFullscreen();
     	forceLandscape();
-    	
-    	Display display = getWindowManager().getDefaultDisplay(); 
-    	int width = display.getWidth();
-    	int height = display.getHeight();
-    	
-    	
 
     	setGameSize(sizeWidth, sizeHeight);
     	setDrawPriority(DrawPriority.PRIORITY_VBO);
@@ -34,7 +25,7 @@ public class GameActivity extends RokonActivity
     	createEngine();
     }
     
-    public void onComplete()
+    public void onLoadComplete()
     {
     	Textures.load();
     	Sounds.load();

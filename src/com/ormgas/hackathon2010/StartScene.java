@@ -36,9 +36,10 @@ public class StartScene extends Scene
 		mBackground = new FixedBackground(mBackgroundTexture);
 		this.setBackground(mBackground);
 		
-		mStartLabel = new Sprite(50, 50, 100, 100);
+		mStartLabel = new Sprite(5.0f, 3.0f, 2.f, 2.0f);
 		mStartLabel.setTexture(mStartTexture);
 		mStartLabel.addModifier(new PulsatingSpriteModifier());
+		this.add(mStartLabel);
 		
 		RokonMusic.play("startSceneMusic.mp3");
 		RokonMusic.getMediaPlayer().setLooping(true);
@@ -47,7 +48,7 @@ public class StartScene extends Scene
 	private void LoadTextures()
 	{
 		mAtlas = new TextureAtlas();
-		mBackgroundTexture = new Texture("startBackround.png");
+		mBackgroundTexture = new Texture("startBackground.png");
 		mAtlas.insert(mBackgroundTexture);
 		
 		mStartTexture = new Texture("start.png");

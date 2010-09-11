@@ -6,6 +6,9 @@ import com.stickycoding.rokon.Sprite;
 public class PulsatingSpriteModifier extends Modifier
 {
 	private float color = 0.0f;
+	private float size = 0.01f;
+	
+	private boolean grow = false;
 	
 	@Override
 	public void onStart(Sprite sprite)
@@ -24,9 +27,17 @@ public class PulsatingSpriteModifier extends Modifier
 	{		
 		sprite.setRGB(color, color, color);
 		
+		if(grow)
+			sprite.grow(size, size);
+		else
+			sprite.shrink(size, size);			
+
 		color += 0.02f;
 		if(color > 1.0f)
+		{
 			color = 0.0f;
+			grow = !grow;
+		}
 	}
 
 }
