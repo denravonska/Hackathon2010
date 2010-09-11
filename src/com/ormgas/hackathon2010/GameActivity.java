@@ -47,7 +47,7 @@ public class GameActivity extends RokonActivity
     	sceneHandler.AddScene(SceneHandler.SceneId.StartScene, new StartScene(sceneHandler));
     	sceneHandler.AddScene(SceneHandler.SceneId.GameScene, new GameScene(sceneHandler));
     	
-    	sceneHandler.SetScene(SceneHandler.SceneId.GameScene);
+    	sceneHandler.SetScene(SceneHandler.SceneId.StartScene);
     }
 
     private final BroadcastReceiver mUpdateUiReceiver = new BroadcastReceiver() {
