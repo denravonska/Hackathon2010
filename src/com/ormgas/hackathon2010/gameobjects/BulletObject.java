@@ -30,7 +30,7 @@ public class BulletObject extends FlyingObject {
 		float height = RokonActivity.getGameHeight();
 		float width = RokonActivity.getGameWidth();
 		
-		if(!dead && this.x < -10 || this.x > width + 10 || this.y < -10 || this.y > (height - 40))
+		if(!dead && (this.x < -10 || this.x > width + 10 || this.y < -10 || this.y > (height - 40)))
 		{
 			this.addModifier(new ExplosionModifier());
 			dead = true;

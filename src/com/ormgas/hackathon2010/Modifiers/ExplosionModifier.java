@@ -15,19 +15,13 @@ public class ExplosionModifier extends Modifier {
 	public void onStart(Sprite sprite) {
 		mColor = 1.0f;
 
-		sprite.setVelocity(0);
+		sprite.stop();
 		sprite.setWidth(Textures.explosion.getTileWidth());
 		sprite.setHeight(Textures.explosion.getTileHeight()); 
-		sprite.setTextureTile(Textures.explosion, 1);
+		sprite.setTextureTile(Textures.explosion, 0);
 		
-		sprite.animate(1, 7, 70);
-		deadline = Time.getTicks() + 800; 
-		//sprite.setTextureTile(Textures.explosion0, 0);
-		//sprite.setTextureTile(Textures.explosion1, 1);
-		//sprite.setTextureTile(Textures.explosion2, 2);
-		//sprite.setTextureTile(Textures.explosion3, 3);
-	
-		
+		sprite.animate(0, 6, 70);
+		deadline = Time.getTicks() + 800; 		
 	}
 	
 	@Override
@@ -35,12 +29,13 @@ public class ExplosionModifier extends Modifier {
 		//sprite.hide();
 		//sprite.setRGBA(1.0f, 1.0f, 1.0f, 1.0f);
 		
-		sprite.getParentScene().remove(sprite);
+		sprite.remove();
 	}
 	
 	@Override
 	public void onUpdate(Sprite sprite) {
 		if(Time.getLastTicks() > this.deadline) {
+			//sprite.remove()
 			end();
 		}
 	}
