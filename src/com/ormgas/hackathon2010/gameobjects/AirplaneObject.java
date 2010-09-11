@@ -1,12 +1,13 @@
 package com.ormgas.hackathon2010.gameobjects;
 
 import com.ormgas.hackathon2010.Modifiers.ExplosionModifier;
+import com.stickycoding.rokon.Texture;
 
 public class AirplaneObject extends FlyingObject {
 	protected int mHp;
 	
-	public AirplaneObject(int id, float x, float y, float heading) {
-		super(id, x, y, 1, heading, null);
+	public AirplaneObject(int id, float x, float y, float heading, Texture texture) {
+		super(id, x, y, 1, heading, texture);
 		
 		mHp = 100;
 	}

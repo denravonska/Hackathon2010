@@ -7,6 +7,7 @@ import com.stickycoding.rokon.MathHelper;
 public class FlyingObject extends Sprite {
 	protected float mVelocity;
 	protected int mId;
+	private boolean isRotating = false;
 	
 	public FlyingObject(int id, float x, float y, float velocity, float heading, Texture texture) {
 		super(x, y, texture.getWidth(), texture.getHeight());
@@ -28,7 +29,9 @@ public class FlyingObject extends Sprite {
 	
 	public void setHeading(float heading) {
 		setVelocity(mVelocity, heading);
-		setRotation(heading * MathHelper.RAD_TO_DEG);
+		this.setAngularVelocity(MathHelper.RAD_TO_DEG * heading);
+		//this.rotateTo(angle, direction, time, type)
+		//setRotation(heading * MathHelper.RAD_TO_DEG);
 	}
 	
 	public int getId() {
