@@ -62,14 +62,14 @@ public class GameActivity extends RokonActivity
         @Override
         public void onReceive(Context context, Intent intent) {
             //GameEvent event = intent.getParcelableExtra(ServerClient.EVENT_EXTRA);
-            final GameEvent event = intent.getParcelableExtra(ServerClient.EVENT_EXTRA);
+           // final GameEvent event = intent.getParcelableExtra(ServerClient.EVENT_EXTRA);
             
             
             Log.d(TAG, "got event");
-            Scene scene = sceneHandler.getCurrentScene();
+           /* Scene scene = sceneHandler.getCurrentScene();
             if(scene instanceof IGameEventHandler) {
             	((IGameEventHandler) scene).onGameEventReceived(event);
-            }
+            }*/
             // TODO: handle onEvent...
         }
     };
