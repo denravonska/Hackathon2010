@@ -19,16 +19,23 @@ public class FlyingObject extends Sprite {
 		mId = id;
 	}
 	
-	public float GetHeading() {
+	public void reuseObject() {
+	}
+	
+	public float getHeading() {
 		return getRotation() * MathHelper.DEG_TO_RAD;
 	}
 	
-	public void SetHeading(float heading) {
+	public void setHeading(float heading) {
 		setVelocity(mVelocity, heading);
 		rotate(heading * MathHelper.RAD_TO_DEG);
 	}
 	
-	public int GetId() {
+	public int getId() {
 		return mId;
+	}
+	
+	public void setId(int id) {
+		mId = id;
 	}
 }
