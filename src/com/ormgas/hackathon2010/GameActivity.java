@@ -2,6 +2,8 @@ package com.ormgas.hackathon2010;
 
 import com.stickycoding.rokon.DrawPriority;
 import com.stickycoding.rokon.RokonActivity;
+import com.stickycoding.rokon.device.Graphics;
+
 import android.os.Bundle;
 
 public class GameActivity extends RokonActivity
@@ -13,6 +15,8 @@ public class GameActivity extends RokonActivity
 	
     public void onCreate()
     {
+    	Graphics.determine(this);
+    	
     	debugMode();
     	forceFullscreen();
     	forceLandscape();
