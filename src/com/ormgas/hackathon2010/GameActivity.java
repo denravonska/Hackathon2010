@@ -1,8 +1,15 @@
 package com.ormgas.hackathon2010;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Bundle;
+
+import com.ormgas.hackathon2010.networking.ServerClient;
+import com.ormgas.hackathon2010.networking.ServerClient.GameEvent;
 import com.stickycoding.rokon.DrawPriority;
 import com.stickycoding.rokon.RokonActivity;
-import android.os.Bundle;
 
 public class GameActivity extends RokonActivity
 {
@@ -15,6 +22,8 @@ public class GameActivity extends RokonActivity
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
+        registerReceiver(mUpdateUiReceiver, new IntentFilter(ServerClient.UPDATE_UI));
+
     	debugMode();
     	forceFullscreen();
     	forceLandscape();
@@ -33,4 +42,12 @@ public class GameActivity extends RokonActivity
     	sceneHandler = new SceneHandler(this);
     	sceneHandler.SetScene(SceneHandler.SceneId.StartScene);
     }
+
+    private final BroadcastReceiver mUpdateUiReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            GameEvent event = intent.getParcelableExtra(ServerClient.EVENT_EXTRA);
+            // TODO: handle onEvent...
+        }
+    };
 }
