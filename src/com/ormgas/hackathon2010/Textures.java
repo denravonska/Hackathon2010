@@ -11,6 +11,7 @@ public class Textures
 	public static Texture parallaxLayer0;
 	public static Texture parallaxLayer1;
 	public static Texture parallaxLayer2;
+	public static Texture explosion;
 	
 	public static Texture explosion;
 	
@@ -30,6 +31,9 @@ public class Textures
 		
 		plane = new Texture("plane.png");
 		atlas.insert(plane);
+		
+		explosion = new Texture("explosion.png");
+		atlas.insert(explosion);
 				
 		parallaxLayer0 = new Texture("backgroundLayer0.png");
 		atlas.insert(parallaxLayer0);
