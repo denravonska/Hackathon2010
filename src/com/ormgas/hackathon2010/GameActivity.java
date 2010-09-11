@@ -14,8 +14,8 @@ import com.stickycoding.rokon.device.Graphics;
 
 public class GameActivity extends RokonActivity
 {
-	public static final float sizeWidth = 8.0f;
-	public static final float sizeHeight = 4.8f;
+	public static final float sizeWidth = 800.0f;
+	public static final float sizeHeight = 480.0f;
 	
 	public static SceneHandler sceneHandler;
 	
@@ -45,7 +45,7 @@ public class GameActivity extends RokonActivity
     	sceneHandler.AddScene(SceneHandler.SceneId.StartScene, new StartScene(sceneHandler));
     	sceneHandler.AddScene(SceneHandler.SceneId.GameScene, new GameScene(sceneHandler));
     	
-    	sceneHandler.SetScene(SceneHandler.SceneId.StartScene);
+    	sceneHandler.SetScene(SceneHandler.SceneId.GameScene);
     }
 
     private final BroadcastReceiver mUpdateUiReceiver = new BroadcastReceiver() {
