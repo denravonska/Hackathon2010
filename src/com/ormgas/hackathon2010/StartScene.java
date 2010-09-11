@@ -36,7 +36,7 @@ public class StartScene extends Scene
 		mBackground = new FixedBackground(mBackgroundTexture);
 		this.setBackground(mBackground);
 		
-		mStartLabel = new Sprite(5.0f, 3.0f, 2.f, 2.0f);
+		mStartLabel = new Sprite(500.0f, 300.0f, 128.0f, 128.0f);
 		mStartLabel.setTexture(mStartTexture);
 		mStartLabel.addModifier(new PulsatingSpriteModifier());
 		this.add(mStartLabel);
@@ -83,6 +83,7 @@ public class StartScene extends Scene
 	@Override
 	public void onTouchUp(float x, float y, MotionEvent event, int pointerCount, int pointerId)
 	{
+		Sounds.select2.play();
 		mSceneIsDone = true;
 	}
 
