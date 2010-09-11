@@ -13,7 +13,7 @@ public class AirplaneObject extends FlyingObject {
 	
 	@Override
 	public void reuseObject() {
-		setRGBA(1.0f, 1.0f, 1.0f, 1.0f);
+		show();
 		super.reuseObject();
 	}
 	

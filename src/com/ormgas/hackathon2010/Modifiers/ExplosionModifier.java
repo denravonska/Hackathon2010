@@ -13,17 +13,17 @@ public class ExplosionModifier extends Modifier {
 	
 	@Override
 	public void onEnd(Sprite sprite) {
+		sprite.hide();
+		sprite.setRGBA(1.0f, 1.0f, 1.0f, 1.0f);
+	}
+	
+	@Override
+	public void onUpdate(Sprite sprite) {
 		sprite.setRGBA(1.0f, mColor, mColor, mColor);
 		mColor -= 0.1;
 
 		if (mColor >= 1.0f) {
 			end();
 		}
-	}
-	
-	@Override
-	public void onUpdate(Sprite sprite) {
-		mColor = 0.0f;
-		sprite.setRGBA(1.0f, mColor, mColor, mColor);
 	}
 }
