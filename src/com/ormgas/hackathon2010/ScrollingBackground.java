@@ -10,7 +10,7 @@ public class ScrollingBackground extends Background {
     private DrawableObject background;
     
     public ScrollingBackground(Texture texture) {
-    	background = new DrawableObject(0, 0, texture.getWidth(), texture.getHeight());
+    	background = new DrawableObject(0, 0, texture.getWidth(), texture.getHeight(), texture);
     }
     
     public float getWidth() {
