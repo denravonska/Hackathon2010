@@ -28,7 +28,7 @@ public class GameActivity extends RokonActivity
     	forceFullscreen();
     	forceLandscape();
     	setGameSize(sizeWidth, sizeHeight);
-    	setDrawPriority(DrawPriority.PRIORITY_VBO);
+    	setDrawPriority(DrawPriority.PRIORITY_NORMAL);
     	setGraphicsPath("textures/");
     	createEngine();
     }
