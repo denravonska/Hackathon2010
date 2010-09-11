@@ -1,0 +1,36 @@
+<h1>Editing bullet</h1>
+
+<% form_for(@bullet) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :parent_id %><br />
+    <%= f.text_field :parent_id %>
+  </p>
+  <p>
+    <%= f.label :x %><br />
+    <%= f.text_field :x %>
+  </p>
+  <p>
+    <%= f.label :y %><br />
+    <%= f.text_field :y %>
+  </p>
+  <p>
+    <%= f.label :heading %><br />
+    <%= f.text_field :heading %>
+  </p>
+  <p>
+    <%= f.label :speed %><br />
+    <%= f.text_field :speed %>
+  </p>
+  <p>
+    <%= f.label :hp %><br />
+    <%= f.text_field :hp %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @bullet %> |
+<%= link_to 'Back', bullets_path %>

@@ -1,0 +1,258 @@
+2010/09/11 13:35:31 INFO  - jmeter.util.JMeterUtils: Setting Locale to en_US 
+2010/09/11 13:35:31 INFO  - jmeter.JMeter: Copyright (c) 1998-2009 The Apache Software Foundation 
+2010/09/11 13:35:31 INFO  - jmeter.JMeter: Version 2.3.4 
+2010/09/11 13:35:31 INFO  - jmeter.JMeter: java.version=1.6.0_18 
+2010/09/11 13:35:31 INFO  - jmeter.JMeter: java.vm.name=OpenJDK Server VM 
+2010/09/11 13:35:31 INFO  - jmeter.JMeter: os.name=Linux 
+2010/09/11 13:35:31 INFO  - jmeter.JMeter: os.arch=i386 
+2010/09/11 13:35:31 INFO  - jmeter.JMeter: os.version=2.6.32-24-generic 
+2010/09/11 13:35:31 INFO  - jmeter.JMeter: file.encoding=UTF-8 
+2010/09/11 13:35:31 INFO  - jmeter.JMeter: Default Locale=English (United States) 
+2010/09/11 13:35:31 INFO  - jmeter.JMeter: JMeter  Locale=English (United States) 
+2010/09/11 13:35:31 INFO  - jmeter.JMeter: JMeterHome=/usr/share/jmeter 
+2010/09/11 13:35:31 INFO  - jmeter.JMeter: user.dir  =/home/connyd/dev/dfserver 
+2010/09/11 13:35:31 INFO  - jmeter.JMeter: PWD       =/home/connyd/dev/dfserver 
+2010/09/11 13:35:31 INFO  - jmeter.JMeter: IP: 127.0.1.1 Name: connyd-laptop FullName: connyd-laptop 
+2010/09/11 13:35:31 INFO  - jmeter.JMeter: Loaded icon properties from org/apache/jmeter/images/icon.properties 
+2010/09/11 13:35:37 INFO  - jmeter.util.BSFTestElement: Registering JMeter version of JavaScript engine as work-round for BSF-22 
+2010/09/11 13:35:43 INFO  - jmeter.protocol.http.sampler.HTTPSamplerBase: No response parsers defined: text/html only will be scanned for embedded resources 
+2010/09/11 13:35:45 INFO  - jmeter.protocol.http.sampler.HTTPSampler: Maximum connection retries = 10 
+2010/09/11 13:35:45 INFO  - jmeter.protocol.http.sampler.HTTPSampler: Connection and read timeouts are available on this JVM 
+2010/09/11 13:35:46 INFO  - jmeter.samplers.SampleResult: Note: Sample TimeStamps are END times 
+2010/09/11 13:35:46 INFO  - jmeter.samplers.SampleResult: sampleresult.default.encoding is set to ISO-8859-1 
+2010/09/11 13:37:15 INFO  - jmeter.engine.StandardJMeterEngine: Listeners will be started after enabling running version 
+2010/09/11 13:37:15 INFO  - jmeter.engine.StandardJMeterEngine: To revert to the earlier behaviour, define jmeterengine.startlistenerslater=false 
+2010/09/11 13:37:15 INFO  - jmeter.engine.StandardJMeterEngine: Running the test! 
+2010/09/11 13:37:15 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(true,*local*) 
+2010/09/11 13:37:15 INFO  - jmeter.engine.StandardJMeterEngine: Starting 1 threads for group Thread Group. Ramp up = 1. 
+2010/09/11 13:37:15 INFO  - jmeter.engine.StandardJMeterEngine: Thread will continue on error 
+2010/09/11 13:37:15 INFO  - jmeter.threads.JMeterThread: jmeterthread.startearlier=true (see jmeter.properties) 
+2010/09/11 13:37:15 INFO  - jmeter.threads.JMeterThread: Running PostProcessors in forward order 
+2010/09/11 13:37:15 INFO  - jmeter.engine.StandardJMeterEngine: All threads have been started 
+2010/09/11 13:37:15 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-1 
+2010/09/11 13:37:15 ERROR - jmeter.threads.JMeterThread: Error while processing sampler 'HTTP Request' : java.lang.IllegalArgumentException: URI can't be null.
+	at sun.net.spi.DefaultProxySelector.select(DefaultProxySelector.java:129)
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:750)
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:680)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1005)
+	at sun.net.www.protocol.http.HttpURLConnection.getHeaderField(HttpURLConnection.java:2080)
+	at org.apache.jmeter.protocol.http.sampler.HTTPSampler.disconnect(HTTPSampler.java:610)
+	at org.apache.jmeter.protocol.http.sampler.HTTPSampler.sample(HTTPSampler.java:603)
+	at org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase.sample(HTTPSamplerBase.java:1037)
+	at org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase.sample(HTTPSamplerBase.java:1023)
+	at org.apache.jmeter.threads.JMeterThread.process_sampler(JMeterThread.java:346)
+	at org.apache.jmeter.threads.JMeterThread.run(JMeterThread.java:243)
+	at java.lang.Thread.run(Thread.java:636)
+
+2010/09/11 13:37:15 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-1 
+2010/09/11 13:37:15 INFO  - jmeter.engine.StandardJMeterEngine: Ending thread Thread Group 1-1 
+2010/09/11 13:37:15 INFO  - jmeter.engine.StandardJMeterEngine: Stopping test 
+2010/09/11 13:37:15 INFO  - jmeter.engine.StandardJMeterEngine: Notifying test listeners of end of test 
+2010/09/11 13:37:15 INFO  - jmeter.services.FileServer: Default base=/home/connyd/dev/dfserver 
+2010/09/11 13:37:15 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(false,*local*) 
+2010/09/11 13:37:15 INFO  - jmeter.engine.StandardJMeterEngine: Test has ended 
+2010/09/11 13:37:41 INFO  - jmeter.engine.StandardJMeterEngine: Running the test! 
+2010/09/11 13:37:42 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(true,*local*) 
+2010/09/11 13:37:42 INFO  - jmeter.engine.StandardJMeterEngine: Starting 1 threads for group Thread Group. Ramp up = 1. 
+2010/09/11 13:37:42 INFO  - jmeter.engine.StandardJMeterEngine: Thread will continue on error 
+2010/09/11 13:37:42 INFO  - jmeter.engine.StandardJMeterEngine: All threads have been started 
+2010/09/11 13:37:42 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-1 
+2010/09/11 13:37:43 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-1 
+2010/09/11 13:37:43 INFO  - jmeter.engine.StandardJMeterEngine: Ending thread Thread Group 1-1 
+2010/09/11 13:37:43 INFO  - jmeter.engine.StandardJMeterEngine: Stopping test 
+2010/09/11 13:37:43 INFO  - jmeter.engine.StandardJMeterEngine: Notifying test listeners of end of test 
+2010/09/11 13:37:43 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(false,*local*) 
+2010/09/11 13:37:43 INFO  - jmeter.engine.StandardJMeterEngine: Test has ended 
+2010/09/11 13:38:04 INFO  - jmeter.services.FileServer: Set new base=/home/connyd/dev/dfserver/test 
+2010/09/11 13:38:04 INFO  - jmeter.save.SaveService: Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2 
+2010/09/11 13:38:04 INFO  - jmeter.save.SaveService: Using SaveService properties file encoding UTF-8 
+2010/09/11 13:38:04 INFO  - jmeter.save.SaveService: Using SaveService properties file version 697317 
+2010/09/11 13:38:04 INFO  - jmeter.save.SaveService: Using SaveService properties version 2.1 
+2010/09/11 13:38:04 INFO  - jmeter.save.SaveService: All converter versions present and correct 
+2010/09/11 13:38:37 INFO  - jmeter.engine.StandardJMeterEngine: Running the test! 
+2010/09/11 13:38:37 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(true,*local*) 
+2010/09/11 13:38:37 INFO  - jmeter.engine.StandardJMeterEngine: Starting 8 threads for group Thread Group. Ramp up = 1. 
+2010/09/11 13:38:37 INFO  - jmeter.engine.StandardJMeterEngine: Thread will continue on error 
+2010/09/11 13:38:37 INFO  - jmeter.engine.StandardJMeterEngine: All threads have been started 
+2010/09/11 13:38:37 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-1 
+2010/09/11 13:38:37 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-2 
+2010/09/11 13:38:37 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-3 
+2010/09/11 13:38:38 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-4 
+2010/09/11 13:38:38 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-5 
+2010/09/11 13:38:38 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-6 
+2010/09/11 13:38:38 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-7 
+2010/09/11 13:38:38 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-8 
+2010/09/11 13:38:52 INFO  - jmeter.gui.action.Start: Stopping test 
+2010/09/11 13:38:52 INFO  - jmeter.threads.JMeterThread: Stopping: Thread Group 1-1 
+2010/09/11 13:38:52 WARN  - jmeter.threads.JMeterThread: Interrupting: Thread Group 1-1 sampler: HTTP Request 
+2010/09/11 13:38:52 INFO  - jmeter.threads.JMeterThread: Stopping: Thread Group 1-2 
+2010/09/11 13:38:52 WARN  - jmeter.threads.JMeterThread: Interrupting: Thread Group 1-2 sampler: HTTP Request 
+2010/09/11 13:38:52 INFO  - jmeter.threads.JMeterThread: Stopping: Thread Group 1-3 
+2010/09/11 13:38:52 WARN  - jmeter.threads.JMeterThread: Interrupting: Thread Group 1-3 sampler: HTTP Request 
+2010/09/11 13:38:52 INFO  - jmeter.threads.JMeterThread: Stopping: Thread Group 1-8 
+2010/09/11 13:38:52 ERROR - jmeter.protocol.http.sampler.HTTPSampler: readResponse: java.net.SocketException: Socket closed 
+2010/09/11 13:38:52 ERROR - jmeter.protocol.http.sampler.HTTPSampler: Cause: java.net.SocketException: Socket closed 
+2010/09/11 13:38:52 WARN  - jmeter.threads.JMeterThread: Interrupting: Thread Group 1-8 sampler: HTTP Request 
+2010/09/11 13:38:52 ERROR - jmeter.protocol.http.sampler.HTTPSampler: readResponse: java.net.SocketException: Socket closed 
+2010/09/11 13:38:52 ERROR - jmeter.protocol.http.sampler.HTTPSampler: Cause: java.net.SocketException: Socket closed 
+2010/09/11 13:38:52 ERROR - jmeter.protocol.http.sampler.HTTPSampler: readResponse: java.net.SocketException: Socket closed 
+2010/09/11 13:38:52 ERROR - jmeter.protocol.http.sampler.HTTPSampler: Cause: java.net.SocketException: Socket closed 
+2010/09/11 13:38:52 INFO  - jmeter.threads.JMeterThread: Stopping: Thread Group 1-5 
+2010/09/11 13:38:52 ERROR - jmeter.protocol.http.sampler.HTTPSampler: readResponse: java.net.SocketException: Socket closed 
+2010/09/11 13:38:52 ERROR - jmeter.protocol.http.sampler.HTTPSampler: Cause: java.net.SocketException: Socket closed 
+2010/09/11 13:38:52 WARN  - jmeter.threads.JMeterThread: Interrupting: Thread Group 1-5 sampler: HTTP Request 
+2010/09/11 13:38:52 INFO  - jmeter.threads.JMeterThread: Stopping: Thread Group 1-4 
+2010/09/11 13:38:52 WARN  - jmeter.threads.JMeterThread: Interrupting: Thread Group 1-4 sampler: HTTP Request 
+2010/09/11 13:38:52 INFO  - jmeter.threads.JMeterThread: Stopping: Thread Group 1-7 
+2010/09/11 13:38:52 ERROR - jmeter.protocol.http.sampler.HTTPSampler: readResponse: java.net.SocketException: Socket closed 
+2010/09/11 13:38:52 ERROR - jmeter.protocol.http.sampler.HTTPSampler: Cause: java.net.SocketException: Socket closed 
+2010/09/11 13:38:52 WARN  - jmeter.threads.JMeterThread: Interrupting: Thread Group 1-7 sampler: HTTP Request 
+2010/09/11 13:38:52 INFO  - jmeter.threads.JMeterThread: Stopping: Thread Group 1-6 
+2010/09/11 13:38:52 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-3 
+2010/09/11 13:38:52 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-2 
+2010/09/11 13:38:52 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-1 
+2010/09/11 13:38:52 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-8 
+2010/09/11 13:38:52 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-5 
+2010/09/11 13:38:52 WARN  - jmeter.threads.JMeterThread: Interrupting: Thread Group 1-6 sampler: HTTP Request 
+2010/09/11 13:38:52 ERROR - jmeter.protocol.http.sampler.HTTPSampler: readResponse: java.net.SocketException: Socket closed 
+2010/09/11 13:38:52 ERROR - jmeter.protocol.http.sampler.HTTPSampler: Cause: java.net.SocketException: Socket closed 
+2010/09/11 13:38:52 ERROR - jmeter.protocol.http.sampler.HTTPSampler: readResponse: java.net.SocketException: Socket closed 
+2010/09/11 13:38:52 ERROR - jmeter.protocol.http.sampler.HTTPSampler: Cause: java.net.SocketException: Socket closed 
+2010/09/11 13:38:52 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-4 
+2010/09/11 13:38:52 INFO  - jmeter.engine.StandardJMeterEngine: Ending thread Thread Group 1-3 
+2010/09/11 13:38:52 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-7 
+2010/09/11 13:38:52 ERROR - jmeter.protocol.http.sampler.HTTPSampler: readResponse: java.net.SocketException: Socket closed 
+2010/09/11 13:38:52 ERROR - jmeter.protocol.http.sampler.HTTPSampler: Cause: java.net.SocketException: Socket closed 
+2010/09/11 13:38:52 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-6 
+2010/09/11 13:38:52 INFO  - jmeter.engine.StandardJMeterEngine: Ending thread Thread Group 1-6 
+2010/09/11 13:38:52 INFO  - jmeter.engine.StandardJMeterEngine: Ending thread Thread Group 1-7 
+2010/09/11 13:38:52 INFO  - jmeter.engine.StandardJMeterEngine: Ending thread Thread Group 1-5 
+2010/09/11 13:38:52 INFO  - jmeter.engine.StandardJMeterEngine: Ending thread Thread Group 1-4 
+2010/09/11 13:38:52 INFO  - jmeter.engine.StandardJMeterEngine: Ending thread Thread Group 1-8 
+2010/09/11 13:38:52 INFO  - jmeter.engine.StandardJMeterEngine: Ending thread Thread Group 1-1 
+2010/09/11 13:38:52 INFO  - jmeter.engine.StandardJMeterEngine: Ending thread Thread Group 1-2 
+2010/09/11 13:38:52 INFO  - jmeter.engine.StandardJMeterEngine: Stopping test 
+2010/09/11 13:38:52 INFO  - jmeter.engine.StandardJMeterEngine: Notifying test listeners of end of test 
+2010/09/11 13:38:52 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(false,*local*) 
+2010/09/11 13:38:52 INFO  - jmeter.engine.StandardJMeterEngine: Test has ended 
+2010/09/11 13:39:21 INFO  - jmeter.engine.StandardJMeterEngine: Running the test! 
+2010/09/11 13:39:21 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(true,*local*) 
+2010/09/11 13:39:21 INFO  - jmeter.engine.StandardJMeterEngine: Starting 8 threads for group Thread Group. Ramp up = 1. 
+2010/09/11 13:39:21 INFO  - jmeter.engine.StandardJMeterEngine: Thread will continue on error 
+2010/09/11 13:39:21 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-1 
+2010/09/11 13:39:21 INFO  - jmeter.engine.StandardJMeterEngine: All threads have been started 
+2010/09/11 13:39:22 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-2 
+2010/09/11 13:39:22 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-3 
+2010/09/11 13:39:22 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-4 
+2010/09/11 13:39:22 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-5 
+2010/09/11 13:39:22 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-6 
+2010/09/11 13:39:22 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-7 
+2010/09/11 13:39:22 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-8 
+2010/09/11 13:39:48 INFO  - jmeter.gui.action.Start: Stopping test 
+2010/09/11 13:39:48 INFO  - jmeter.threads.JMeterThread: Stopping: Thread Group 1-2 
+2010/09/11 13:39:48 WARN  - jmeter.threads.JMeterThread: Interrupting: Thread Group 1-2 sampler: HTTP Request 
+2010/09/11 13:39:48 ERROR - jmeter.protocol.http.sampler.HTTPSampler: readResponse: java.net.SocketException: Socket closed 
+2010/09/11 13:39:48 ERROR - jmeter.protocol.http.sampler.HTTPSampler: Cause: java.net.SocketException: Socket closed 
+2010/09/11 13:39:48 INFO  - jmeter.threads.JMeterThread: Stopping: Thread Group 1-3 
+2010/09/11 13:39:48 WARN  - jmeter.threads.JMeterThread: Interrupting: Thread Group 1-3 sampler: HTTP Request 
+2010/09/11 13:39:48 INFO  - jmeter.threads.JMeterThread: Stopping: Thread Group 1-4 
+2010/09/11 13:39:48 WARN  - jmeter.threads.JMeterThread: Interrupting: Thread Group 1-4 sampler: HTTP Request 
+2010/09/11 13:39:48 ERROR - jmeter.protocol.http.sampler.HTTPSampler: readResponse: java.net.SocketException: Socket closed 
+2010/09/11 13:39:48 ERROR - jmeter.protocol.http.sampler.HTTPSampler: Cause: java.net.SocketException: Socket closed 
+2010/09/11 13:39:48 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-2 
+2010/09/11 13:39:48 INFO  - jmeter.threads.JMeterThread: Stopping: Thread Group 1-7 
+2010/09/11 13:39:48 WARN  - jmeter.threads.JMeterThread: Interrupting: Thread Group 1-7 sampler: HTTP Request 
+2010/09/11 13:39:48 INFO  - jmeter.threads.JMeterThread: Stopping: Thread Group 1-1 
+2010/09/11 13:39:48 WARN  - jmeter.threads.JMeterThread: Interrupting: Thread Group 1-1 sampler: HTTP Request 
+2010/09/11 13:39:48 INFO  - jmeter.threads.JMeterThread: Stopping: Thread Group 1-6 
+2010/09/11 13:39:48 WARN  - jmeter.threads.JMeterThread: Interrupting: Thread Group 1-6 sampler: HTTP Request 
+2010/09/11 13:39:48 INFO  - jmeter.threads.JMeterThread: Stopping: Thread Group 1-5 
+2010/09/11 13:39:48 WARN  - jmeter.threads.JMeterThread: Interrupting: Thread Group 1-5 sampler: HTTP Request 
+2010/09/11 13:39:48 INFO  - jmeter.threads.JMeterThread: Stopping: Thread Group 1-8 
+2010/09/11 13:39:48 WARN  - jmeter.threads.JMeterThread: Interrupting: Thread Group 1-8 sampler: HTTP Request 
+2010/09/11 13:39:48 INFO  - jmeter.engine.StandardJMeterEngine: Ending thread Thread Group 1-2 
+2010/09/11 13:39:48 ERROR - jmeter.protocol.http.sampler.HTTPSampler: readResponse: java.net.SocketException: Socket closed 
+2010/09/11 13:39:48 ERROR - jmeter.protocol.http.sampler.HTTPSampler: Cause: java.net.SocketException: Socket closed 
+2010/09/11 13:39:48 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-4 
+2010/09/11 13:39:48 INFO  - jmeter.engine.StandardJMeterEngine: Ending thread Thread Group 1-4 
+2010/09/11 13:39:48 ERROR - jmeter.protocol.http.sampler.HTTPSampler: readResponse: java.net.SocketException: Socket closed 
+2010/09/11 13:39:48 ERROR - jmeter.protocol.http.sampler.HTTPSampler: readResponse: java.net.SocketException: Socket closed 
+2010/09/11 13:39:48 ERROR - jmeter.protocol.http.sampler.HTTPSampler: readResponse: java.net.SocketException: Socket closed 
+2010/09/11 13:39:48 ERROR - jmeter.protocol.http.sampler.HTTPSampler: Cause: java.net.SocketException: Socket closed 
+2010/09/11 13:39:48 ERROR - jmeter.protocol.http.sampler.HTTPSampler: readResponse: java.net.SocketException: Socket closed 
+2010/09/11 13:39:48 ERROR - jmeter.protocol.http.sampler.HTTPSampler: Cause: java.net.SocketException: Socket closed 
+2010/09/11 13:39:48 ERROR - jmeter.threads.JMeterThread: Test failed! java.lang.Error: Interrupted attempt to aquire write lock
+	at javax.swing.text.AbstractDocument.writeLock(AbstractDocument.java:1351)
+	at javax.swing.text.AbstractDocument.replace(AbstractDocument.java:661)
+	at javax.swing.text.JTextComponent.setText(JTextComponent.java:1707)
+	at org.apache.jmeter.visualizers.GraphVisualizer.updateGui(GraphVisualizer.java:118)
+	at org.apache.jmeter.visualizers.GraphVisualizer.add(GraphVisualizer.java:128)
+	at org.apache.jmeter.reporters.ResultCollector.sendToVisualizer(ResultCollector.java:491)
+	at org.apache.jmeter.reporters.ResultCollector.sampleOccurred(ResultCollector.java:464)
+	at org.apache.jmeter.threads.ListenerNotifier.notifyListeners(ListenerNotifier.java:86)
+	at org.apache.jmeter.threads.JMeterThread.notifyListeners(JMeterThread.java:673)
+	at org.apache.jmeter.threads.JMeterThread.process_sampler(JMeterThread.java:360)
+	at org.apache.jmeter.threads.JMeterThread.run(JMeterThread.java:243)
+	at java.lang.Thread.run(Thread.java:636)
+
+2010/09/11 13:39:48 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-5 
+2010/09/11 13:39:48 ERROR - jmeter.protocol.http.sampler.HTTPSampler: Cause: java.net.SocketException: Socket closed 
+2010/09/11 13:39:48 ERROR - jmeter.threads.JMeterThread: Test failed! java.lang.Error: Interrupted attempt to aquire write lock
+	at javax.swing.text.AbstractDocument.writeLock(AbstractDocument.java:1351)
+	at javax.swing.text.AbstractDocument.replace(AbstractDocument.java:661)
+	at javax.swing.text.JTextComponent.setText(JTextComponent.java:1707)
+	at org.apache.jmeter.visualizers.GraphVisualizer.updateGui(GraphVisualizer.java:118)
+	at org.apache.jmeter.visualizers.GraphVisualizer.add(GraphVisualizer.java:128)
+	at org.apache.jmeter.reporters.ResultCollector.sendToVisualizer(ResultCollector.java:491)
+	at org.apache.jmeter.reporters.ResultCollector.sampleOccurred(ResultCollector.java:464)
+	at org.apache.jmeter.threads.ListenerNotifier.notifyListeners(ListenerNotifier.java:86)
+	at org.apache.jmeter.threads.JMeterThread.notifyListeners(JMeterThread.java:673)
+	at org.apache.jmeter.threads.JMeterThread.process_sampler(JMeterThread.java:360)
+	at org.apache.jmeter.threads.JMeterThread.run(JMeterThread.java:243)
+	at java.lang.Thread.run(Thread.java:636)
+
+2010/09/11 13:39:48 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-1 
+2010/09/11 13:39:48 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-7 
+2010/09/11 13:39:48 INFO  - jmeter.engine.StandardJMeterEngine: Ending thread Thread Group 1-5 
+2010/09/11 13:39:48 INFO  - jmeter.engine.StandardJMeterEngine: Ending thread Thread Group 1-7 
+2010/09/11 13:39:48 ERROR - jmeter.threads.JMeterThread: Test failed! java.lang.Error: Interrupted attempt to aquire write lock
+	at javax.swing.text.AbstractDocument.writeLock(AbstractDocument.java:1351)
+	at javax.swing.text.AbstractDocument.replace(AbstractDocument.java:661)
+	at javax.swing.text.JTextComponent.setText(JTextComponent.java:1707)
+	at org.apache.jmeter.visualizers.GraphVisualizer.updateGui(GraphVisualizer.java:118)
+	at org.apache.jmeter.visualizers.GraphVisualizer.add(GraphVisualizer.java:128)
+	at org.apache.jmeter.reporters.ResultCollector.sendToVisualizer(ResultCollector.java:491)
+	at org.apache.jmeter.reporters.ResultCollector.sampleOccurred(ResultCollector.java:464)
+	at org.apache.jmeter.threads.ListenerNotifier.notifyListeners(ListenerNotifier.java:86)
+	at org.apache.jmeter.threads.JMeterThread.notifyListeners(JMeterThread.java:673)
+	at org.apache.jmeter.threads.JMeterThread.process_sampler(JMeterThread.java:360)
+	at org.apache.jmeter.threads.JMeterThread.run(JMeterThread.java:243)
+	at java.lang.Thread.run(Thread.java:636)
+
+2010/09/11 13:39:48 ERROR - jmeter.protocol.http.sampler.HTTPSampler: Cause: java.net.SocketException: Socket closed 
+2010/09/11 13:39:48 ERROR - jmeter.threads.JMeterThread: Test failed! java.lang.Error: Interrupted attempt to aquire write lock
+	at javax.swing.text.AbstractDocument.writeLock(AbstractDocument.java:1351)
+	at javax.swing.text.AbstractDocument.replace(AbstractDocument.java:661)
+	at javax.swing.text.JTextComponent.setText(JTextComponent.java:1707)
+	at org.apache.jmeter.visualizers.GraphVisualizer.updateGui(GraphVisualizer.java:122)
+	at org.apache.jmeter.visualizers.GraphVisualizer.add(GraphVisualizer.java:128)
+	at org.apache.jmeter.reporters.ResultCollector.sendToVisualizer(ResultCollector.java:491)
+	at org.apache.jmeter.reporters.ResultCollector.sampleOccurred(ResultCollector.java:464)
+	at org.apache.jmeter.threads.ListenerNotifier.notifyListeners(ListenerNotifier.java:86)
+	at org.apache.jmeter.threads.JMeterThread.notifyListeners(JMeterThread.java:673)
+	at org.apache.jmeter.threads.JMeterThread.process_sampler(JMeterThread.java:360)
+	at org.apache.jmeter.threads.JMeterThread.run(JMeterThread.java:243)
+	at java.lang.Thread.run(Thread.java:636)
+
+2010/09/11 13:39:48 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-8 
+2010/09/11 13:39:48 INFO  - jmeter.engine.StandardJMeterEngine: Ending thread Thread Group 1-8 
+2010/09/11 13:39:48 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-6 
+2010/09/11 13:39:48 INFO  - jmeter.engine.StandardJMeterEngine: Ending thread Thread Group 1-6 
+2010/09/11 13:39:48 INFO  - jmeter.engine.StandardJMeterEngine: Ending thread Thread Group 1-1 
+2010/09/11 13:39:49 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-3 
+2010/09/11 13:39:49 INFO  - jmeter.engine.StandardJMeterEngine: Ending thread Thread Group 1-3 
+2010/09/11 13:39:49 INFO  - jmeter.engine.StandardJMeterEngine: Stopping test 
+2010/09/11 13:39:49 INFO  - jmeter.engine.StandardJMeterEngine: Notifying test listeners of end of test 
+2010/09/11 13:39:49 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(false,*local*) 
+2010/09/11 13:39:49 INFO  - jmeter.engine.StandardJMeterEngine: Test has ended 
+2010/09/11 13:45:58 INFO  - jmeter.services.FileServer: Set new base=/home/connyd/dev/dfserver/test 

@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  parent_id: 1
+  x: 1.5
+  y: 1.5
+  heading: 1.5
+  speed: 1.5
+  hp: 1
+
+two:
+  parent_id: 1
+  x: 1.5
+  y: 1.5
+  heading: 1.5
+  speed: 1.5
+  hp: 1

@@ -1,0 +1,18 @@
+<p>
+  <b>Id:</b>
+  <%=h @player.id %>
+</p>
+
+<p>
+  <b>X:</b>
+  <%=h @player.x %>
+</p>
+
+<p>
+  <b>Y:</b>
+  <%=h @player.y %>
+</p>
+
+
+<%= link_to 'Edit', edit_player_path(@player) %> |
+<%= link_to 'Back', players_path %>

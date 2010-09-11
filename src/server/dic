@@ -1,0 +1,16 @@
+create player/bullet:
+curl -d "x=0&y=0&heading=0&speed=0&hp=100" "http://192.168.161.170:3000/players.json"
+curl -d "x=0&y=0&heading=0&speed=0&hp=100" "http://192.168.161.170:3000/bullets.json"
+
+update player/bullet positions:
+curl "http://192.168.161.170:3000/update_player_position/1?x=3&y=5&heading=2&speed=3&hp=90"
+
+curl "http://192.168.161.170:3000/update_bullet_position/1?x=3&y=5&heading=2&speed=3&hp=90"
+
+events:
+curl "http://192.168.161.170:3000/events"
+
+delete player/bullet
+http://192.168.161.170:3000/delete_bullet/8
+http://192.168.161.170:3000/delete_player/8
+

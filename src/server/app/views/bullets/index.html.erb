@@ -1,0 +1,30 @@
+<h1>Listing bullets</h1>
+
+<table>
+  <tr>
+    <th>Parent</th>
+    <th>X</th>
+    <th>Y</th>
+    <th>Heading</th>
+    <th>Speed</th>
+    <th>Hp</th>
+  </tr>
+
+<% @bullets.each do |bullet| %>
+  <tr>
+    <td><%=h bullet.parent_id %></td>
+    <td><%=h bullet.x %></td>
+    <td><%=h bullet.y %></td>
+    <td><%=h bullet.heading %></td>
+    <td><%=h bullet.speed %></td>
+    <td><%=h bullet.hp %></td>
+    <td><%= link_to 'Show', bullet %></td>
+    <td><%= link_to 'Edit', edit_bullet_path(bullet) %></td>
+    <td><%= link_to 'Destroy', bullet, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New bullet', new_bullet_path %>

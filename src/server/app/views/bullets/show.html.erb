@@ -1,0 +1,33 @@
+<p>
+  <b>Parent:</b>
+  <%=h @bullet.parent_id %>
+</p>
+
+<p>
+  <b>X:</b>
+  <%=h @bullet.x %>
+</p>
+
+<p>
+  <b>Y:</b>
+  <%=h @bullet.y %>
+</p>
+
+<p>
+  <b>Heading:</b>
+  <%=h @bullet.heading %>
+</p>
+
+<p>
+  <b>Speed:</b>
+  <%=h @bullet.speed %>
+</p>
+
+<p>
+  <b>Hp:</b>
+  <%=h @bullet.hp %>
+</p>
+
+
+<%= link_to 'Edit', edit_bullet_path(@bullet) %> |
+<%= link_to 'Back', bullets_path %>
