@@ -19,6 +19,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 public class ServerClient {
     static final String TAG = "ServerClient";
@@ -57,9 +58,15 @@ public class ServerClient {
         new Thread(new Runnable() {
             public void run() {
                 boolean listen = true;
+
                 while (listen) {
+                    
                     URI uri;
                     try {
+                        Log.d(TAG, "listenForEvent");
+                        
+                        Thread.sleep(1000);
+                        
                         uri = new URI(BASE_URL + "/event");
                         HttpGet method = new HttpGet(uri);
                         final HttpParams getParams = new BasicHttpParams();
@@ -79,6 +86,9 @@ public class ServerClient {
                     } catch (IOException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
                     }
                 }
             }
@@ -87,7 +97,7 @@ public class ServerClient {
 
     private void broadcactEvent(final GameEvent event) {
         Intent mUpdateUiIntent = new Intent(UPDATE_UI);
-        mUpdateUiIntent.putExtra(EVENT_EXTRA, event);
+        mUpdateUiIntent.putExtra(EVENT_EXTRA, "event");
         mContext.sendBroadcast(mUpdateUiIntent);
     }
     
