@@ -36,6 +36,10 @@ public class SceneHandler
 			theActivity.setScene(newScene);
 		}
 	}
+
+	public Scene getCurrentScene() {
+		return mScenes.get(this.currentScene);
+	}
 	
 	public void AddScene(SceneId key, Scene theScene)
 	{
