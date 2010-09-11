@@ -11,14 +11,17 @@ import com.ormgas.hackathon2010.networking.ServerClient;
 import com.ormgas.hackathon2010.networking.ServerClient.GameEvent;
 import com.stickycoding.rokon.DrawPriority;
 import com.stickycoding.rokon.RokonActivity;
+import com.stickycoding.rokon.Scene;
 import com.stickycoding.rokon.device.Graphics;
 
 public class GameActivity extends RokonActivity
 {
+	private final static String TAG = GameActivity.class.getSimpleName();
 	public static final float sizeWidth = 800.0f;
 	public static final float sizeHeight = 480.0f;
 	
 	public static SceneHandler sceneHandler;
+	private ServerClient client;
 	
     public void onCreate()
     {
@@ -33,9 +36,14 @@ public class GameActivity extends RokonActivity
     	createEngine();
     }
     
+    public void onDestroy() {
+    	unregisterReceiver(mUpdateUiReceiver);
+    	super.onDestroy();
+    }
+    
     public void onLoadComplete()
     {
-        //ServerClient client = new ServerClient();
+        //client = new ServerClient();
         //client.start(this);
 
         registerReceiver(mUpdateUiReceiver, new IntentFilter(ServerClient.UPDATE_UI));
@@ -54,10 +62,14 @@ public class GameActivity extends RokonActivity
         @Override
         public void onReceive(Context context, Intent intent) {
             //GameEvent event = intent.getParcelableExtra(ServerClient.EVENT_EXTRA);
-            String event = intent.getStringExtra(ServerClient.EVENT_EXTRA);
+            final GameEvent event = intent.getParcelableExtra(ServerClient.EVENT_EXTRA);
             
             
-            Log.d("Game", "got event");
+            Log.d(TAG, "got event");
+            Scene scene = sceneHandler.getCurrentScene();
+            if(scene instanceof IGameEventHandler) {
+            	((IGameEventHandler) scene).onGameEventReceived(event);
+            }
             // TODO: handle onEvent...
         }
     };
