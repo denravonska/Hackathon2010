@@ -40,6 +40,8 @@ public class AirplaneObject extends FlyingObject {
 		{
 			ExplosionModifier modifier = new ExplosionModifier();
 			addModifier(modifier);
+			
+			// Stop the airplane - we don't want a moving explosion.
 			setVelocity(0.0f, getVelocity());
 		}
 	}

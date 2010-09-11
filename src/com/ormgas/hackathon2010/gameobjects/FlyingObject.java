@@ -28,7 +28,7 @@ public class FlyingObject extends Sprite {
 	
 	public void setHeading(float heading) {
 		setVelocity(mVelocity, heading);
-		rotate(heading * MathHelper.RAD_TO_DEG);
+		setRotation(heading * MathHelper.RAD_TO_DEG);
 	}
 	
 	public int getId() {
