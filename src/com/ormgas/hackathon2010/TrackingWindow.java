@@ -37,8 +37,8 @@ public class TrackingWindow extends Window {
 		float y = this.getY();
 		
 		if(null != trackObject) {
-			x = trackObject.getX() - (trackObject.getWidth() - this.getWidth()) / 2f;
-			y = trackObject.getY() - (trackObject.getHeight() - this.getHeight()) / 2f;
+			x = trackObject.getX() - (this.getWidth() - trackObject.getWidth()) / 2f;
+			y = trackObject.getY() - (this.getHeight() - trackObject.getHeight()) / 2f;
 		}
 		
 		if(true == useBounds) {
