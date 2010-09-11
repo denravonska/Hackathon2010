@@ -5,6 +5,7 @@ import com.stickycoding.rokon.RokonActivity;
 import com.stickycoding.rokon.device.Graphics;
 
 import android.os.Bundle;
+import android.view.Display;
 
 public class GameActivity extends RokonActivity
 {
@@ -20,6 +21,12 @@ public class GameActivity extends RokonActivity
     	debugMode();
     	forceFullscreen();
     	forceLandscape();
+    	
+    	Display display = getWindowManager().getDefaultDisplay(); 
+    	int width = display.getWidth();
+    	int height = display.getHeight();
+    	
+    	
 
     	setGameSize(sizeWidth, sizeHeight);
     	setDrawPriority(DrawPriority.PRIORITY_VBO);
@@ -33,6 +40,10 @@ public class GameActivity extends RokonActivity
     	Sounds.load();
     	
     	sceneHandler = new SceneHandler(this);
+    	
+    	sceneHandler.AddScene(SceneHandler.SceneId.StartScene, new StartScene(sceneHandler));
+    	sceneHandler.AddScene(SceneHandler.SceneId.GameScene, new GameScene(sceneHandler));
+    	
     	sceneHandler.SetScene(SceneHandler.SceneId.StartScene);
     }
 }

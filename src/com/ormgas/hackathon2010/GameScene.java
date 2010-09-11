@@ -9,6 +9,10 @@ public class GameScene extends Scene {
 	private AccelerometerHandler accelerometerHandler;
 	private TrackingWindow window;
 	
+	public GameScene(SceneHandler sceneHandler) {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public void onGameLoop() {
 		// TODO Auto-generated method stub
