@@ -25,14 +25,19 @@ public class Player extends AirplaneObject
 	{
 		super.onUpdate();
 				
-		if(isShooting && (Time.getTicks() - mLastShootTick) > 500)
+		if(isShooting && (Time.getTicks() - mLastShootTick) > 100)
 		{
 			// Shoot bullets
-			BulletObject bullet = new BulletObject(0, 0, this.x, this.y, this.getHeading(), Textures.bullet);
-			bullet.setVelocity(500, this.getHeading());
-			bullet.setRotation((float)(Math.PI / 2) + this.getRotation());
+			BulletObject bullet = new BulletObject(
+					0,
+					0,
+					this.x + this.getWidth() / 2,
+					this.y + this.getHeight() / 2, this.getHeading(), Textures.bullet);
+			bullet.setVelocity(500, (float) (Math.PI / 2) - this.getHeading());
+			bullet.setRotation(this.getRotation());
 			bullet.setAngularVelocity(0);
 			bullet.grow(10.0f, 3.0f);
+			Sounds.shoot.play();
 			this.getParentScene().add(bullet);
 		
 			mLastShootTick = Time.getTicks();
