@@ -10,6 +10,7 @@ import com.ormgas.hackathon2010.networking.ServerClient;
 import com.ormgas.hackathon2010.networking.ServerClient.GameEvent;
 import com.stickycoding.rokon.DrawPriority;
 import com.stickycoding.rokon.RokonActivity;
+import com.stickycoding.rokon.device.Graphics;
 
 public class GameActivity extends RokonActivity
 {
@@ -18,10 +19,10 @@ public class GameActivity extends RokonActivity
 	
 	public static SceneHandler sceneHandler;
 	
-	
-    @Override
-    public void onCreate(Bundle savedInstanceState)
+    public void onCreate()
     {
+    	Graphics.determine(this);
+    	
         registerReceiver(mUpdateUiReceiver, new IntentFilter(ServerClient.UPDATE_UI));
 
     	debugMode();
@@ -34,12 +35,16 @@ public class GameActivity extends RokonActivity
     	createEngine();
     }
     
-    public void onComplete()
+    public void onLoadComplete()
     {
     	Textures.load();
     	Sounds.load();
     	
     	sceneHandler = new SceneHandler(this);
+    	
+    	sceneHandler.AddScene(SceneHandler.SceneId.StartScene, new StartScene(sceneHandler));
+    	sceneHandler.AddScene(SceneHandler.SceneId.GameScene, new GameScene(sceneHandler));
+    	
     	sceneHandler.SetScene(SceneHandler.SceneId.StartScene);
     }
 

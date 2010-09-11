@@ -24,11 +24,17 @@ public class SceneHandler
 	public void Next()
 	{
 		//theActivity.setScene(scene);
+		//currentScene++;
 	}
 	
 	public void SetScene(SceneId scene)
 	{
-		theActivity.setScene(mScenes.get(scene));
+		Scene newScene = mScenes.get(scene);
+		if(newScene != null)
+		{
+			currentScene = scene;
+			theActivity.setScene(newScene);
+		}
 	}
 	
 	public void AddScene(SceneId key, Scene theScene)

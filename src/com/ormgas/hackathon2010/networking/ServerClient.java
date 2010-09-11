@@ -4,72 +4,101 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.net.UnknownHostException;
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpParams;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 public class ServerClient {
     static final String TAG = "ServerClient";
     public static String UPDATE_UI = "com.ormgas.hackathon2010.action.UPDATE_UI";
-    static final String MACHINE_NAME = "somename";
-    static final int PORT = 4321;
+    static final String BASE_URL = "http://10.0.2.2:8080";
     public static final String EVENT_EXTRA = "com.ormgas.hackathon2010.EVENT_EXTRA";
 
-    private Socket mSocket;
-    private DataOutputStream mOutputStream;
-    private DataInputStream mInputStream;
     private Context mContext;
 
     public void sendEvent(final GameEvent event) {
-        try {
-            mOutputStream.writeUTF("helloo");
-            String responseLine;
-            while ((responseLine = mInputStream.readLine()) != null) {
-                Log.d(TAG, "Server: " + responseLine);
-                if (responseLine.indexOf("Ok") != -1) {
-                  break;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final HttpPost post = new HttpPost(BASE_URL + "/event/");
+                final HttpParams params = new BasicHttpParams();
+                params.setIntParameter("id", event.id);
+                post.setParams(params);
+                HttpResponse response;
+                try {
+                    response = HttpManager.execute(post);
+                    if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+                        return; // ignore errors?
+                    }
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
                 }
+
             }
-        } catch (IOException e) {
-            Log.d(TAG, e.getMessage());
-        }
+            
+        }).start();
     }
 
+
     public void listenForEvent() {
-        // TODO: Listen for event...
+        new Thread(new Runnable() {
+            public void run() {
+                boolean listen = true;
+                while (listen) {
+                    URI uri;
+                    try {
+                        uri = new URI(BASE_URL + "/event");
+                        HttpGet method = new HttpGet(uri);
+                        final HttpParams getParams = new BasicHttpParams();
+                        method.setParams(getParams);
+                        final HttpResponse response = HttpManager.execute(method);
+                        
+                        // TODO: parse response and broadcast it (if we got one).
+                        GameEvent event = new GameEvent();
+                        broadcactEvent(event);
+                        
+                    } catch (URISyntaxException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    } catch (ClientProtocolException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+    }
 
-        GameEvent event = new GameEvent();
-
+    private void broadcactEvent(final GameEvent event) {
         Intent mUpdateUiIntent = new Intent(UPDATE_UI);
         mUpdateUiIntent.putExtra(EVENT_EXTRA, event);
         mContext.sendBroadcast(mUpdateUiIntent);
     }
-
+    
     public void start(Context context) {
         mContext = context;
-        try {
-            mSocket = new Socket(MACHINE_NAME, PORT);
-            mOutputStream = new DataOutputStream(mSocket.getOutputStream());
-            mInputStream = new DataInputStream(mSocket.getInputStream());
-        } catch (UnknownHostException e) {
-            Log.d(TAG, "UnknownHost " + e.getMessage());
-        } catch (IOException e) {
-            Log.d(TAG, "Failed to establish connection to server " + e.getMessage());
-        }
+
+        listenForEvent();
     }
 
     public void close() {
-        try {
-            mSocket.close();
-            mInputStream.close();
-            mOutputStream.close();
-        } catch (IOException e) {
-            Log.d(TAG, "Failed to close connection to server " + e.getMessage());
-        }
+
     }
 
     public class GameEvent implements Parcelable {
