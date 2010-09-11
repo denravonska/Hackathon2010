@@ -27,7 +27,6 @@ public class GameActivity extends RokonActivity
     	debugMode();
     	forceFullscreen();
     	forceLandscape();
-
     	setGameSize(sizeWidth, sizeHeight);
     	setDrawPriority(DrawPriority.PRIORITY_VBO);
     	setGraphicsPath("textures/");
@@ -41,7 +40,6 @@ public class GameActivity extends RokonActivity
 
         registerReceiver(mUpdateUiReceiver, new IntentFilter(ServerClient.UPDATE_UI));
         
-    	Textures.load();
     	Sounds.load();
     	
     	sceneHandler = new SceneHandler(this);
@@ -49,7 +47,7 @@ public class GameActivity extends RokonActivity
     	sceneHandler.AddScene(SceneHandler.SceneId.StartScene, new StartScene(sceneHandler));
     	sceneHandler.AddScene(SceneHandler.SceneId.GameScene, new GameScene(sceneHandler));
     	
-    	sceneHandler.SetScene(SceneHandler.SceneId.StartScene);
+    	sceneHandler.SetScene(SceneHandler.SceneId.GameScene);
     }
 
     private final BroadcastReceiver mUpdateUiReceiver = new BroadcastReceiver() {
