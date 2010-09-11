@@ -15,7 +15,6 @@ public class GameScene extends Scene implements IGameEventHandler {
 
 	private final static String TAG = GameScene.class.getSimpleName();
 	private AccelerometerHandler accelerometerHandler;
-	private TrackingWindow window;
 	private Texture planeTexture;
 	private TextureAtlas atlas;
 	private AirplaneObject player;
@@ -48,7 +47,7 @@ public class GameScene extends Scene implements IGameEventHandler {
 
 		atlas = new TextureAtlas();
 
-		Texture planeTexture = new Texture("plane.png");
+		planeTexture = new Texture("plane.png");
 		atlas.insert(planeTexture);
 				
 		Texture parallaxLayer0 = new Texture("backgroundLayer0.png");
@@ -75,7 +74,7 @@ public class GameScene extends Scene implements IGameEventHandler {
 		this.setWindow(window);		
 		
 		player = new AirplaneObject(0, 100f, 200f, 50f, planeTexture);
-		player.setVelocity(50);
+		player.setVelocity(100);
 		this.add(player);
 		window.track(player);
 	}
