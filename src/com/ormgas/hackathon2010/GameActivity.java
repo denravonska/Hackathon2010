@@ -11,9 +11,7 @@ public class GameActivity extends RokonActivity
 	
 	public static SceneHandler sceneHandler;
 	
-	
-    @Override
-    public void onCreate(Bundle savedInstanceState)
+    public void onCreate()
     {
     	debugMode();
     	forceFullscreen();
