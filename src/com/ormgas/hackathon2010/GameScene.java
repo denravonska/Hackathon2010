@@ -3,7 +3,6 @@ package com.ormgas.hackathon2010;
 import com.stickycoding.rokon.Scene;
 import com.stickycoding.rokon.Texture;
 import com.stickycoding.rokon.TextureAtlas;
-import com.stickycoding.rokon.background.FixedBackground;
 import com.stickycoding.rokon.device.Accelerometer;
 import com.stickycoding.rokon.device.Graphics;
 
