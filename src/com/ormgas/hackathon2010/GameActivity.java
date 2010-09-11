@@ -37,7 +37,7 @@ public class GameActivity extends RokonActivity
     }
     
     public void onDestroy() {
-    	unregisterReceiver(mUpdateUiReceiver);
+    	//unregisterReceiver(mUpdateUiReceiver);
     	super.onDestroy();
     }
     
@@ -46,7 +46,7 @@ public class GameActivity extends RokonActivity
         //client = new ServerClient();
         //client.start(this);
 
-        registerReceiver(mUpdateUiReceiver, new IntentFilter(ServerClient.UPDATE_UI));
+       // registerReceiver(mUpdateUiReceiver, new IntentFilter(ServerClient.UPDATE_UI));
         
     	Sounds.load();
     	
