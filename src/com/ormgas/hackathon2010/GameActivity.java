@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.ormgas.hackathon2010.networking.ServerClient;
 import com.ormgas.hackathon2010.networking.ServerClient.GameEvent;
@@ -22,13 +23,10 @@ public class GameActivity extends RokonActivity
     public void onCreate()
     {
     	Graphics.determine(this);
-    	
-        registerReceiver(mUpdateUiReceiver, new IntentFilter(ServerClient.UPDATE_UI));
 
     	debugMode();
     	forceFullscreen();
     	forceLandscape();
-
     	setGameSize(sizeWidth, sizeHeight);
     	setDrawPriority(DrawPriority.PRIORITY_VBO);
     	setGraphicsPath("textures/");
@@ -37,7 +35,11 @@ public class GameActivity extends RokonActivity
     
     public void onLoadComplete()
     {
-    	Textures.load();
+        //ServerClient client = new ServerClient();
+        //client.start(this);
+
+        registerReceiver(mUpdateUiReceiver, new IntentFilter(ServerClient.UPDATE_UI));
+        
     	Sounds.load();
     	
     	sceneHandler = new SceneHandler(this);
@@ -51,7 +53,11 @@ public class GameActivity extends RokonActivity
     private final BroadcastReceiver mUpdateUiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            GameEvent event = intent.getParcelableExtra(ServerClient.EVENT_EXTRA);
+            //GameEvent event = intent.getParcelableExtra(ServerClient.EVENT_EXTRA);
+            String event = intent.getStringExtra(ServerClient.EVENT_EXTRA);
+            
+            
+            Log.d("Game", "got event");
             // TODO: handle onEvent...
         }
     };
