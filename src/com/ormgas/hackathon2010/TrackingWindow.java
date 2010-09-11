@@ -2,12 +2,12 @@ package com.ormgas.hackathon2010;
 
 import javax.microedition.khronos.opengles.GL10;
 
-import com.stickycoding.rokon.DrawableObject;
+import com.stickycoding.rokon.DimensionalObject;
 import com.stickycoding.rokon.Window;
 
 public class TrackingWindow extends Window {
 
-	private DrawableObject trackObject;
+	private DimensionalObject trackObject;
 	private boolean useBounds;
 	private float xmin;
 	private float xmax;
@@ -19,7 +19,7 @@ public class TrackingWindow extends Window {
 		useBounds = false;
 	}
 	
-	public void track(DrawableObject object) {
+	public void track(DimensionalObject object) {
 		this.trackObject = object;
 	}
 	
