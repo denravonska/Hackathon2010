@@ -10,11 +10,11 @@ public class FlyingObject extends Sprite {
 	
 	public FlyingObject(int id, float x, float y, float velocity, float heading, Texture texture) {
 		super(x, y, texture.getWidth(), texture.getHeight());
+		
 		setTexture(texture);
-		setVelocity(velocity, heading);
-
-		mVelocity = velocity;
-		rotate(heading * MathHelper.RAD_TO_DEG);
+		
+		this.mVelocity = velocity;
+		this.setHeading(heading);
 		
 		mId = id;
 	}
