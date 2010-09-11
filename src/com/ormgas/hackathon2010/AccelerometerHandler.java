@@ -13,7 +13,12 @@ public class AccelerometerHandler implements OnAccelerometerChange {
 	public void onAccelerometerChange(float x, float y, float z) {
 		y = Math.min(y, AccelerometerHandler.accelMax);
 		y = Math.max(y, -AccelerometerHandler.accelMax);
-		this.rotation = MathHelper.DEG_TO_RAD * accelMult * y;
+
+		float rotation = accelMult * y;
+		rotation = Math.max(rotation, -45f);
+		rotation = Math.min(rotation, 45f);
+		
+		this.rotation = MathHelper.DEG_TO_RAD * rotation;
 	}
 
 	@Override
