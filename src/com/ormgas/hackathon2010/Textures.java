@@ -12,6 +12,15 @@ public class Textures
 	public static Texture parallaxLayer1;
 	public static Texture parallaxLayer2;
 	
+	public static Texture explosion;
+	
+	/*
+	public static Texture explosion0;
+	public static Texture explosion1;
+	public static Texture explosion2;
+	public static Texture explosion3;
+	*/
+	
 	public static void load()
 	{
 		atlas = new TextureAtlas();
@@ -30,7 +39,23 @@ public class Textures
 		
 		parallaxLayer2 = new Texture("backgroundLayer2.png");
 		atlas.insert(parallaxLayer2);
+		
+		explosion = new Texture("explosion.png");
+		atlas.insert(explosion);
 
+		/*
+		explosion0 = new Texture("explosion0.png");
+		atlas.insert(explosion0);
+
+		explosion1 = new Texture("explosion1.png");
+		atlas.insert(explosion1);
+
+		explosion2 = new Texture("explosion2.png");
+		atlas.insert(explosion2);
+		
+		explosion3 = new Texture("explosion3.png");
+		atlas.insert(explosion3);
+		*/
 		
 		atlas.complete();
 	}
