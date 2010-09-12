@@ -1,18 +1,19 @@
 package com.ormgas.hackathon2010;
 
+import org.anddev.andengine.entity.scene.Scene;
+import org.anddev.andengine.entity.sprite.Sprite;
+import org.anddev.andengine.opengl.texture.Texture;
+
 import android.view.MotionEvent;
-import com.ormgas.hackathon2010.Modifiers.PulsatingSpriteModifier;
-import com.stickycoding.rokon.Scene;
-import com.stickycoding.rokon.Sprite;
-import com.stickycoding.rokon.Texture;
-import com.stickycoding.rokon.TextureAtlas;
-import com.stickycoding.rokon.audio.RokonMusic;
-import com.stickycoding.rokon.background.FixedBackground;
 
 public class StartScene extends Scene
 {
-	private TextureAtlas mAtlas;
-	private Texture mBackgroundTexture;
+
+	public StartScene() {
+		super(1);
+	}
+	
+/*	private Texture mBackgroundTexture;
 	private Texture mStartTexture;
 	
 	private FixedBackground mBackground;
@@ -86,5 +87,5 @@ public class StartScene extends Scene
 		Sounds.select2.play();
 		mSceneIsDone = true;
 	}
-
+*/
 }

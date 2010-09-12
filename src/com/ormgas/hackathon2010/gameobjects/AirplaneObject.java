@@ -1,9 +1,6 @@
 package com.ormgas.hackathon2010.gameobjects;
 
-import com.ormgas.hackathon2010.Modifiers.ExplosionModifier;
-import com.stickycoding.rokon.Texture;
-
-public class AirplaneObject extends FlyingObject {
+/*public class AirplaneObject extends FlyingObject {
 	protected int mHp;
 	
 	public AirplaneObject(int id, float x, float y, float heading, Texture texture) {
@@ -46,4 +43,4 @@ public class AirplaneObject extends FlyingObject {
 			setVelocity(0.0f, getVelocity());
 		}
 	}
-}
+}*/

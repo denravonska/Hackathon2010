@@ -1,13 +1,13 @@
 package com.ormgas.hackathon2010.Modifiers;
 
+import org.anddev.andengine.entity.shape.IShape;
+import org.anddev.andengine.entity.shape.modifier.IShapeModifier;
+
 import com.ormgas.hackathon2010.Sounds;
 import com.ormgas.hackathon2010.Textures;
 import com.ormgas.hackathon2010.gameobjects.BulletObject;
-import com.stickycoding.rokon.Modifier;
-import com.stickycoding.rokon.Sprite;
-import com.stickycoding.rokon.Time;
 
-public class ExplosionModifier extends Modifier {
+/*public class ExplosionModifier implements IShapeModifier {
 	private float mColor;
 	private long deadline;
 	
@@ -39,4 +39,53 @@ public class ExplosionModifier extends Modifier {
 			end();
 		}
 	}
-}
+
+	@Override
+	public float getDuration() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public org.anddev.andengine.util.modifier.IModifier.IModifierListener<IShape> getModifierListener() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isFinished() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isRemoveWhenFinished() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void onUpdate(float arg0, IShape arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setModifierListener(
+			org.anddev.andengine.util.modifier.IModifier.IModifierListener<IShape> shape) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setRemoveWhenFinished(boolean remove) {
+		// TODO Auto-generated method stub
+		
+	}
+}*/

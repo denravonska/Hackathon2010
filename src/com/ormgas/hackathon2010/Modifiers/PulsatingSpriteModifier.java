@@ -1,9 +1,6 @@
 package com.ormgas.hackathon2010.Modifiers;
 
-import com.stickycoding.rokon.Modifier;
-import com.stickycoding.rokon.Sprite;
-
-public class PulsatingSpriteModifier extends Modifier
+/*public class PulsatingSpriteModifier extends Modifier
 {
 	private float color = 0.0f;
 	private float size = 1.0f;
@@ -40,4 +37,4 @@ public class PulsatingSpriteModifier extends Modifier
 		}
 	}
 
-}
+}*/

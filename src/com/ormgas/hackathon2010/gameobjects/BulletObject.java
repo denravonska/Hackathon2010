@@ -1,11 +1,15 @@
 package com.ormgas.hackathon2010.gameobjects;
 
-import com.ormgas.hackathon2010.Modifiers.ExplosionModifier;
-import com.stickycoding.rokon.RokonActivity;
-import com.stickycoding.rokon.Texture;
+import org.anddev.andengine.opengl.texture.region.TextureRegion;
 
 public class BulletObject extends FlyingObject {
-	protected int mOwnerId;
+
+	public BulletObject(float pX, float pY, float pWidth, float pHeight,
+			TextureRegion pTextureRegion) {
+		super(pX, pY, pWidth, pHeight, pTextureRegion);
+		// TODO Auto-generated constructor stub
+	}
+	/*protected int mOwnerId;
 	private boolean dead = false;
 	
 	public BulletObject(int id, int ownerId, float x, float y, float heading, Texture texture) {
@@ -37,5 +41,5 @@ public class BulletObject extends FlyingObject {
 			//this.getParentScene().remove(this);
 		}
 		
-	}
+	}*/
 }

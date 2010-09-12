@@ -1,21 +1,25 @@
 package com.ormgas.hackathon2010;
 
+import org.anddev.andengine.entity.scene.Scene;
+
 import android.view.MotionEvent;
 
 import com.ormgas.hackathon2010.networking.ServerClient.GameEvent;
-import com.stickycoding.rokon.RokonActivity;
-import com.stickycoding.rokon.Scene;
-import com.stickycoding.rokon.device.Accelerometer;
-import com.stickycoding.rokon.device.Graphics;
 
 public class GameScene extends Scene implements IGameEventHandler {
 
+	public GameScene() {
+		super(1);
+	}
+
+
 	private final static String TAG = GameScene.class.getSimpleName();
 	private AccelerometerHandler accelerometerHandler;
-	private Player player;
+	//private Player player;
 	//private int rotationTicks = 100;
+
 	
-	public GameScene(SceneHandler sceneHandler) {
+/*	public GameScene(SceneHandler sceneHandler) {
 		super(1, 32);
 	}
 
@@ -65,12 +69,6 @@ public class GameScene extends Scene implements IGameEventHandler {
 	public void onResume() {
 		Accelerometer.startListening(accelerometerHandler);		
 	}
-
-	@Override
-	public void onGameEventReceived(GameEvent event) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	@Override
 	public void onTouchDown(float x, float y, MotionEvent event, int pointerCount, int pointerId)
@@ -83,5 +81,10 @@ public class GameScene extends Scene implements IGameEventHandler {
 	{
 		player.shooting(false);
 	}
-
+*/
+	@Override
+	public void onGameEventReceived(GameEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -1,12 +1,18 @@
 package com.ormgas.hackathon2010.gameobjects;
 
-import com.stickycoding.rokon.Movement;
-import com.stickycoding.rokon.Sprite;
-import com.stickycoding.rokon.Texture;
-import com.stickycoding.rokon.MathHelper;
+import org.anddev.andengine.entity.sprite.Sprite;
+import org.anddev.andengine.opengl.texture.Texture;
+import org.anddev.andengine.opengl.texture.region.TextureRegion;
+import org.anddev.andengine.util.MathUtils;
 
 public class FlyingObject extends Sprite {
-	protected int mId;
+
+	public FlyingObject(float pX, float pY, float pWidth, float pHeight,
+			TextureRegion pTextureRegion) {
+		super(pX, pY, pWidth, pHeight, pTextureRegion);
+		// TODO Auto-generated constructor stub
+	}
+	/*protected int mId;
 	
 	public FlyingObject(int id, float x, float y, float velocity, float heading, Texture texture) {
 		super(x, y, texture.getWidth(), texture.getHeight());
@@ -21,7 +27,7 @@ public class FlyingObject extends Sprite {
 	}
 	
 	public float getHeading() {
-		return getRotation() * MathHelper.DEG_TO_RAD;
+		return MathUtils.degToRad(getRotation());
 	}
 	
 	public void setHeading(float heading) {
@@ -35,5 +41,5 @@ public class FlyingObject extends Sprite {
 	
 	public void setId(int id) {
 		mId = id;
-	}
+	}*/
 }

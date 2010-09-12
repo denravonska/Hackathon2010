@@ -3,9 +3,7 @@ package com.ormgas.hackathon2010;
 import java.util.ArrayList;
 import javax.microedition.khronos.opengles.GL10;
 
-import com.stickycoding.rokon.Background;
-
-public class ParallaxBackground extends Background
+/*public class ParallaxBackground extends Background
 {
 	private ArrayList<ScrollingBackground> mLayers;
 	private ArrayList<Float> mLayersScroll;
@@ -51,3 +49,4 @@ public class ParallaxBackground extends Background
 	
 	
 }
+*/

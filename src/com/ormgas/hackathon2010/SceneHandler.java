@@ -1,7 +1,8 @@
 package com.ormgas.hackathon2010;
 
 import java.util.HashMap;
-import com.stickycoding.rokon.Scene;
+
+import org.anddev.andengine.entity.scene.Scene;
 
 public class SceneHandler
 {
@@ -11,14 +12,14 @@ public class SceneHandler
 		GameScene
 	};
 	
-	private GameActivity theActivity;
+	private GameActivity activity;
 	private SceneId currentScene;
 	private HashMap<SceneId, Scene> mScenes = new HashMap<SceneId, Scene>();
 
 	public SceneHandler(GameActivity gameActivity)
 	{
-		theActivity = gameActivity;
-		currentScene = SceneId.StartScene;
+		this.activity = gameActivity;
+		this.currentScene = SceneId.StartScene;
 	}
 	
 	public void Next()
@@ -33,7 +34,7 @@ public class SceneHandler
 		if(newScene != null)
 		{
 			currentScene = scene;
-			theActivity.setScene(newScene);
+			//this.activity.setScene(newScene);
 		}
 	}
 
