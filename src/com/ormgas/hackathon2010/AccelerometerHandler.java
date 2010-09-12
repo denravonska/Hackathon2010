@@ -1,16 +1,18 @@
 package com.ormgas.hackathon2010;
 
-import com.stickycoding.rokon.MathHelper;
-import com.stickycoding.rokon.device.OnAccelerometerChange;
+import org.anddev.andengine.sensor.accelerometer.AccelerometerData;
+import org.anddev.andengine.sensor.accelerometer.IAccelerometerListener;
+import org.anddev.andengine.util.MathUtils;
 
-public class AccelerometerHandler implements OnAccelerometerChange {
+public class AccelerometerHandler implements IAccelerometerListener {
 
 	private float rotation;
 	private final static int accelMax = 10;
 	private final static float accelMult = 90f / accelMax;
 	
 	@Override
-	public void onAccelerometerChange(float x, float y, float z) {
+	public void onAccelerometerChanged(AccelerometerData data) {
+		float y = data.getY();
 		y = Math.min(y, AccelerometerHandler.accelMax);
 		y = Math.max(y, -AccelerometerHandler.accelMax);
 
@@ -18,13 +20,12 @@ public class AccelerometerHandler implements OnAccelerometerChange {
 		rotation = Math.max(rotation, -45f);
 		rotation = Math.min(rotation, 45f);
 		
-		this.rotation = MathHelper.DEG_TO_RAD * rotation;
+		// TODO: Use radians directly instead of converting
+		this.rotation = MathUtils.degToRad(rotation);
 	}
-
-	@Override
-	public void onShake(float force) {}
-
+	
 	public float getRotation() {
 		return this.rotation;
 	}
 }
+
