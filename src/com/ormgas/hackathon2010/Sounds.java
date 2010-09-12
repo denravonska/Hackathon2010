@@ -1,28 +1,34 @@
 package com.ormgas.hackathon2010;
 
-import com.stickycoding.rokon.audio.RokonAudio;
-import com.stickycoding.rokon.audio.SoundFile;
+import java.io.IOException;
+
+import org.anddev.andengine.audio.sound.Sound;
+import org.anddev.andengine.audio.sound.SoundFactory;
+import org.anddev.andengine.ui.activity.BaseGameActivity;
 
 public class Sounds
 {
-	public static RokonAudio audio;
-
-	public static SoundFile dead;
-	public static SoundFile explosion1;
-	public static SoundFile explosion2;
-	public static SoundFile select1;
-	public static SoundFile select2;
-	public static SoundFile shoot;
+	public static Sound dead;
+	public static Sound explosion1;
+	public static Sound explosion2;
+	public static Sound select1;
+	public static Sound select2;
+	public static Sound shoot;
 	
-	public static void load()
-	{
-		audio = new RokonAudio();
+	public static void load(BaseGameActivity activity) {
+		//SoundFactory.setAssetBasePath("sounds/");
 		
-		dead = audio.createSoundFile("dead.wav");
-		explosion1 = audio.createSoundFile("explosion1.wav");
-		explosion2 = audio.createSoundFile("explosion2.wav");
-		select1 = audio.createSoundFile("select1.wav");
-		select2 = audio.createSoundFile("select2.wav");
-		shoot = audio.createSoundFile("shoot.wav");
+		try {
+			dead = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "dead.wav");
+			explosion1 = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "explosion1.wav");
+			explosion2 = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "explosion2.wav");
+			select1 = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "select1.wav");
+			select2 = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "select2.wav");
+			shoot = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "shoot.wav");
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.exit(-1);
+		}
+
 	}
 }

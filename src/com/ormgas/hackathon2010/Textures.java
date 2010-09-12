@@ -1,17 +1,18 @@
 package com.ormgas.hackathon2010;
 
-import com.stickycoding.rokon.Texture;
-import com.stickycoding.rokon.TextureAtlas;
+import org.anddev.andengine.opengl.texture.Texture;
+import org.anddev.andengine.opengl.texture.TextureOptions;
+import org.anddev.andengine.opengl.texture.region.TextureRegion;
+import org.anddev.andengine.opengl.texture.region.TextureRegionFactory;
 
 public class Textures
 {
-	public static TextureAtlas atlas;
-	public static Texture bullet;
-	public static Texture plane;
-	public static Texture parallaxLayer0;
-	public static Texture parallaxLayer1;
-	public static Texture parallaxLayer2;
-	public static Texture explosion;
+	public static TextureRegion bullet;
+	public static TextureRegion plane;
+	public static TextureRegion parallaxLayer0;
+	public static TextureRegion parallaxLayer1;
+	public static TextureRegion parallaxLayer2;
+	public static TextureRegion explosion;
 	
 	/*
 	public static Texture explosion0;
@@ -20,43 +21,28 @@ public class Textures
 	public static Texture explosion3;
 	*/
 	
-	public static void load()
-	{
-		atlas = new TextureAtlas();
+	public static void load(GameActivity activity) {
+		TextureRegionFactory.setAssetBasePath("textures/");
+		Texture texture;
 		
-		bullet = new Texture("bullet.png");
-		atlas.insert(bullet);
+		texture = new Texture(4, 2, TextureOptions.BILINEAR);
+		bullet = TextureRegionFactory.createFromAsset(texture, activity, "bullet.png", 0, 0);
+        activity.getEngine().getTextureManager().loadTexture(texture);
 		
-		plane = new Texture("plane.png");
-		atlas.insert(plane);
+		texture = new Texture(64, 32, TextureOptions.BILINEAR);
+		plane = TextureRegionFactory.createFromAsset(texture, activity, "plane.png", 0, 0);
+        activity.getEngine().getTextureManager().loadTexture(texture);
+
+        texture = new Texture(32, 256, TextureOptions.DEFAULT);
+        explosion = TextureRegionFactory.createTiledFromAsset(texture, activity, "explosion.png", 0, 0, 1, 7);
+        activity.getEngine().getTextureManager().loadTexture(texture);
 		
-		explosion = new Texture("explosion.png", 1, 7);
-		atlas.insert(explosion);
+		/*explosion = new Texture("explosion.png", 1, 7);
 				
 		parallaxLayer0 = new Texture("backgroundLayer0.png");
-		atlas.insert(parallaxLayer0);
 		
 		parallaxLayer1 = new Texture("backgroundLayer1.png");
-		atlas.insert(parallaxLayer1);
 		
-		parallaxLayer2 = new Texture("backgroundLayer2.png");
-		atlas.insert(parallaxLayer2);
-
-		/*
-		explosion0 = new Texture("explosion0.png");
-		atlas.insert(explosion0);
-
-		explosion1 = new Texture("explosion1.png");
-		atlas.insert(explosion1);
-
-		explosion2 = new Texture("explosion2.png");
-		atlas.insert(explosion2);
-		
-		explosion3 = new Texture("explosion3.png");
-		atlas.insert(explosion3);
-		*/
-		
-		atlas.complete();
+		parallaxLayer2 = new Texture("backgroundLayer2.png");*/
 	}
-
 }
