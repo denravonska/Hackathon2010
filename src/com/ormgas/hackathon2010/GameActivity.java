@@ -40,7 +40,7 @@ public class GameActivity extends BaseGameActivity
 
 	@Override
 	public Engine onLoadEngine() {
-		this.camera = new BoundCamera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
+		this.camera = new BoundCamera(0, 0, CAMERA_WIDTH / 2, CAMERA_HEIGHT / 2);
 		EngineOptions options = new EngineOptions(
 				true, // Fullscreen
 				ScreenOrientation.LANDSCAPE,
@@ -59,9 +59,9 @@ public class GameActivity extends BaseGameActivity
 
 	@Override
 	public Scene onLoadScene() {
-    	sceneHandler = new SceneHandler(this);
-    	sceneHandler.AddScene(SceneHandler.SceneId.StartScene, new StartScene());
-    	sceneHandler.AddScene(SceneHandler.SceneId.GameScene, new GameScene());
+    	sceneHandler = new SceneHandler(this.getEngine());
+    	sceneHandler.AddScene(SceneHandler.SceneId.StartScene, new StartScene(sceneHandler));
+    	sceneHandler.AddScene(SceneHandler.SceneId.GameScene, new GameScene(sceneHandler));
     	sceneHandler.SetScene(SceneHandler.SceneId.StartScene);
     	
 		return sceneHandler.getCurrentScene();
