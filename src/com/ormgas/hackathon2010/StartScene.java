@@ -1,17 +1,36 @@
 package com.ormgas.hackathon2010;
 
 import org.anddev.andengine.entity.scene.Scene;
+import org.anddev.andengine.entity.scene.Scene.IOnSceneTouchListener;
+import org.anddev.andengine.entity.scene.background.SpriteBackground;
 import org.anddev.andengine.entity.sprite.Sprite;
-import org.anddev.andengine.opengl.texture.Texture;
+import org.anddev.andengine.input.touch.TouchEvent;
 
 import android.view.MotionEvent;
 
-public class StartScene extends Scene
+public class StartScene extends Scene implements IOnSceneTouchListener
 {
+	private SceneHandler sceneHandler;
 
-	public StartScene() {
+	public StartScene(SceneHandler sceneHandler)
+	{
 		super(1);
+		
+		this.sceneHandler = sceneHandler;
+		this.setOnSceneTouchListener(this);
+		this.setBackground(new SpriteBackground(new Sprite(0, 0, Textures.startSceneBackground)));
+		this.getLayer(0).addEntity(new Sprite(150, 150, Textures.startSceneStartLabel));
 	}
+
+
+	@Override
+	public boolean onSceneTouchEvent(Scene scene, TouchEvent event)
+	{
+		sceneHandler.SetScene(SceneHandler.SceneId.GameScene);
+		return true;
+	}
+	
+	
 	
 /*	private Texture mBackgroundTexture;
 	private Texture mStartTexture;
