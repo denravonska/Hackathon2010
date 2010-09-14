@@ -40,8 +40,8 @@ public class Textures
         explosion = TextureRegionFactory.createTiledFromAsset(gameSceneTextures, activity, "explosion.png", 481, 25, 1, 7);
 
         parallaxLayer0 = TextureRegionFactory.createFromAsset(gameSceneTextures, activity, "backgroundLayer0.png", 0, 0);
-        parallaxLayer1 = TextureRegionFactory.createFromAsset(gameSceneTextures, activity, "backgroundLayer1.png", 0, 241);
-        parallaxLayer2 = TextureRegionFactory.createFromAsset(gameSceneTextures, activity, "backgroundLayer2.png", 0, 334);
+        parallaxLayer1 = TextureRegionFactory.createFromAsset(gameSceneTextures, activity, "backgroundLayer1.png", 0, 101);
+        parallaxLayer2 = TextureRegionFactory.createFromAsset(gameSceneTextures, activity, "backgroundLayer2.png", 0, 193);
         
         // Add both to the engine
         activity.getEngine().getTextureManager().loadTextures(startSceneTextures, gameSceneTextures);

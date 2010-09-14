@@ -35,7 +35,7 @@ public class SceneHandler
 		if(newScene != null)
 		{
 			currentScene = scene;
-			this.engine.setScene(newScene);
+			engine.setScene(newScene);
 		}
 	}
 

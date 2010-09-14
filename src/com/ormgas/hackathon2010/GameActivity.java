@@ -22,6 +22,7 @@ public class GameActivity extends BaseGameActivity
 	public static SceneHandler sceneHandler;
 	//private ServerClient client;
 	private BoundCamera camera;
+	
     private final BroadcastReceiver mUpdateUiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -55,6 +56,8 @@ public class GameActivity extends BaseGameActivity
 	public void onLoadResources() {
 		Textures.load(this);
 		Sounds.load(this);
+		
+		//this.enableAccelerometerSensor(new AccelerometerHandler());
 	}
 
 	@Override
