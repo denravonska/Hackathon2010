@@ -10,13 +10,13 @@ import android.view.MotionEvent;
 
 public class StartScene extends Scene implements IOnSceneTouchListener
 {
-	private SceneHandler sceneHandler;
+	//private SceneHandler sceneHandler;
 
-	public StartScene(SceneHandler sceneHandler)
+	public StartScene()
 	{
 		super(1);
 		
-		this.sceneHandler = sceneHandler;
+		//this.sceneHandler = sceneHandler;
 		this.setOnSceneTouchListener(this);
 		this.setBackground(new SpriteBackground(new Sprite(0, 0, Textures.startSceneBackground)));
 		this.getLayer(0).addEntity(new Sprite(150, 150, Textures.startSceneStartLabel));
@@ -26,7 +26,7 @@ public class StartScene extends Scene implements IOnSceneTouchListener
 	@Override
 	public boolean onSceneTouchEvent(Scene scene, TouchEvent event)
 	{
-		sceneHandler.SetScene(SceneHandler.SceneId.GameScene);
+		//sceneHandler.SetScene(SceneHandler.SceneId.GameScene);
 		return true;
 	}
 	
