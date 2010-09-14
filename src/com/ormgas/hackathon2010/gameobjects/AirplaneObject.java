@@ -1,30 +1,34 @@
 package com.ormgas.hackathon2010.gameobjects;
 
-/*public class AirplaneObject extends FlyingObject {
-	protected int mHp;
+import org.anddev.andengine.opengl.texture.region.TextureRegion;
+
+import com.ormgas.hackathon2010.Textures;
+
+public class AirplaneObject extends FlyingObject {
+	protected int hp;
 	
-	public AirplaneObject(int id, float x, float y, float heading, Texture texture) {
+	public AirplaneObject(int id, float x, float y, float heading, TextureRegion texture) {
 		super(id, x, y, 1, heading, texture);
 		
-		mHp = 100;
+		hp = 100;
 	}
 	
-	@Override
+	/*@Override
 	public void reuseObject() {
 		show();
 		super.reuseObject();
-	}
+	}*/
 	
 	public int getHp() {
-		return mHp;
+		return hp;
 	}
 	
 	public void setHp(int hp) {
-		mHp = hp;
+		this.hp = hp;
 	}
 	
 	public boolean isAirplaneAlive() {
-		if (mHp > 0) {
+		if (hp > 0) {
 			return true;
 		}
 		
@@ -32,15 +36,15 @@ package com.ormgas.hackathon2010.gameobjects;
 	}
 	
 	public void gotHit() {
-		--mHp;
+		--hp;
 		
-		if (mHp <= 0)
+		/*if (mHp <= 0)
 		{
 			ExplosionModifier modifier = new ExplosionModifier();
 			addModifier(modifier);
 			
 			// Stop the airplane - we don't want a moving explosion.
 			setVelocity(0.0f, getVelocity());
-		}
+		}*/
 	}
-}*/
+}

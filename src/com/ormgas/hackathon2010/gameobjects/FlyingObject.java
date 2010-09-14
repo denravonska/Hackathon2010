@@ -7,9 +7,8 @@ import org.anddev.andengine.util.MathUtils;
 
 public class FlyingObject extends Sprite {
 
-	public FlyingObject(float pX, float pY, float pWidth, float pHeight,
-			TextureRegion pTextureRegion) {
-		super(pX, pY, pWidth, pHeight, pTextureRegion);
+	public FlyingObject(int id, float x, float y, float velocity, float heading, TextureRegion texture) {
+		super(x, y, texture.getWidth(), texture.getHeight(), texture);
 		// TODO Auto-generated constructor stub
 	}
 	/*protected int mId;
