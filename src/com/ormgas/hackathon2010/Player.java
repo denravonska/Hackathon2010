@@ -1,7 +1,5 @@
 package com.ormgas.hackathon2010;
 
-import org.anddev.andengine.opengl.texture.region.TextureRegion;
-
 import com.ormgas.hackathon2010.gameobjects.AirplaneObject;
 
 public class Player extends AirplaneObject {

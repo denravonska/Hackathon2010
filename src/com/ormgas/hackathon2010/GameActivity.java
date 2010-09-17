@@ -6,15 +6,11 @@ import org.anddev.andengine.engine.options.EngineOptions;
 import org.anddev.andengine.engine.options.EngineOptions.ScreenOrientation;
 import org.anddev.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.anddev.andengine.entity.scene.Scene;
-import org.anddev.andengine.entity.scene.background.AutoParallaxBackground;
 import org.anddev.andengine.entity.scene.background.ParallaxBackground;
 import org.anddev.andengine.entity.scene.background.ParallaxBackground.ParallaxEntity;
 import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.entity.util.FPSLogger;
-import org.anddev.andengine.sensor.accelerometer.AccelerometerData;
-import org.anddev.andengine.sensor.accelerometer.IAccelerometerListener;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
-import org.anddev.andengine.util.MathUtils;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -77,34 +73,17 @@ public class GameActivity extends BaseGameActivity
 		parallaxBackground.setParallaxValue(5.0f);
 		scene.setBackground(parallaxBackground);
 		
+		PlayerController controller = new PlayerController();
+		this.enableAccelerometerSensor(controller);
+		
 		player = new Player(0, 100, 150, 0);
 		player.setVelocity(50.0f);
+		player.attachController(controller);
 		camera.setChaseShape(player);
+		
 		scene.getLayer(0).addEntity(player);
 		
-		this.enableAccelerometerSensor(new AccelerometerHandler());
-		
 		return scene;
-	}
-	
-	private class AccelerometerHandler implements IAccelerometerListener {
-
-        private final static int accelMax = 10;
-        private final static float accelMult = 90f / accelMax;
-        
-		@Override
-		public void onAccelerometerChanged(AccelerometerData data) {
-            float y = data.getY();
-            y = Math.min(y, AccelerometerHandler.accelMax);
-            y = Math.max(y, -AccelerometerHandler.accelMax);
-
-            float rotation = accelMult * y;
-            rotation = Math.max(rotation, -45f);
-            rotation = Math.min(rotation, 45f);
-            
-            GameActivity.this.player.setAngularVelocity(rotation);
-		}
-		
 	}
 
 	@Override

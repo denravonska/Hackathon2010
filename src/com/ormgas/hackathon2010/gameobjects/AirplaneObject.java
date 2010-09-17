@@ -2,9 +2,7 @@ package com.ormgas.hackathon2010.gameobjects;
 
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 
-import com.ormgas.hackathon2010.Textures;
-
-public class AirplaneObject extends FlyingObject {
+public class AirplaneObject extends GameObject {
 	protected int hp;
 	
 	public AirplaneObject(int id, float x, float y, float heading, TextureRegion texture) {

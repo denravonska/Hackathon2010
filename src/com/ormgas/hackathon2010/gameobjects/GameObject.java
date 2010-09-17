@@ -1,16 +1,20 @@
 package com.ormgas.hackathon2010.gameobjects;
 
 import org.anddev.andengine.entity.sprite.Sprite;
-import org.anddev.andengine.opengl.texture.Texture;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
-import org.anddev.andengine.util.MathUtils;
 
-public class FlyingObject extends Sprite {
+public class GameObject extends Sprite {
 
-	public FlyingObject(int id, float x, float y, float velocity, float heading, TextureRegion texture) {
+	public GameObject(int id, float x, float y, float velocity, float heading, TextureRegion texture)
+	{
 		super(x, y, texture.getWidth(), texture.getHeight(), texture);
-		// TODO Auto-generated constructor stub
 	}
+	
+	public void attachController(IGameObjectController controller)
+	{
+		controller.registerGameObject(this);
+	}
+	
 	/*protected int mId;
 	
 	public FlyingObject(int id, float x, float y, float velocity, float heading, Texture texture) {
