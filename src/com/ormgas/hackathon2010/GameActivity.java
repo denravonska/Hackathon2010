@@ -71,7 +71,7 @@ public class GameActivity extends BaseGameActivity
 		final Scene scene = new Scene(1);
 		
 		ParallaxBackground parallaxBackground = new ParallaxBackground(1.0f, 1.0f, 1.0f);
-		parallaxBackground.addParallaxEntity(new ParallaxEntity(5.0f, new Sprite(0, 0, Textures.parallaxLayer0)));
+		parallaxBackground.addParallaxEntity(new ParallaxEntity(5.0f, new Sprite(0, 240 - Textures.parallaxLayer0.getHeight(), Textures.parallaxLayer0)));
 		parallaxBackground.addParallaxEntity(new ParallaxEntity(7.0f, new Sprite(0, 240 - Textures.parallaxLayer1.getHeight(), Textures.parallaxLayer1)));
 		parallaxBackground.addParallaxEntity(new ParallaxEntity(10.0f, new Sprite(0, 240 - Textures.parallaxLayer2.getHeight(), Textures.parallaxLayer2)));
 		parallaxBackground.setParallaxValue(5.0f);

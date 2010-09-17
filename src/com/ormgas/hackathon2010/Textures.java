@@ -29,7 +29,7 @@ public class Textures
 	{
 		TextureRegionFactory.setAssetBasePath("textures/");
 		
-		buildableTexture = new BuildableTexture(512, 512, TextureOptions.DEFAULT);
+		buildableTexture = new BuildableTexture(1024, 512, TextureOptions.DEFAULT);
 		
 		startSceneBackground = TextureRegionFactory.createFromAsset(buildableTexture, activity, "startBackground.png");
         startSceneStartLabel = TextureRegionFactory.createFromAsset(buildableTexture, activity, "start.png");
