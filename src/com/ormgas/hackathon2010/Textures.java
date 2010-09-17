@@ -1,14 +1,17 @@
 package com.ormgas.hackathon2010;
 
-import org.anddev.andengine.opengl.texture.Texture;
+import org.anddev.andengine.opengl.texture.BuildableTexture;
 import org.anddev.andengine.opengl.texture.TextureOptions;
+import org.anddev.andengine.opengl.texture.builder.BlackPawnTextureBuilder;
+import org.anddev.andengine.opengl.texture.builder.ITextureBuilder.TextureSourcePackingException;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 import org.anddev.andengine.opengl.texture.region.TextureRegionFactory;
 
+import android.util.Log;
+
 public class Textures
 {
-	public static Texture startSceneTextures;
-	public static Texture gameSceneTextures;
+	public static BuildableTexture buildableTexture;
 	
 	public static TextureRegion startSceneBackground;
 	public static TextureRegion startSceneStartLabel;
@@ -26,24 +29,29 @@ public class Textures
 	{
 		TextureRegionFactory.setAssetBasePath("textures/");
 		
-		// Start scene
-		startSceneTextures = new Texture(512, 512, TextureOptions.DEFAULT);
-        
-		startSceneBackground = TextureRegionFactory.createFromAsset(startSceneTextures, activity, "startBackground.png", 0, 0);
-        startSceneStartLabel = TextureRegionFactory.createFromAsset(startSceneTextures, activity, "start.png", 0, 241);
+		buildableTexture = new BuildableTexture(512, 512, TextureOptions.DEFAULT);
+		
+		startSceneBackground = TextureRegionFactory.createFromAsset(buildableTexture, activity, "startBackground.png");
+        startSceneStartLabel = TextureRegionFactory.createFromAsset(buildableTexture, activity, "start.png");
+		
+		bullet = TextureRegionFactory.createFromAsset(buildableTexture, activity, "bullet.png");
+		plane = TextureRegionFactory.createFromAsset(buildableTexture, activity, "plane.png");
+        explosion = TextureRegionFactory.createTiledFromAsset(buildableTexture, activity, "explosion.png", 1, 7);
 
-        // Game scene
-        gameSceneTextures = new Texture(1024, 1024, TextureOptions.DEFAULT);
-				
-		bullet = TextureRegionFactory.createFromAsset(gameSceneTextures, activity, "bullet.png", 481, 0);
-		plane = TextureRegionFactory.createFromAsset(gameSceneTextures, activity, "plane.png", 481, 2);
-        explosion = TextureRegionFactory.createTiledFromAsset(gameSceneTextures, activity, "explosion.png", 481, 25, 1, 7);
+        parallaxLayer0 = TextureRegionFactory.createFromAsset(buildableTexture, activity, "backgroundLayer0.png");
+        parallaxLayer1 = TextureRegionFactory.createFromAsset(buildableTexture, activity, "backgroundLayer1.png");
+        parallaxLayer2 = TextureRegionFactory.createFromAsset(buildableTexture, activity, "backgroundLayer2.png");
 
-        parallaxLayer0 = TextureRegionFactory.createFromAsset(gameSceneTextures, activity, "backgroundLayer0.png", 0, 0);
-        parallaxLayer1 = TextureRegionFactory.createFromAsset(gameSceneTextures, activity, "backgroundLayer1.png", 0, 241);
-        parallaxLayer2 = TextureRegionFactory.createFromAsset(gameSceneTextures, activity, "backgroundLayer2.png", 0, 334);
-        
-        // Add both to the engine
-        activity.getEngine().getTextureManager().loadTextures(startSceneTextures, gameSceneTextures);
+        try
+        {
+            buildableTexture.build(new BlackPawnTextureBuilder(1));
+        }
+        catch(final TextureSourcePackingException e)
+        {
+            Log.d("Textures", e.getMessage());
+            activity.finish();
+        }
+       
+        activity.getEngine().getTextureManager().loadTextures(buildableTexture);
 	}
 }
