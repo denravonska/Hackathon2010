@@ -1,12 +1,11 @@
 package com.ormgas.hackathon2010.gameobjects;
 
-import org.anddev.andengine.opengl.texture.region.TextureRegion;
+import com.ormgas.hackathon2010.Textures;
 
 public class BulletObject extends FlyingObject {
 
-	public BulletObject(float pX, float pY, float pWidth, float pHeight,
-			TextureRegion pTextureRegion) {
-		super(pX, pY, pWidth, pHeight, pTextureRegion);
+	public BulletObject(int id, int ownerId, float x, float y, float heading) {
+		super(id, x, y, 3, heading, Textures.bullet);
 		// TODO Auto-generated constructor stub
 	}
 	/*protected int mOwnerId;

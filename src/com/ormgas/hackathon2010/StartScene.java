@@ -12,11 +12,11 @@ public class StartScene extends Scene implements IOnSceneTouchListener
 	private SceneHandler sceneHandler;
 	private Sprite startLabel;
 
-	public StartScene(SceneHandler sceneHandler)
+	public StartScene()
 	{
 		super(1);
 		
-		this.sceneHandler = sceneHandler;
+		//this.sceneHandler = sceneHandler;
 		this.setOnSceneTouchListener(this);
 		this.setBackground(new SpriteBackground(new Sprite(0, 0, Textures.startSceneBackground)));
 		

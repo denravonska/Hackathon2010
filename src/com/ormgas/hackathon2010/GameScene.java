@@ -1,40 +1,19 @@
 package com.ormgas.hackathon2010;
 
 import org.anddev.andengine.entity.scene.Scene;
-import org.anddev.andengine.entity.scene.background.AutoParallaxBackground;
-//import org.anddev.andengine.entity.scene.background.ParallaxBackground;
-import org.anddev.andengine.entity.scene.background.ParallaxBackground.ParallaxEntity;
-import org.anddev.andengine.entity.sprite.Sprite;
-
 import com.ormgas.hackathon2010.networking.ServerClient.GameEvent;
 
 public class GameScene extends Scene implements IGameEventHandler {
 
 	private final static String TAG = GameScene.class.getSimpleName();
-	//private AccelerometerHandler accelerometerHandler;
-    
-	//private Player player;
+    private Player player;
 
-	public GameScene(SceneHandler sceneHandler)
-	{
+	public GameScene() {
 		// One layer, zero-indexed...
 		super(1);
 		
-		InitBackground();
-		this.getLayer(0).addEntity(new Sprite(100, 150, Textures.plane));
 	}
-
-	private void InitBackground()
-	{
-		AutoParallaxBackground parallaxBackground = new AutoParallaxBackground(1.0f, 1.0f, 1.0f, 1.0f);
-		
-		parallaxBackground.addParallaxEntity(new ParallaxEntity(-5.0f, new Sprite(0, 240 - Textures.parallaxLayer0.getHeight(), Textures.parallaxLayer0)));
-		parallaxBackground.addParallaxEntity(new ParallaxEntity(-7.0f, new Sprite(0, 240 - Textures.parallaxLayer1.getHeight(), Textures.parallaxLayer1)));
-		parallaxBackground.addParallaxEntity(new ParallaxEntity(-10.0f, new Sprite(0, 240 - Textures.parallaxLayer2.getHeight(), Textures.parallaxLayer2)));
-		
-		this.setBackground(parallaxBackground);
-	}
-
+	
 
 	//private int rotationTicks = 100;
 

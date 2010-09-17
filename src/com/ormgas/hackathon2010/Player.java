@@ -1,22 +1,25 @@
 package com.ormgas.hackathon2010;
 
-/*import org.anddev.andengine.opengl.texture.Texture;
-
-import android.util.Log;
+import org.anddev.andengine.opengl.texture.region.TextureRegion;
 
 import com.ormgas.hackathon2010.gameobjects.AirplaneObject;
-import com.ormgas.hackathon2010.gameobjects.BulletObject;
 
 public class Player extends AirplaneObject {
 	private int kills = 0;
 	private boolean isShooting;
 	private long mLastShootTick;
+    private boolean isFlying;
 	
-	public Player(int id, float x, float y, float heading, Texture texture) {
-		super(id, x, y, heading, texture);
+	public Player(int id, float x, float y, float heading) {
+		super(id, x, y, heading, Textures.plane);
+		isFlying = true;
+	}
+	
+	public boolean isFlying() {
+		return isFlying;
 	}
 
-	@Override
+	/*@Override
 	public void onUpdate() {
 		super.onUpdate();
 				
@@ -37,7 +40,7 @@ public class Player extends AirplaneObject {
 		
 			mLastShootTick = Time.getTicks();
 		}
-	}
+	}*/
 	
 	public void shooting(boolean shoot) {
 		isShooting = shoot;
@@ -47,4 +50,4 @@ public class Player extends AirplaneObject {
 		// TODO Auto-generated method stub
 	
 	}
-}*/
+}
