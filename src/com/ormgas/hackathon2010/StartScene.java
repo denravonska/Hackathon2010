@@ -7,14 +7,18 @@ import org.anddev.andengine.entity.shape.modifier.ScaleModifier;
 import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.input.touch.TouchEvent;
 
+import android.content.Intent;
+
 public class StartScene extends Scene implements IOnSceneTouchListener
 {
-	//private SceneHandler sceneHandler;
+	private StartSceneActivity activity = null;
 	private Sprite startLabel;
 
-	public StartScene()
+	public StartScene(StartSceneActivity startSceneActivity)
 	{
 		super(1);
+		
+		activity = startSceneActivity;
 		
 		//this.sceneHandler = sceneHandler;
 		this.setOnSceneTouchListener(this);
@@ -31,8 +35,9 @@ public class StartScene extends Scene implements IOnSceneTouchListener
 	public boolean onSceneTouchEvent(Scene scene, TouchEvent event)
 	{
 		Sounds.select2.play();
-		//sceneHandler.SetScene(SceneHandler.SceneId.GameScene);
+		activity.startActivity(new Intent(activity, GameActivity.class));
+		activity.finish();
 		return true;
 	}
-	
+		
 }

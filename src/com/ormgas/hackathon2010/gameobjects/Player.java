@@ -1,17 +1,19 @@
 package com.ormgas.hackathon2010.gameobjects;
 
+import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 import org.anddev.andengine.util.MathUtils;
 
-import com.ormgas.hackathon2010.GameScene;
+import com.ormgas.hackathon2010.Sounds;
 import com.ormgas.hackathon2010.controller.IGameObjectController;
 
 public class Player extends AirplaneObject {
 	private int kills = 0;
 	private boolean isShooting;
-	private long mLastShootTick;
+	private float mLastShootTick;
     private boolean isFlying;
     private final static float BASE_VELOCITY = 50f;
+    private Scene parentScene = null;
 	
 	public Player(int id, float x, float y, float heading, TextureRegion texture) {
 		super(id, x, y, heading, texture);
@@ -28,6 +30,10 @@ public class Player extends AirplaneObject {
         super.onManagedUpdate(secondsElapsed);
 
 		this.updateVelocity();
+		
+		mLastShootTick += secondsElapsed;		
+		if(isShooting && mLastShootTick > 0.1f)
+			shoot();
 	}
 
 	public void attachController(IGameObjectController controller) {
@@ -41,35 +47,28 @@ public class Player extends AirplaneObject {
         		BASE_VELOCITY * (float) Math.sin(ang));
 	}
 	
-	/*@Override
-	public void onUpdate() {
-		super.onUpdate();
-				
-		if(isShooting && (Time.getTicks() - mLastShootTick) > 100)
-		{
-			// Shoot bullets
-			BulletObject bullet = new BulletObject(
-					0,
-					0,
-					this.x + this.getWidth() / 2,
-					this.y + this.getHeight() / 2, this.getHeading(), Textures.bullet);
-			bullet.setVelocity(500, (float) (Math.PI / 2) - this.getHeading());
-			bullet.setRotation(this.getRotation());
-			bullet.setAngularVelocity(0);
-			bullet.grow(10.0f, 3.0f);
-			Sounds.shoot.play();
-			this.getParentScene().add(bullet);
+	private void shoot()
+	{
+		// TODO Be aware that the bullets will not be destroyed. This needs to be fixed asap.
 		
-			mLastShootTick = Time.getTicks();
-		}
-	}*/
-	
+		BulletObject bullet = new BulletObject(0, 0, this.mX + this.getWidth() / 2, this.mY + this.getHeight() / 2, this.mRotation);
+			
+		bullet.setVelocity(500, (float) (Math.PI / 2) - this.mRotation);
+		bullet.setRotation(this.getRotation());
+		bullet.setAngularVelocity(0);
+
+		parentScene.getLayer(0).addEntity(bullet);
+			
+		Sounds.shoot.play();
+		mLastShootTick = 0.0f;
+	}
+
 	public void shooting(boolean shoot) {
 		isShooting = shoot;
 	}
 
-	public void setScene(GameScene gameScene) {
-		// TODO Auto-generated method stub
-	
+	public void setScene(Scene scene)
+	{
+		parentScene = scene;
 	}
 }

@@ -6,6 +6,7 @@ import org.anddev.andengine.opengl.texture.builder.BlackPawnTextureBuilder;
 import org.anddev.andengine.opengl.texture.builder.ITextureBuilder.TextureSourcePackingException;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 import org.anddev.andengine.opengl.texture.region.TextureRegionFactory;
+import org.anddev.andengine.ui.activity.BaseGameActivity;
 
 import android.util.Log;
 
@@ -26,7 +27,7 @@ public class Textures
 	public static TextureRegion parallaxLayer2;
 	
 	
-	public static void load(GameActivity activity)
+	public static void load(BaseGameActivity activity)
 	{
 		TextureRegionFactory.setAssetBasePath("textures/");
 		

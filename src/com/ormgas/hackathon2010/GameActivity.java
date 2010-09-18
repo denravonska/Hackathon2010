@@ -1,15 +1,11 @@
 package com.ormgas.hackathon2010;
 
 import org.anddev.andengine.engine.Engine;
-import org.anddev.andengine.engine.camera.BoundCamera;
 import org.anddev.andengine.engine.camera.SmoothCamera;
 import org.anddev.andengine.engine.options.EngineOptions;
 import org.anddev.andengine.engine.options.EngineOptions.ScreenOrientation;
 import org.anddev.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.anddev.andengine.entity.scene.Scene;
-import org.anddev.andengine.entity.scene.background.ParallaxBackground;
-import org.anddev.andengine.entity.scene.background.ParallaxBackground.ParallaxEntity;
-import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.entity.util.FPSLogger;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 
@@ -30,8 +26,6 @@ public class GameActivity extends BaseGameActivity
 	private static final int WORLD_HEIGHT = 240;
 	//private ServerClient client;
 	private SmoothCamera camera;
-	private ScrollableParallaxBackground background;
-	private Player player;
     
 	private final BroadcastReceiver mUpdateUiReceiver = new BroadcastReceiver() {
         @Override
@@ -73,33 +67,15 @@ public class GameActivity extends BaseGameActivity
 	public Scene onLoadScene() {
 		this.mEngine.registerUpdateHandler(new FPSLogger());
 
-		final Scene scene = new Scene(1) {
-			@Override
-			public void onManagedUpdate(float secondsElapsed) {
-				GameActivity.this.background.setParallaxValue(-GameActivity.this.player.getX() / 10);
-				super.onManagedUpdate(secondsElapsed);
-			}
-		};
-		
-		background = new ScrollableParallaxBackground(1.0f, 1.0f, 1.0f);
-		background.setColorEnabled(false);
-		background.addParallaxEntity(new ParallaxEntity(2.0f, new Sprite(0, 0, Textures.parallaxLayerSky)));
-		background.addParallaxEntity(new ParallaxEntity(4.0f, new Sprite(0, 240 - Textures.parallaxLayer0.getHeight(), Textures.parallaxLayer0)));
-		background.addParallaxEntity(new ParallaxEntity(8.0f, new Sprite(0, 240 - Textures.parallaxLayer1.getHeight(), Textures.parallaxLayer1)));
-		background.addParallaxEntity(new ParallaxEntity(16.0f, new Sprite(0, 240 - Textures.parallaxLayer2.getHeight(), Textures.parallaxLayer2)));
-		scene.setBackground(background);
-		
 		AccelerometerController controller = new AccelerometerController();
 		this.enableAccelerometerSensor(controller);
 		
-		player = new Player(0, 80, 150, 0, Textures.plane);
+		Player player = new Player(0, 80, 150, 0, Textures.plane);
 		player.setVelocity(50.0f, 0);
 		player.attachController(controller);
 		camera.setChaseShape(player);
 		
-		scene.getLayer(0).addEntity(player);
-		
-		return scene;
+		return new GameScene(player);
 	}
 
 	@Override
