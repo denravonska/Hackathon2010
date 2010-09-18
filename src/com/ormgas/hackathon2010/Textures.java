@@ -20,6 +20,7 @@ public class Textures
 	public static TextureRegion plane;
 	public static TextureRegion explosion;
 
+	public static TextureRegion parallaxLayerSky;
 	public static TextureRegion parallaxLayer0;
 	public static TextureRegion parallaxLayer1;
 	public static TextureRegion parallaxLayer2;
@@ -38,6 +39,7 @@ public class Textures
 		plane = TextureRegionFactory.createFromAsset(buildableTexture, activity, "plane.png");
         explosion = TextureRegionFactory.createTiledFromAsset(buildableTexture, activity, "explosion.png", 1, 7);
 
+        parallaxLayerSky = TextureRegionFactory.createFromAsset(buildableTexture, activity, "backgroundLayerSky.png");
         parallaxLayer0 = TextureRegionFactory.createFromAsset(buildableTexture, activity, "backgroundLayer0.png");
         parallaxLayer1 = TextureRegionFactory.createFromAsset(buildableTexture, activity, "backgroundLayer1.png");
         parallaxLayer2 = TextureRegionFactory.createFromAsset(buildableTexture, activity, "backgroundLayer2.png");
