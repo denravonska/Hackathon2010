@@ -1,6 +1,8 @@
 package com.ormgas.hackathon2010;
 
 import org.anddev.andengine.entity.scene.Scene;
+
+import com.ormgas.hackathon2010.gameobjects.Player;
 import com.ormgas.hackathon2010.networking.ServerClient.GameEvent;
 
 public class GameScene extends Scene implements IGameEventHandler {

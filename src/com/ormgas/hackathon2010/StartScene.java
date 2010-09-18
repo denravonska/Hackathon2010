@@ -9,7 +9,7 @@ import org.anddev.andengine.input.touch.TouchEvent;
 
 public class StartScene extends Scene implements IOnSceneTouchListener
 {
-	private SceneHandler sceneHandler;
+	//private SceneHandler sceneHandler;
 	private Sprite startLabel;
 
 	public StartScene()
@@ -31,7 +31,7 @@ public class StartScene extends Scene implements IOnSceneTouchListener
 	public boolean onSceneTouchEvent(Scene scene, TouchEvent event)
 	{
 		Sounds.select2.play();
-		sceneHandler.SetScene(SceneHandler.SceneId.GameScene);
+		//sceneHandler.SetScene(SceneHandler.SceneId.GameScene);
 		return true;
 	}
 	

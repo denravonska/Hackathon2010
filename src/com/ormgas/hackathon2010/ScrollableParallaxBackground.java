@@ -8,15 +8,19 @@ import org.anddev.andengine.opengl.util.GLHelper;
 
 public class ScrollableParallaxBackground extends ParallaxBackground
 {
+	private int width = 0;
+	private int height = 0;
+	
 	public ScrollableParallaxBackground(float pRed, float pGreen, float pBlue) {
-	        super(pRed, pGreen, pBlue);
-	        // TODO Auto-generated constructor stub
+		super(pRed, pGreen, pBlue);
 	}
+	
+	
 	
 	@Override
 	public void onDraw(final GL10 pGL, final Camera pCamera) {
-	        pCamera.onApplyMatrix(pGL);
-	        GLHelper.setModelViewIdentityMatrix(pGL);
-	        super.onDraw(pGL, pCamera);
+        pCamera.onApplyMatrix(pGL);
+        GLHelper.setModelViewIdentityMatrix(pGL);
+        super.onDraw(pGL, pCamera);
 	}
 }
