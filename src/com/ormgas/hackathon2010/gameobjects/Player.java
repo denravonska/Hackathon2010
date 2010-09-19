@@ -1,6 +1,5 @@
 package com.ormgas.hackathon2010.gameobjects;
 
-import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 import org.anddev.andengine.util.MathUtils;
 
@@ -13,7 +12,6 @@ public class Player extends AirplaneObject {
 	private float mLastShootTick;
     private boolean isFlying;
     private final static float BASE_VELOCITY = 50f;
-    private Scene parentScene = null;
 	
 	public Player(int id, float x, float y, float heading, TextureRegion texture) {
 		super(id, x, y, heading, texture);
@@ -49,7 +47,7 @@ public class Player extends AirplaneObject {
 	
 	private void shoot()
 	{
-		BulletObject bullet = Pools.bulletPool.obtainPoolItem();
+		BulletObject bullet = ObjectHandler.obtainBullet();
 		bullet.setPosition(this.mX + this.getWidth() / 2, this.mY + this.getHeight() / 2);
 		bullet.setRotation(this.getRotation());
 		
@@ -57,8 +55,6 @@ public class Player extends AirplaneObject {
 		// characteristics for this in the future.
 		bullet.setVelocity(this.getVelocityX() * 5, this.getVelocityY() * 5);
 		bullet.setRotation(this.getRotation());
-
-		parentScene.getLayer(0).addEntity(bullet);
 			
 		Sounds.shoot.play();
 		mLastShootTick = 0.0f;
@@ -67,9 +63,5 @@ public class Player extends AirplaneObject {
 	public void shooting(boolean shoot) {
 		isShooting = shoot;
 	}
-
-	public void setScene(Scene scene)
-	{
-		parentScene = scene;
-	}
+	
 }

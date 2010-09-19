@@ -7,6 +7,7 @@ import org.anddev.andengine.input.touch.TouchEvent;
 
 import android.util.Log;
 
+import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
 import com.ormgas.hackathon2010.gameobjects.Player;
 import com.ormgas.hackathon2010.networking.ServerClient.GameEvent;
 
@@ -22,7 +23,6 @@ public class GameScene extends Scene implements IGameEventHandler
 		super(1);
 		
 		this.player = player;
-		this.player.setScene(this);
 		this.getLayer(0).addEntity(this.player);
 
 		background = new ScrollableParallaxBackground(0f, 0f, 0f);
@@ -34,6 +34,8 @@ public class GameScene extends Scene implements IGameEventHandler
 		//background.setColorEnabled(false);
 
 		setBackground(background);
+		
+		ObjectHandler.setActiveScene(this);
 	}
 
 	@Override
