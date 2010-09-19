@@ -45,19 +45,19 @@ public class StartSceneActivity extends BaseGameActivity
 	
 	// TODO Pause/resume seems to be a bit trickier than I thought. onResume
 	// is called when you start the app if it was started before and that
-	// will either leave Sounds.music1 as a null pointer or not playing
-	// which will cause .play to throw an exception. Figure this out at a later
+	// will either leave Sounds.music1 as a null pointer or not being paused
+	// which will cause .resume to throw an exception. Figure this out at a later
 	// stage
 	/*@Override
 	public void onPause() {
-		Sounds.music1.stop();
+		Sounds.music1.pause();
 		super.onPause();
 	}
 	
 	@Override
 	public void onResume() {
 		if(null != Sounds.music1) {
-			Sounds.music1.play();
+			Sounds.music1.resume();
 		}
 		super.onResume();
 	}*/
