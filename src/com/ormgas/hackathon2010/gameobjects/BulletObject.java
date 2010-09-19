@@ -1,5 +1,6 @@
 package com.ormgas.hackathon2010.gameobjects;
 
+import com.ormgas.hackathon2010.GameActivity;
 import com.ormgas.hackathon2010.Textures;
 
 public class BulletObject extends GameObject {
@@ -8,6 +9,19 @@ public class BulletObject extends GameObject {
 		super(id, x, y, 3, heading, Textures.bullet);
 		// TODO Auto-generated constructor stub
 	}
+	
+	@Override
+	protected void onPositionChanged() {
+		super.onPositionChanged();
+		
+		final float x = this.getX();
+		final float y = this.getY();
+		if(x < 0 || x > GameActivity.WORLD_WIDTH ||
+		   y < 0 || y > GameActivity.WORLD_HEIGHT) {
+			Pools.bulletPool.recyclePoolItem(this);
+		}
+	}
+	
 	/*protected int mOwnerId;
 	private boolean dead = false;
 	

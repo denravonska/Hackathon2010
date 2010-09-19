@@ -49,9 +49,9 @@ public class Player extends AirplaneObject {
 	
 	private void shoot()
 	{
-		// TODO Be aware that the bullets will not be destroyed. This needs to be fixed asap.
-		
-		BulletObject bullet = new BulletObject(0, 0, this.mX + this.getWidth() / 2, this.mY + this.getHeight() / 2, this.mRotation);
+		BulletObject bullet = Pools.bulletPool.obtainPoolItem();
+		bullet.setPosition(this.mX + this.getWidth() / 2, this.mY + this.getHeight() / 2);
+		bullet.setRotation(this.getRotation());
 		
 		// TODO Basing the bullet speed on the player speed is not optimal. Use weapon
 		// characteristics for this in the future.
