@@ -16,6 +16,7 @@ public class Textures
 	
 	public static TextureRegion startSceneBackground;
 	public static TextureRegion startSceneStartLabel;
+	public static TextureRegion startSceneOptionsLabel;
 	
 	public static TextureRegion bullet;
 	public static TextureRegion plane;
@@ -35,6 +36,7 @@ public class Textures
 		
 		startSceneBackground = TextureRegionFactory.createFromAsset(buildableTexture, activity, "startBackground.png");
         startSceneStartLabel = TextureRegionFactory.createFromAsset(buildableTexture, activity, "start.png");
+        startSceneOptionsLabel = TextureRegionFactory.createFromAsset(buildableTexture, activity, "options.png");
 		
 		bullet = TextureRegionFactory.createFromAsset(buildableTexture, activity, "bullet.png");
 		plane = TextureRegionFactory.createFromAsset(buildableTexture, activity, "plane.png");
@@ -45,7 +47,7 @@ public class Textures
         parallaxLayer1 = TextureRegionFactory.createFromAsset(buildableTexture, activity, "backgroundLayer1.png");
         parallaxLayer2 = TextureRegionFactory.createFromAsset(buildableTexture, activity, "backgroundLayer2.png");
 
-        try
+        try 
         {
             buildableTexture.build(new BlackPawnTextureBuilder(1));
         }
