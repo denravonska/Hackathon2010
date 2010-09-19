@@ -3,13 +3,12 @@ package com.ormgas.hackathon2010.gameobjects;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 import org.anddev.andengine.util.MathUtils;
 
-import com.ormgas.hackathon2010.Sounds;
 import com.ormgas.hackathon2010.controller.IGameObjectController;
+import com.ormgas.hackathon2010.weapons.MachineGun;
 
 public class Player extends AirplaneObject {
 	private int kills = 0;
 	private boolean isShooting;
-	private float mLastShootTick;
     private boolean isFlying;
     private final static float BASE_VELOCITY = 50f;
 	
@@ -17,6 +16,7 @@ public class Player extends AirplaneObject {
 		super(id, x, y, heading, texture);
 		isFlying = true;
 		this.setVelocity(BASE_VELOCITY, 0f);
+		this.setWeapon(new MachineGun(this));
 	}
 	
 	public boolean isFlying() {
@@ -29,9 +29,8 @@ public class Player extends AirplaneObject {
 
 		this.updateVelocity();
 		
-		mLastShootTick += secondsElapsed;		
-		if(isShooting && mLastShootTick > 0.1f)
-			shoot();
+		if(isShooting)
+			weapon.fire();
 	}
 
 	public void attachController(IGameObjectController controller) {
@@ -45,21 +44,6 @@ public class Player extends AirplaneObject {
         		BASE_VELOCITY * (float) Math.sin(ang));
 	}
 	
-	private void shoot()
-	{
-		BulletObject bullet = ObjectHandler.obtainBullet();
-		bullet.setPosition(this.mX + this.getWidth() / 2, this.mY + this.getHeight() / 2);
-		bullet.setRotation(this.getRotation());
-		
-		// TODO Basing the bullet speed on the player speed is not optimal. Use weapon
-		// characteristics for this in the future.
-		bullet.setVelocity(this.getVelocityX() * 5, this.getVelocityY() * 5);
-		bullet.setRotation(this.getRotation());
-			
-		Sounds.shoot.play();
-		mLastShootTick = 0.0f;
-	}
-
 	public void shooting(boolean shoot) {
 		isShooting = shoot;
 	}

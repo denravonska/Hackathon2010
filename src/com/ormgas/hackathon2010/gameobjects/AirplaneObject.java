@@ -2,8 +2,11 @@ package com.ormgas.hackathon2010.gameobjects;
 
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 
+import com.ormgas.hackathon2010.weapons.IWeapon;
+
 public class AirplaneObject extends GameObject {
 	protected int hp;
+	protected IWeapon weapon;
 	
 	public AirplaneObject(int id, float x, float y, float heading, TextureRegion texture) {
 		super(id, x, y, 1, heading, texture);
@@ -44,5 +47,10 @@ public class AirplaneObject extends GameObject {
 			// Stop the airplane - we don't want a moving explosion.
 			setVelocity(0.0f, getVelocity());
 		}*/
+	}
+	
+	public void setWeapon(IWeapon weapon)
+	{
+		this.weapon = weapon;
 	}
 }
