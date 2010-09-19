@@ -22,8 +22,8 @@ public class GameActivity extends BaseGameActivity
 	private final static String TAG = GameActivity.class.getSimpleName();
 	private static final int CAMERA_WIDTH = 200;
 	private static final int CAMERA_HEIGHT = 120;
-	private static final int WORLD_WIDTH = 440;
-	private static final int WORLD_HEIGHT = 240;
+	public static final int WORLD_WIDTH = 440;
+	public static final int WORLD_HEIGHT = 240;
 	//private ServerClient client;
 	private SmoothCamera camera;
     
