@@ -10,6 +10,7 @@ import org.anddev.andengine.entity.util.FPSLogger;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 
 import com.ormgas.hackathon2010.controller.AccelerometerController;
+import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
 import com.ormgas.hackathon2010.gameobjects.Player;
 
 import android.content.BroadcastReceiver;
@@ -75,7 +76,10 @@ public class GameActivity extends BaseGameActivity
 		player.attachController(controller);
 		camera.setChaseShape(player);
 		
-		return new GameScene(player);
+		GameScene scene = new GameScene(player);
+		ObjectHandler.setActiveScene(scene);
+
+		return scene;
 	}
 
 	@Override

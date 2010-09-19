@@ -13,13 +13,28 @@ public class ObjectHandler
 		//airplanePool.setScene(scene);
 	}
 	
+	private static void activateObject(GameObject object)
+	{
+		object.setIgnoreUpdate(false);
+		object.setVisible(true);
+	}
+	
+	private static void deActivateObject(GameObject object)
+	{
+		object.setIgnoreUpdate(true);
+		object.setVisible(false);
+	}
+	
 	public static BulletObject obtainBullet()
 	{
-		return bulletPool.obtainPoolItem();
+		BulletObject bullet = bulletPool.obtainPoolItem();
+		ObjectHandler.activateObject(bullet);
+		return bullet;
 	}
 	
 	public static void recyclePoolItem(BulletObject bullet)
 	{
+		ObjectHandler.deActivateObject(bullet);
 		bulletPool.recyclePoolItem(bullet);
 	}
 	

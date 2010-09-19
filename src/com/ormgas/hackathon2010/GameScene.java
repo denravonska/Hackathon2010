@@ -7,7 +7,6 @@ import org.anddev.andengine.input.touch.TouchEvent;
 
 import android.util.Log;
 
-import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
 import com.ormgas.hackathon2010.gameobjects.Player;
 import com.ormgas.hackathon2010.networking.ServerClient.GameEvent;
 
@@ -34,8 +33,6 @@ public class GameScene extends Scene implements IGameEventHandler
 		//background.setColorEnabled(false);
 
 		setBackground(background);
-		
-		ObjectHandler.setActiveScene(this);
 	}
 
 	@Override
