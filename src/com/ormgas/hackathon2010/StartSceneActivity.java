@@ -28,22 +28,43 @@ public class StartSceneActivity extends BaseGameActivity
 	}
 
 	@Override
-	public void onLoadResources()
-	{
+	public void onLoadResources() {
 		Textures.load(this);
 		Sounds.load(this);
-		
 	}
 
 	@Override
-	public Scene onLoadScene()
-	{
+	public Scene onLoadScene() {
 		return new StartScene(this);
 	}
 
 	@Override
 	public void onLoadComplete() {
-		// TODO Auto-generated method stub
-		
+		Sounds.music1.play();
+	}
+	
+	// TODO Pause/resume seems to be a bit trickier than I thought. onResume
+	// is called when you start the app if it was started before and that
+	// will either leave Sounds.music1 as a null pointer or not playing
+	// which will cause .play to throw an exception. Figure this out at a later
+	// stage
+	/*@Override
+	public void onPause() {
+		Sounds.music1.stop();
+		super.onPause();
+	}
+	
+	@Override
+	public void onResume() {
+		if(null != Sounds.music1) {
+			Sounds.music1.play();
+		}
+		super.onResume();
+	}*/
+	
+	@Override
+	public void onDestroy() {
+		Sounds.music1.stop();
+		super.onDestroy();
 	}
 }

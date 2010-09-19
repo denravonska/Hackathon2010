@@ -45,8 +45,6 @@ public class StartScene extends Scene implements IOnSceneTouchListener
 		
 		this.registerTouchArea(startLabel);
 		this.registerTouchArea(optionsLabel);
-		
-		Sounds.music1.play();
 	}
 
 	@Override
