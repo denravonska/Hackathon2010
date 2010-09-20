@@ -25,10 +25,10 @@ public class GameScene extends Scene implements IGameEventHandler
 		this.getLayer(0).addEntity(this.player);
 
 		background = new ScrollableParallaxBackground(0f, 0f, 0f);
-		background.addParallaxEntity(new ParallaxEntity(2.0f, new Sprite(0, 240 - Textures.parallaxLayerSky.getHeight(), Textures.parallaxLayerSky)));
-		background.addParallaxEntity(new ParallaxEntity(4.0f, new Sprite(0, 240 - Textures.parallaxLayer0.getHeight(), Textures.parallaxLayer0)));
-		background.addParallaxEntity(new ParallaxEntity(8.0f, new Sprite(0, 240 - Textures.parallaxLayer1.getHeight(), Textures.parallaxLayer1)));
-		background.addParallaxEntity(new ParallaxEntity(16.0f, new Sprite(0, 240 - Textures.parallaxLayer2.getHeight(), Textures.parallaxLayer2)));
+		background.addParallaxEntity(new ParallaxEntity(2.0f, new Sprite(0, GameActivity.WORLD_HEIGHT - (Textures.parallaxLayerSky.getHeight() *2), Textures.parallaxLayerSky.getWidth() *2, Textures.parallaxLayerSky.getHeight() *2, Textures.parallaxLayerSky)));
+		background.addParallaxEntity(new ParallaxEntity(4.0f, new Sprite(0, GameActivity.WORLD_HEIGHT - (Textures.parallaxLayer0.getHeight() *2), Textures.parallaxLayer0.getWidth() *2, Textures.parallaxLayer0.getHeight() *2, Textures.parallaxLayer0)));
+		background.addParallaxEntity(new ParallaxEntity(8.0f, new Sprite(0, GameActivity.WORLD_HEIGHT - (Textures.parallaxLayer1.getHeight() *2), Textures.parallaxLayer1.getWidth() *2, Textures.parallaxLayer1.getHeight() *2, Textures.parallaxLayer1)));
+		background.addParallaxEntity(new ParallaxEntity(16.0f, new Sprite(0, GameActivity.WORLD_HEIGHT - (Textures.parallaxLayer2.getHeight() *2), Textures.parallaxLayer2.getWidth() *2, Textures.parallaxLayer2.getHeight() *2, Textures.parallaxLayer2)));
 		background.setParallaxValue(5.0f);
 		//background.setColorEnabled(false);
 
