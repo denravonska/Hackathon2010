@@ -29,12 +29,17 @@ public class MachineGun implements IWeapon
 	
 	private void doFire()
 	{
-		BulletObject bullet = ObjectHandler.obtainBullet();
-		bullet.setPosition(parent.getX() + parent.getWidth() / 2, parent.getY() + parent.getHeight() / 2);
-		bullet.setRotation(parent.getRotation());
-		//bullet.setVelocity(projectileVelocity);
+		//BulletObject bullet = ObjectHandler.obtainBullet();
+		try
+		{
+			BulletObject bullet = ObjectHandler.obtainItem(BulletObject.class);
+			bullet.setPosition(parent.getX() + parent.getWidth() / 2, parent.getY() + parent.getHeight() / 2);
+			bullet.setRotation(parent.getRotation());
+			//bullet.setVelocity(projectileVelocity);
 		
-		bullet.setVelocity(parent.getVelocityX() * 5, parent.getVelocityY() * 5);
+			bullet.setVelocity(parent.getVelocityX() * 5, parent.getVelocityY() * 5);
+		}
+		catch(Exception e) { }
 		
 		Sounds.shoot.play();
 		fireTimer = System.currentTimeMillis();
