@@ -7,11 +7,13 @@ public class ObjectHandler
 {
 	private static final BulletPool bulletPool = new BulletPool();
 	private static final ExplosionPool explosionPool = new ExplosionPool();
+	private static final ActorPool actorPool = new ActorPool();
 	
 	public static void setActiveScene(Scene scene)
 	{
 		bulletPool.setScene(scene);
 		explosionPool.setScene(scene);
+		actorPool.setScene(scene);
 	}
 	
 	private static void activateObject(Entity object)
@@ -41,6 +43,12 @@ public class ObjectHandler
 			ObjectHandler.activateObject(explosion);
 			return (T)explosion;
 		}
+		else if(clazz.equals(Actor.class))
+		{
+			Actor actor = actorPool.obtainPoolItem();
+			ObjectHandler.activateObject(actor);
+			return (T)actor;
+		}
 		
 		throw new Exception("Unknown class");
 	}
@@ -56,6 +64,11 @@ public class ObjectHandler
 		{
 			ObjectHandler.deActivateObject((ExplosionObject)object);
 			explosionPool.recyclePoolItem((ExplosionObject)object);
+		}
+		else if(object instanceof Actor)
+		{
+			ObjectHandler.deActivateObject((Actor)object);
+			actorPool.recyclePoolItem((Actor)object);
 		}
 		
 		throw new Exception("Unknown class");

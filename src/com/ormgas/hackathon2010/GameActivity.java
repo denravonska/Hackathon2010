@@ -11,8 +11,8 @@ import org.anddev.andengine.entity.util.FPSLogger;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 
 import com.ormgas.hackathon2010.controller.AccelerometerController;
+import com.ormgas.hackathon2010.gameobjects.Actor;
 import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
-import com.ormgas.hackathon2010.gameobjects.Player;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -73,7 +73,7 @@ public class GameActivity extends BaseGameActivity
 		AccelerometerController controller = new AccelerometerController();
 		this.enableAccelerometerSensor(controller);
 		
-		Player player = new Player(0, 80, 150, 0, Textures.plane);
+		Actor player = new Actor(0, 80, 150, 0, Textures.plane);
 		player.setVelocity(50.0f, 0);
 		player.attachController(controller);
 		camera.setChaseShape(player);

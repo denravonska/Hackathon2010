@@ -6,13 +6,13 @@ import org.anddev.andengine.util.MathUtils;
 import com.ormgas.hackathon2010.controller.IGameObjectController;
 import com.ormgas.hackathon2010.weapons.MachineGun;
 
-public class Player extends AirplaneObject {
+public class Actor extends AirplaneObject {
 	private int kills = 0;
 	private boolean isShooting;
     private boolean isFlying;
     private final static float BASE_VELOCITY = 50f;
 	
-	public Player(int id, float x, float y, float heading, TextureRegion texture) {
+	public Actor(int id, float x, float y, float heading, TextureRegion texture) {
 		super(id, x, y, heading, texture);
 		isFlying = true;
 		this.setVelocity(BASE_VELOCITY, 0f);

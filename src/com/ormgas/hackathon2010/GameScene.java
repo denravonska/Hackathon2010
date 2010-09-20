@@ -7,16 +7,16 @@ import org.anddev.andengine.input.touch.TouchEvent;
 
 import android.util.Log;
 
-import com.ormgas.hackathon2010.gameobjects.Player;
+import com.ormgas.hackathon2010.gameobjects.Actor;
 import com.ormgas.hackathon2010.networking.ServerClient.GameEvent;
 
 public class GameScene extends Scene implements IGameEventHandler
 {
 	private final static String TAG = GameScene.class.getSimpleName();
     private ScrollableParallaxBackground background = null;
-    private Player player = null;
+    private Actor player = null;
 
-	public GameScene(Player player)
+	public GameScene(Actor player)
 	{
 		// One layer, zero-indexed...
 		super(1);
