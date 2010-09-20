@@ -1,6 +1,7 @@
 package com.ormgas.hackathon2010;
 
 import org.anddev.andengine.engine.Engine;
+import org.anddev.andengine.engine.camera.BoundCamera;
 import org.anddev.andengine.engine.camera.SmoothCamera;
 import org.anddev.andengine.engine.options.EngineOptions;
 import org.anddev.andengine.engine.options.EngineOptions.ScreenOrientation;
@@ -21,12 +22,12 @@ import android.util.Log;
 public class GameActivity extends BaseGameActivity
 {
 	private final static String TAG = GameActivity.class.getSimpleName();
-	private static final int CAMERA_WIDTH = 200;
-	private static final int CAMERA_HEIGHT = 120;
-	public static final int WORLD_WIDTH = 440;
-	public static final int WORLD_HEIGHT = 240;
+	private static final int CAMERA_WIDTH = 400;
+	private static final int CAMERA_HEIGHT = 240;
+	public static final int WORLD_WIDTH = 800;
+	public static final int WORLD_HEIGHT = 480;
 	//private ServerClient client;
-	private SmoothCamera camera;
+	private BoundCamera camera;
     
 	private final BroadcastReceiver mUpdateUiReceiver = new BroadcastReceiver() {
         @Override
@@ -46,8 +47,9 @@ public class GameActivity extends BaseGameActivity
 
 	@Override
 	public Engine onLoadEngine() {
-		this.camera = new SmoothCamera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT, Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY, 100);
+		this.camera = new BoundCamera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
 		this.camera.setBounds(0, WORLD_WIDTH, 0, WORLD_HEIGHT);
+		this.camera.setBoundsEnabled(true);
 		EngineOptions options = new EngineOptions(
 				true, // Fullscreen
 				ScreenOrientation.LANDSCAPE,
