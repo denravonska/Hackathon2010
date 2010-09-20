@@ -47,12 +47,12 @@ public class ObjectHandler
 	
 	public static <T> void recyclePoolItem(T object) throws Exception
 	{
-		if(object.getClass().equals(BulletObject.class))
+		if(object instanceof BulletObject)
 		{
 			ObjectHandler.deActivateObject((BulletObject)object);
 			bulletPool.recyclePoolItem((BulletObject)object);
 		}
-		else if(object.getClass().equals(ExplosionObject.class))
+		else if(object instanceof ExplosionObject)
 		{
 			ObjectHandler.deActivateObject((ExplosionObject)object);
 			explosionPool.recyclePoolItem((ExplosionObject)object);
