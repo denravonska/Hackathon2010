@@ -8,6 +8,7 @@ public class BulletObject extends GameObject {
 
 	public BulletObject(int id, int ownerId, float x, float y, float heading) {
 		super(id, x, y, 3, heading, Textures.bullet);
+		this.setScale(2f, 2f);
 	}
 	
 	@Override
