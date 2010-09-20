@@ -15,7 +15,7 @@ public class Actor extends AirplaneObject {
 	private int kills = 0;
 	private boolean isShooting;
     private boolean isFlying;
-    private final static float BASE_VELOCITY = 50f;
+    private final static float BASE_VELOCITY = 80f;
     private RotationModifier bounceModifier = null;
 	
 	public Actor(int id, float x, float y, float heading, TextureRegion texture) {
