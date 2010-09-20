@@ -1,5 +1,7 @@
 package com.ormgas.hackathon2010.weapons;
 
+import android.util.Log;
+
 import com.ormgas.hackathon2010.Sounds;
 import com.ormgas.hackathon2010.gameobjects.BulletObject;
 import com.ormgas.hackathon2010.gameobjects.GameObject;
@@ -7,7 +9,8 @@ import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
 
 public class MachineGun implements IWeapon
 {
-	private long fireRate = 100;
+	private final static String TAG = MachineGun.class.getSimpleName();
+	private long fireRate = 150;
 	private long fireTimer = 0;
 	//private float projectileVelocity = 250.0f;
 	
@@ -29,7 +32,6 @@ public class MachineGun implements IWeapon
 	
 	private void doFire()
 	{
-		//BulletObject bullet = ObjectHandler.obtainBullet();
 		try
 		{
 			BulletObject bullet = ObjectHandler.obtainItem(BulletObject.class);
@@ -39,7 +41,10 @@ public class MachineGun implements IWeapon
 		
 			bullet.setVelocity(parent.getVelocityX() * 5, parent.getVelocityY() * 5);
 		}
-		catch(Exception e) { }
+		catch(Exception e)
+		{
+			Log.d(TAG, "Caught exception in doFire()");
+		}
 		
 		Sounds.shoot.play();
 		fireTimer = System.currentTimeMillis();
