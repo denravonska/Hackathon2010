@@ -10,7 +10,7 @@ import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
 public class MachineGun implements IWeapon
 {
 	private final static String TAG = MachineGun.class.getSimpleName();
-	private long fireRate = 150;
+	private final static long FIRE_DELAY = 150;
 	private long fireTimer = 0;
 	//private float projectileVelocity = 250.0f;
 	
@@ -26,7 +26,7 @@ public class MachineGun implements IWeapon
 	{
 		final long fireValue = System.currentTimeMillis() - fireTimer;
 
-		if(fireValue > fireRate)
+		if(fireValue > MachineGun.FIRE_DELAY)
 			doFire();
 	}	
 	
@@ -35,6 +35,7 @@ public class MachineGun implements IWeapon
 		try
 		{
 			BulletObject bullet = ObjectHandler.obtainItem(BulletObject.class);
+			bullet.setParentId(parent.getId());
 			bullet.setPosition(parent.getX() + parent.getWidth() / 2, parent.getY() + parent.getHeight() / 2);
 			bullet.setRotation(parent.getRotation());
 			//bullet.setVelocity(projectileVelocity);
