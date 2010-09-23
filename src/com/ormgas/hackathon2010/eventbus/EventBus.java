@@ -5,20 +5,35 @@ import java.util.ArrayList;
 
 public class EventBus
 {
+	private static EventBus mInstance = null;
 	private ArrayList<Listener> mListeners = new ArrayList<Listener>();
  
+	private EventBus()
+	{
+		// Yes... its empty.
+	}
+	
+	public static EventBus getInstance()
+	{
+		if(mInstance == null)
+			mInstance = new EventBus();
+		
+		return mInstance;
+	}
+	
 	public void sendEvent(Object event)
 	{
-		for(Listener listener : mListeners)
-			listener.invoke(event);
+		for(int index = 0; index < mListeners.size(); ++index)
+			mListeners.get(index).invoke(event);
 	}
 	
 	public boolean registerListener(Object subscriber, Method method, Class<?> event)
 	{
 		boolean isRegistered = false;
 		
-		for(Listener listener : mListeners)
+		for(int index = 0; index < mListeners.size(); ++index)
 		{
+			Listener listener = mListeners.get(index);
 			if(listener.getSubscriber() == subscriber && listener.getEvent() == event)
 			{
 				isRegistered = true;
@@ -34,8 +49,9 @@ public class EventBus
 	
 	public void removeListener(Object subscriber)
 	{
-		for(Listener listener : mListeners)
+		for(int index = 0; index < mListeners.size(); ++index)
 		{
+			Listener listener = mListeners.get(index);
 			if(listener.subscriber == subscriber)
 				mListeners.remove(listener);
 		}
@@ -43,8 +59,9 @@ public class EventBus
 	
 	public void removeListener(Object subscriber, Class<?> event)
 	{
-		for(Listener listener : mListeners)
+		for(int index = 0; index < mListeners.size(); ++index)
 		{
+			Listener listener = mListeners.get(index);
 			if(listener.subscriber == subscriber && listener.event == event)
 				mListeners.remove(listener);
 		}
