@@ -11,6 +11,7 @@ import org.anddev.andengine.entity.util.FPSLogger;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 
 import com.ormgas.hackathon2010.controller.AccelerometerController;
+import com.ormgas.hackathon2010.eventbus.EventBus;
 import com.ormgas.hackathon2010.gameobjects.Actor;
 import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
 
@@ -28,6 +29,12 @@ public class GameActivity extends BaseGameActivity
 	public static final int WORLD_HEIGHT = 480;
 	//private ServerClient client;
 	private BoundCamera camera;
+	
+	static
+	{
+		// Instantiate the EventBus
+		EventBus.instance();
+	}
     
 	private final BroadcastReceiver mUpdateUiReceiver = new BroadcastReceiver() {
         @Override

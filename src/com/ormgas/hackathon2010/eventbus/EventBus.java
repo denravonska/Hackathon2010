@@ -9,11 +9,9 @@ public class EventBus
 	private ArrayList<Listener> mListeners = new ArrayList<Listener>();
  
 	private EventBus()
-	{
-		// Yes... its empty.
-	}
+	{ }
 	
-	public static EventBus getInstance()
+	public static EventBus instance()
 	{
 		if(mInstance == null)
 			mInstance = new EventBus();
@@ -21,20 +19,20 @@ public class EventBus
 		return mInstance;
 	}
 	
-	public void sendEvent(Object event)
+	public void dispatch(Object event)
 	{
 		for(int index = 0; index < mListeners.size(); ++index)
 			mListeners.get(index).invoke(event);
 	}
 	
-	public boolean registerListener(Object subscriber, Method method, Class<?> event)
+	public boolean register(Object subscriber)
 	{
 		boolean isRegistered = false;
 		
 		for(int index = 0; index < mListeners.size(); ++index)
 		{
 			Listener listener = mListeners.get(index);
-			if(listener.getSubscriber() == subscriber && listener.getEvent() == event)
+			if(listener.getSubscriber() == subscriber)
 			{
 				isRegistered = true;
 				break;
@@ -42,27 +40,31 @@ public class EventBus
 		}
 		
 		if(!isRegistered)
-			mListeners.add(new Listener(subscriber, method, event));
+		{
+            Method[] methods = subscriber.getClass().getDeclaredMethods();
+            for(Method method : methods)
+            {
+            	EventHandler eh = method.getAnnotation(EventHandler.class);
+                if(eh == null)
+                	continue;
+
+                Class<?>[] parameters = method.getParameterTypes();
+                if(parameters.length != 1)
+                	throw new IllegalArgumentException("EventHandler methods must specify a single Object paramter.");
+
+                mListeners.add(new Listener(subscriber, method, parameters[0]));
+            }
+		}
 		
 		return !isRegistered;
 	}
 	
-	public void removeListener(Object subscriber)
+	public void unregister(Object subscriber)
 	{
 		for(int index = 0; index < mListeners.size(); ++index)
 		{
 			Listener listener = mListeners.get(index);
 			if(listener.subscriber == subscriber)
-				mListeners.remove(listener);
-		}
-	}
-	
-	public void removeListener(Object subscriber, Class<?> event)
-	{
-		for(int index = 0; index < mListeners.size(); ++index)
-		{
-			Listener listener = mListeners.get(index);
-			if(listener.subscriber == subscriber && listener.event == event)
 				mListeners.remove(listener);
 		}
 	}
@@ -85,11 +87,6 @@ public class EventBus
         	return subscriber;
         }
         
-        public Class<?> getEvent()
-        {
-        	return event;
-        }
-        
         public void invoke(Object event)
         {
         	if(event.getClass().equals(this.event))
@@ -99,9 +96,9 @@ public class EventBus
         			method.invoke(subscriber, event);
         		}
         		catch(Exception e) { }
-        		
         	}
 		}
+        
 	}
 
 }
