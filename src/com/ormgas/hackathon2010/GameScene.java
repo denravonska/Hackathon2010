@@ -2,20 +2,27 @@ package com.ormgas.hackathon2010;
 
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.scene.background.ParallaxBackground.ParallaxEntity;
+import org.anddev.andengine.entity.shape.RectangularShape;
 import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.input.touch.TouchEvent;
 
 import android.util.Log;
 
+import com.ormgas.hackathon2010.eventbus.EventBus;
+import com.ormgas.hackathon2010.eventbus.SpawnBulletEvent;
 import com.ormgas.hackathon2010.gameobjects.Actor;
+import com.ormgas.hackathon2010.gameobjects.BulletObject;
+import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
 import com.ormgas.hackathon2010.networking.ServerClient.GameEvent;
+import com.ormgas.hackathon2010.eventbus.EventHandler;
 
 public class GameScene extends Scene implements IGameEventHandler
 {
 	private final static String TAG = GameScene.class.getSimpleName();
     private ScrollableParallaxBackground background = null;
     private Actor player = null;
-
+    public RectangularShape worldFloor;
+    
 	public GameScene(Actor player)
 	{
 		// One layer, zero-indexed...
@@ -32,7 +39,11 @@ public class GameScene extends Scene implements IGameEventHandler
 		background.setParallaxValue(5.0f);
 		//background.setColorEnabled(false);
 
+	//	worldFloor = new RectangularShape();
+		
 		setBackground(background);
+		
+		EventBus.instance().register(this);
 	}
 
 	@Override
@@ -65,5 +76,21 @@ public class GameScene extends Scene implements IGameEventHandler
 	{
 		// TODO Auto-generated method stub
 		Log.d(TAG, "GameEvent received");
+	}
+	
+	@EventHandler
+	public void onSpawnBulletEvent(SpawnBulletEvent event) {
+		try {
+			BulletObject bullet = ObjectHandler.obtainItem(BulletObject.class);
+			bullet.setId(event.id);
+			//bullet.setParentId(event.());
+			bullet.setPosition(event.x, event.y);
+			bullet.setVelocity(event.velX, event.velY);
+			bullet.setRotation(event.rotation);
+			this.getLayer(0).addEntity(bullet);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
