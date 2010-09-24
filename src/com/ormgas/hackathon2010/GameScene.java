@@ -86,8 +86,8 @@ public class GameScene extends Scene implements IGameEventHandler
 	{
 		ExplosionObject explosion = ObjectHandler.obtainItem(ExplosionObject.class);
 		
-		final float shiftX = explosion.getTextureRegion().getWidth();
-		final float shiftY = explosion.getTextureRegion().getHeight();
+		final float shiftX = explosion.getWidth() / 2;
+		final float shiftY = explosion.getHeight() / 2;
 		
 		explosion.setPosition(event.x - shiftX, event.y - shiftY);
 		explosion.animate();
