@@ -1,5 +1,8 @@
 package com.ormgas.hackathon2010;
 
+import javax.jmdns.ServiceEvent;
+import javax.jmdns.ServiceListener;
+
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.scene.Scene.IOnSceneTouchListener;
 import org.anddev.andengine.entity.scene.background.SpriteBackground;
@@ -9,11 +12,14 @@ import org.anddev.andengine.input.touch.TouchEvent;
 
 import android.content.Intent;
 
+import com.ormgas.hackathon2010.networking.ServiceManager;
+
 public class StartScene extends Scene implements IOnSceneTouchListener
 {
 	private StartSceneActivity activity = null;
 	private Sprite startLabel;
 	private Sprite optionsLabel;
+	private ServiceManager mServiceManager;
 
 	public StartScene(StartSceneActivity startSceneActivity)
 	{
@@ -45,6 +51,9 @@ public class StartScene extends Scene implements IOnSceneTouchListener
 		
 		this.registerTouchArea(startLabel);
 		this.registerTouchArea(optionsLabel);
+		
+		mServiceManager = new ServiceManager();
+		mServiceManager.start(new ClientListener());
 	}
 
 	@Override
@@ -53,4 +62,17 @@ public class StartScene extends Scene implements IOnSceneTouchListener
 		return true;
 	}
 		
+	public class ClientListener implements ServiceListener {
+		public void serviceAdded(ServiceEvent event) {
+			
+		}
+		
+		public void serviceRemoved(ServiceEvent event) {
+			
+		}
+		
+		public void serviceResolved(ServiceEvent event) {
+			
+		}
+	}
 }
