@@ -6,6 +6,11 @@ import com.ormgas.hackathon2010.Textures;
 
 public class ActorPool extends GenericPool<Actor>
 {
+	public ActorPool(int initialSize)
+	{
+		super(initialSize);
+	}
+
 	@Override
 	protected Actor onAllocatePoolItem()
 	{

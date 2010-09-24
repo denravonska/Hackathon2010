@@ -6,7 +6,7 @@ public class ObjectHandler
 {
 	private static final BulletPool bulletPool = new BulletPool(10);
 	private static final ExplosionPool explosionPool = new ExplosionPool(10);
-	private static final ActorPool actorPool = new ActorPool();
+	private static final ActorPool actorPool = new ActorPool(10);
 	
 	private static void activateObject(Entity object)
 	{

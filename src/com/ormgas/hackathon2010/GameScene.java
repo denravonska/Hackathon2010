@@ -82,7 +82,6 @@ public class GameScene extends Scene implements IGameEventHandler
 	}
 	
 	@EventHandler
-	
 	public void onGameObjectSpawnedEvent(EntitySpawnedEvent event) {
 		this.getTopLayer().addEntity(event.object);		
 	}
