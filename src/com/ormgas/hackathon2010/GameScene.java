@@ -12,8 +12,10 @@ import android.util.Log;
 import com.ormgas.hackathon2010.eventbus.EntitySpawnedEvent;
 import com.ormgas.hackathon2010.eventbus.EventBus;
 import com.ormgas.hackathon2010.eventbus.PlayRelativeSoundEvent;
+import com.ormgas.hackathon2010.eventbus.SpawnActorEvent;
 import com.ormgas.hackathon2010.eventbus.SpawnBulletEvent;
 import com.ormgas.hackathon2010.eventbus.SpawnExplosionEvent;
+import com.ormgas.hackathon2010.gameobjects.Actor;
 import com.ormgas.hackathon2010.gameobjects.BulletObject;
 import com.ormgas.hackathon2010.gameobjects.ExplosionObject;
 import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
@@ -100,5 +102,14 @@ public class GameScene extends Scene implements IGameEventHandler
 		
 		explosion.setPosition(event.x - shiftX, event.y - shiftY);
 		explosion.animate();
+	}
+	
+	@EventHandler
+	public void onSpawnActorEvent(SpawnActorEvent event) {
+		Actor actor = new Actor(0, 80, 150, 0, Textures.plane);
+		actor.attachController(event.controller);
+		if(true == event.isLocalActor) {
+			this.camera.setChaseShape(actor);
+		}
 	}
 }

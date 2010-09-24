@@ -15,6 +15,8 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.ormgas.hackathon2010.controller.AccelerometerController;
+import com.ormgas.hackathon2010.eventbus.EventBus;
+import com.ormgas.hackathon2010.eventbus.SpawnActorEvent;
 import com.ormgas.hackathon2010.gameobjects.Actor;
 
 public class GameActivity extends BaseGameActivity
@@ -63,26 +65,16 @@ public class GameActivity extends BaseGameActivity
 		Textures.load(this);
 		Sounds.load(this);
 	}
-	
-	@Override
-	public void onUnloadResources() {
-		super.onUnloadResources();
-		
-	}
 
 	@Override
 	public Scene onLoadScene() {
 		this.mEngine.registerUpdateHandler(new FPSLogger());
-
-		AccelerometerController controller = new AccelerometerController();
-		this.enableAccelerometerSensor(controller);
 		
 		GameScene scene = new GameScene(this.camera);
 
-		Actor player = new Actor(0, 80, 150, 0, Textures.plane);
-		player.setVelocity(50.0f, 0);
-		player.attachController(controller);
-		camera.setChaseShape(player);
+		AccelerometerController controller = new AccelerometerController();
+		this.enableAccelerometerSensor(controller);
+		EventBus.dispatch(new SpawnActorEvent(controller, true /* isLocalActor */));
 		
 		return scene;
 	}
