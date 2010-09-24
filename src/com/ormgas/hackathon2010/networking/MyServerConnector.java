@@ -1,7 +1,6 @@
 package com.ormgas.hackathon2010.networking;
 
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
@@ -14,16 +13,15 @@ import org.anddev.andengine.extension.multiplayer.protocol.client.ServerConnecto
 import org.anddev.andengine.extension.multiplayer.protocol.client.ServerMessageExtractor;
 import org.anddev.andengine.extension.multiplayer.protocol.shared.BaseConnector;
 
+import com.ormgas.hackathon2010.networking.servermessages.TestMessage;
+
 import android.util.Log;
 
 public class MyServerConnector extends ServerConnector
 {
-	private static final short FLAG_MESSAGE_SERVER_ADD_FACE = 1;
-
 	public MyServerConnector(Socket pSocket) throws IOException
 	{
 		super(pSocket, new ExampleServerConnectionListener(), new MyServerMessageExtractor(), new MyMessageSwitch());
-		
 	}
 
 	public static class ExampleServerConnectionListener extends BaseServerConnectionListener
@@ -31,14 +29,13 @@ public class MyServerConnector extends ServerConnector
 		@Override
 		protected void onConnectInner(final BaseConnector<BaseServerMessage> pConnector)
 		{
-			//MultiplayerExample.this.toast("CLIENT: Connected to server.");
+			Log.d("CLIENT", "Connected to server.");
 		}
 
 		@Override
 		protected void onDisconnectInner(final BaseConnector<BaseServerMessage> pConnector)
 		{
-			//MultiplayerExample.this.toast("CLIENT: Disconnected from Server...");
-			//MultiplayerExample.this.finish();
+			Log.d("CLIENT", "Disconnected from Server...");
 		}
 	}
 
@@ -49,8 +46,8 @@ public class MyServerConnector extends ServerConnector
 		{
 			switch(pFlag)
 			{
-			case FLAG_MESSAGE_SERVER_ADD_FACE:
-				return new SpawnAirplaneServerMessage(pDataInputStream);
+			case TestMessage.FLAG_MESSAGE_SERVER_ADD_FACE:
+				return new TestMessage(pDataInputStream);
 			default:
 				return super.readMessage(pFlag, pDataInputStream);
 			}
@@ -64,8 +61,9 @@ public class MyServerConnector extends ServerConnector
 		{
 			switch(pServerMessage.getFlag())
 			{
-			case FLAG_MESSAGE_SERVER_ADD_FACE:
-				final SpawnAirplaneServerMessage spawnAirplaneMessage = (SpawnAirplaneServerMessage)pServerMessage;
+			case TestMessage.FLAG_MESSAGE_SERVER_ADD_FACE:
+				final TestMessage spawnAirplaneMessage = (TestMessage)pServerMessage;
+				// Do something clever with the message here.
 				break;
 			default:
 				super.doSwitch(pServerConnector, pServerMessage);
@@ -85,41 +83,5 @@ public class MyServerConnector extends ServerConnector
 		}
 	}
 	
-	private static class SpawnAirplaneServerMessage extends BaseServerMessage
-	{
-		public final float mX;
-		public final float mY;
-
-		public SpawnAirplaneServerMessage(final float pX, final float pY)
-		{
-			this.mX = pX;
-			this.mY = pY;
-		}
-
-		public SpawnAirplaneServerMessage(final DataInputStream pDataInputStream) throws IOException
-		{
-			this.mX = pDataInputStream.readFloat();
-			this.mY = pDataInputStream.readFloat();
-		}
-
-		@Override
-		public short getFlag()
-		{
-			return FLAG_MESSAGE_SERVER_ADD_FACE;
-		}
-
-		@Override
-		protected void onAppendTransmissionDataForToString(final StringBuilder pStringBuilder)
-		{
-
-		}
-
-		@Override
-		protected void onWriteTransmissionData(final DataOutputStream pDataOutputStream) throws IOException
-		{
-			pDataOutputStream.writeFloat(this.mX);
-			pDataOutputStream.writeFloat(this.mY);
-		}
-	}
 
 }

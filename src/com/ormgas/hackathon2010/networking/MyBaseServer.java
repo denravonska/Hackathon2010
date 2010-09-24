@@ -35,7 +35,7 @@ public class MyBaseServer extends BaseServer<ClientConnector>
 			@Override
 			public void doSwitch(final ClientConnector pClientConnector, final BaseClientMessage pClientMessage) throws IOException {
 				super.doSwitch(pClientConnector, pClientMessage);
-				//MultiplayerExample.this.log("SERVER: ClientMessage received: " + pClientMessage.toString());
+				Log.d("SERVER", "ClientMessage received: " + pClientMessage.toString());
 			}
 		}
 		);
@@ -46,13 +46,13 @@ public class MyBaseServer extends BaseServer<ClientConnector>
 		@Override
 		protected void onConnectInner(final BaseConnector<BaseClientMessage> pConnector)
 		{
-			//MultiplayerExample.this.toast("SERVER: Client connected: " + pConnector.getSocket().getInetAddress().getHostAddress());
+			Log.d("SERVER", "Client connected: " + pConnector.getSocket().getInetAddress().getHostAddress());
 		}
 
 		@Override
 		protected void onDisconnectInner(final BaseConnector<BaseClientMessage> pConnector)
 		{
-			//MultiplayerExample.this.toast("SERVER: Client disconnected: " + pConnector.getSocket().getInetAddress().getHostAddress());
+			Log.d("SERVER", "Client disconnected: " + pConnector.getSocket().getInetAddress().getHostAddress());
 		}
 	}
 		

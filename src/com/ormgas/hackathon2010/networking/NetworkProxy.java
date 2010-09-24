@@ -1,7 +1,9 @@
 package com.ormgas.hackathon2010.networking;
 
+import java.io.IOException;
 import java.net.Socket;
 
+import org.anddev.andengine.extension.multiplayer.protocol.adt.message.server.BaseServerMessage;
 import org.anddev.andengine.extension.multiplayer.protocol.client.ServerConnector;
 import org.anddev.andengine.extension.multiplayer.protocol.server.BaseServer;
 import org.anddev.andengine.extension.multiplayer.protocol.server.ClientConnector;
@@ -56,6 +58,20 @@ public class NetworkProxy
 		{
 			Debug.e("Error", t);
 		}
+	}
+	
+	public void send(BaseServerMessage message)
+	{
+		try
+		{
+			this.mServer.sendBroadcastServerMessage(message); //new TestMessage(pSceneTouchEvent.getX(), pSceneTouchEvent.getY()));
+		}
+		catch(IOException e) { }
+	}
+	
+	public void receiveMessage(BaseServerMessage message)
+	{
+		
 	}
 
 }
