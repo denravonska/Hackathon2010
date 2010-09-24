@@ -14,8 +14,11 @@ public class ExplosionObject extends AnimatedSprite implements IAnimationListene
 	public ExplosionObject(float x, float y)
 	{
 		super(x, y, Textures.explosion);
-		this.animate(frameDuration, false, this);
 		EventBus.dispatch(new EntitySpawnedEvent(this));
+	}
+	
+	public void animate() {
+		this.animate(frameDuration, false, this);		
 	}
 
 	@Override

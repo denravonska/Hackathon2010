@@ -90,5 +90,6 @@ public class GameScene extends Scene implements IGameEventHandler
 		final float shiftY = explosion.getTextureRegion().getHeight();
 		
 		explosion.setPosition(event.x - shiftX, event.y - shiftY);
+		explosion.animate();
 	}
 }
