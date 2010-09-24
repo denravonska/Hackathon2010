@@ -69,9 +69,9 @@ public class ObjectHandler
 		{
 			ObjectHandler.deActivateObject((Actor)object);
 			actorPool.recyclePoolItem((Actor)object);
+		} else {		
+			throw new Exception("Unknown class");
 		}
-		
-		throw new Exception("Unknown class");
 	}
 	
 }
