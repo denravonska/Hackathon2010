@@ -43,7 +43,7 @@ public class GameScene extends Scene implements IGameEventHandler
 		
 		setBackground(background);
 		
-		EventBus.instance().register(this);
+		EventBus.register(this);
 	}
 
 	@Override
