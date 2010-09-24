@@ -3,8 +3,11 @@ package com.ormgas.hackathon2010.eventbus;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
+import android.util.Log;
+
 public class EventBus
 {
+	private final static String TAG = EventBus.class.getSimpleName();
 	//private static EventBus mInstance = null;
 	private static ArrayList<Listener> mListeners = new ArrayList<Listener>();
  
@@ -97,7 +100,9 @@ public class EventBus
         		{
         			method.invoke(subscriber, event);
         		}
-        		catch(Exception e) { }
+        		catch(Exception e) {
+        			Log.d(TAG, "Unable to invoke callback: " + e);
+        		}
         	}
 		}
         
