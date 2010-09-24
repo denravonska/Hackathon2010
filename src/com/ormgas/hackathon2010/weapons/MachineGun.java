@@ -11,7 +11,6 @@ public class MachineGun implements IWeapon
 	private final static String TAG = MachineGun.class.getSimpleName();
 	private final static long FIRE_DELAY = 150;
 	private long fireTimer = 0;
-	//private float projectileVelocity = 250.0f;
 	
 	private GameObject parent = null;
 	
@@ -35,7 +34,7 @@ public class MachineGun implements IWeapon
 		final float y = parent.getY() + (parent.getHeight() / 2);
 		final float velocityX = parent.getVelocityX() * 5;
 		final float velocityY = parent.getVelocityY() * 5;
-		EventBus.dispatch(new SpawnBulletEvent(parent.getId(), x, y, velocityX, velocityY));
+		EventBus.dispatch(new SpawnBulletEvent(parent.getId(), x, y, velocityX, velocityY, parent.getRotation()));
 		
 		Sounds.shoot.play();
 		fireTimer = System.currentTimeMillis();
