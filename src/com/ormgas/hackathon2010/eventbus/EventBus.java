@@ -8,22 +8,8 @@ import android.util.Log;
 public class EventBus
 {
 	private final static String TAG = EventBus.class.getSimpleName();
-	//private static EventBus mInstance = null;
 	private static ArrayList<Listener> mListeners = new ArrayList<Listener>();
  
-	//private EventBus()
-	//{ }
-	
-	/*
-	public static EventBus instance()
-	{
-		if(mInstance == null)
-			mInstance = new EventBus();
-		
-		return mInstance;
-	}
-	*/
-	
 	public static void dispatch(Object event)
 	{
 		for(int index = 0; index < mListeners.size(); ++index)
@@ -47,17 +33,17 @@ public class EventBus
 		if(!isRegistered)
 		{
             Method[] methods = subscriber.getClass().getDeclaredMethods();
-            for(Method method : methods)
+            for(int index = 0; index < methods.length; ++index)
             {
-            	EventHandler eh = method.getAnnotation(EventHandler.class);
+            	EventHandler eh = methods[index].getAnnotation(EventHandler.class);
                 if(eh == null)
                 	continue;
 
-                Class<?>[] parameters = method.getParameterTypes();
+                Class<?>[] parameters = methods[index].getParameterTypes();
                 if(parameters.length != 1)
                 	throw new IllegalArgumentException("EventHandler methods must specify a single Object paramter.");
 
-                mListeners.add(new EventBus.Listener(subscriber, method, parameters[0]));
+                mListeners.add(new EventBus.Listener(subscriber, methods[index], parameters[0]));
             }
 		}
 		
