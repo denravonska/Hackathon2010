@@ -8,7 +8,7 @@ import org.anddev.andengine.input.touch.TouchEvent;
 
 import android.util.Log;
 
-import com.ormgas.hackathon2010.eventbus.GameObjectSpawnedEvent;
+import com.ormgas.hackathon2010.eventbus.EntitySpawnedEvent;
 import com.ormgas.hackathon2010.eventbus.EventBus;
 import com.ormgas.hackathon2010.eventbus.SpawnBulletEvent;
 import com.ormgas.hackathon2010.eventbus.SpawnExplosionEvent;
@@ -77,7 +77,7 @@ public class GameScene extends Scene implements IGameEventHandler
 	
 	@EventHandler
 	
-	public void onGameObjectSpawnedEvent(GameObjectSpawnedEvent event) {
+	public void onGameObjectSpawnedEvent(EntitySpawnedEvent event) {
 		this.getTopLayer().addEntity(event.object);		
 	}
 	
@@ -90,6 +90,5 @@ public class GameScene extends Scene implements IGameEventHandler
 		final float shiftY = explosion.getTextureRegion().getHeight();
 		
 		explosion.setPosition(event.x - shiftX, event.y - shiftY);
-		this.getTopLayer().addEntity(explosion);
 	}
 }

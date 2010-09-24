@@ -4,6 +4,8 @@ import org.anddev.andengine.entity.sprite.AnimatedSprite;
 import org.anddev.andengine.entity.sprite.AnimatedSprite.IAnimationListener;
 
 import com.ormgas.hackathon2010.Textures;
+import com.ormgas.hackathon2010.eventbus.EntitySpawnedEvent;
+import com.ormgas.hackathon2010.eventbus.EventBus;
 
 public class ExplosionObject extends AnimatedSprite implements IAnimationListener
 {
@@ -13,6 +15,7 @@ public class ExplosionObject extends AnimatedSprite implements IAnimationListene
 	{
 		super(x, y, Textures.explosion);
 		this.animate(frameDuration, false, this);
+		EventBus.dispatch(new EntitySpawnedEvent(this));
 	}
 
 	@Override
