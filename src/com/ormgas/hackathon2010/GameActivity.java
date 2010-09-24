@@ -63,6 +63,12 @@ public class GameActivity extends BaseGameActivity
 		Textures.load(this);
 		Sounds.load(this);
 	}
+	
+	@Override
+	public void onUnloadResources() {
+		super.onUnloadResources();
+		
+	}
 
 	@Override
 	public Scene onLoadScene() {

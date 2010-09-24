@@ -9,6 +9,7 @@ import com.ormgas.hackathon2010.gameobjects.GameObject;
 public class MachineGun implements IWeapon
 {
 	private final static String TAG = MachineGun.class.getSimpleName();
+	private final SpawnBulletEvent spawnBulletEvent = new SpawnBulletEvent();
 	private final static long FIRE_DELAY = 150;
 	private long fireTimer = 0;
 	
@@ -36,7 +37,8 @@ public class MachineGun implements IWeapon
 		final float velocityY = parent.getVelocityY() * 5;
 		
 		Sounds.shoot.play();
-		EventBus.dispatch(new SpawnBulletEvent(parent.getId(), x, y, velocityX, velocityY, parent.getRotation()));
+		spawnBulletEvent.set(parent.getId(), x, y, velocityX, velocityY, parent.getRotation());
+		EventBus.dispatch(spawnBulletEvent);
 		
 		fireTimer = System.currentTimeMillis();
 	}

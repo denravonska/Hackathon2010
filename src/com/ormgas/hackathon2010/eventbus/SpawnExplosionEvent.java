@@ -2,13 +2,11 @@ package com.ormgas.hackathon2010.eventbus;
 
 public class SpawnExplosionEvent
 {
-	public final float x;
-	public final float y;
+	public float x;
+	public float y;
 	
-	public SpawnExplosionEvent(float x, float y)
-	{
+	public void set(float x, float y) {
 		this.x = x;
 		this.y = y;
 	}
-
 }
