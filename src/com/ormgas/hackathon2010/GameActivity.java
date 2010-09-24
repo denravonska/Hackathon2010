@@ -29,13 +29,7 @@ public class GameActivity extends BaseGameActivity
 	public static final int WORLD_HEIGHT = 480;
 	//private ServerClient client;
 	private BoundCamera camera;
-	
-	static
-	{
-		// Instantiate the EventBus
-		EventBus.instance();
-	}
-    
+	    
 	private final BroadcastReceiver mUpdateUiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {

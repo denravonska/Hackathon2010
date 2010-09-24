@@ -5,12 +5,13 @@ import java.util.ArrayList;
 
 public class EventBus
 {
-	private static EventBus mInstance = null;
-	private ArrayList<Listener> mListeners = new ArrayList<Listener>();
+	//private static EventBus mInstance = null;
+	private static ArrayList<Listener> mListeners = new ArrayList<Listener>();
  
-	private EventBus()
-	{ }
+	//private EventBus()
+	//{ }
 	
+	/*
 	public static EventBus instance()
 	{
 		if(mInstance == null)
@@ -18,14 +19,15 @@ public class EventBus
 		
 		return mInstance;
 	}
+	*/
 	
-	public void dispatch(Object event)
+	public static void dispatch(Object event)
 	{
 		for(int index = 0; index < mListeners.size(); ++index)
 			mListeners.get(index).invoke(event);
 	}
 	
-	public boolean register(Object subscriber)
+	public static boolean register(Object subscriber)
 	{
 		boolean isRegistered = false;
 		
@@ -52,14 +54,14 @@ public class EventBus
                 if(parameters.length != 1)
                 	throw new IllegalArgumentException("EventHandler methods must specify a single Object paramter.");
 
-                mListeners.add(new Listener(subscriber, method, parameters[0]));
+                mListeners.add(new EventBus.Listener(subscriber, method, parameters[0]));
             }
 		}
 		
 		return !isRegistered;
 	}
 	
-	public void unregister(Object subscriber)
+	public static void unregister(Object subscriber)
 	{
 		for(int index = 0; index < mListeners.size(); ++index)
 		{
@@ -69,7 +71,7 @@ public class EventBus
 		}
 	}
 	
-	private class Listener
+	private static class Listener
 	{
 		private final Object subscriber;
         private final Method method;

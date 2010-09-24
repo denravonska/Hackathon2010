@@ -35,7 +35,7 @@ public class MachineGun implements IWeapon
 		final float y = parent.getY() + (parent.getHeight() / 2);
 		final float velocityX = parent.getVelocityX() * 5;
 		final float velocityY = parent.getVelocityY() * 5;
-		EventBus.instance().dispatch(new SpawnBulletEvent(parent.getId(), x, y, velocityX, velocityY));
+		EventBus.dispatch(new SpawnBulletEvent(parent.getId(), x, y, velocityX, velocityY));
 		
 		Sounds.shoot.play();
 		fireTimer = System.currentTimeMillis();
