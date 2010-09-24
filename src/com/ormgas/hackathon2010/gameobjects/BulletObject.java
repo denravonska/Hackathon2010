@@ -3,6 +3,8 @@ package com.ormgas.hackathon2010.gameobjects;
 import com.ormgas.hackathon2010.GameActivity;
 import com.ormgas.hackathon2010.Sounds;
 import com.ormgas.hackathon2010.Textures;
+import com.ormgas.hackathon2010.eventbus.EventBus;
+import com.ormgas.hackathon2010.eventbus.SpawnExplosionEvent;
 
 public class BulletObject extends GameObject {
 
@@ -19,12 +21,8 @@ public class BulletObject extends GameObject {
 		final float y = this.getY();
 		if(x < 0 || x > GameActivity.WORLD_WIDTH ||
 		   y < 0 || y > GameActivity.WORLD_HEIGHT) {
-
-			ExplosionObject explosion = ObjectHandler.obtainItem(ExplosionObject.class);
-			explosion.setPosition(x - (explosion.getWidth() / 2), y - (explosion.getHeight() / 2));
-			explosion.animate(70, false, explosion);
 			Sounds.explosion1.play();
-	
+			EventBus.dispatch(new SpawnExplosionEvent(x, y));
 			ObjectHandler.recyclePoolItem(this);
 		}
 	}

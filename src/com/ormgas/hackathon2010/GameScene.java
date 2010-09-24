@@ -11,9 +11,10 @@ import android.util.Log;
 import com.ormgas.hackathon2010.eventbus.GameObjectSpawnedEvent;
 import com.ormgas.hackathon2010.eventbus.EventBus;
 import com.ormgas.hackathon2010.eventbus.SpawnBulletEvent;
+import com.ormgas.hackathon2010.eventbus.SpawnExplosionEvent;
 import com.ormgas.hackathon2010.gameobjects.Actor;
 import com.ormgas.hackathon2010.gameobjects.BulletObject;
-import com.ormgas.hackathon2010.gameobjects.GameObject;
+import com.ormgas.hackathon2010.gameobjects.ExplosionObject;
 import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
 import com.ormgas.hackathon2010.networking.ServerClient.GameEvent;
 import com.ormgas.hackathon2010.eventbus.EventHandler;
@@ -53,19 +54,7 @@ public class GameScene extends Scene implements IGameEventHandler
 	@Override
 	public boolean onSceneTouchEvent(TouchEvent pSceneTouchEvent)
 	{
-		int action = pSceneTouchEvent.getAction();
-		
-		switch(action)
-		{
-		case TouchEvent.ACTION_DOWN:
-			//player.shooting(true);
-			break;
-			
-		case TouchEvent.ACTION_UP:
-			//player.shooting(false);
-			break;
-		}
-
+		EventBus.dispatch(pSceneTouchEvent);
 		return true;
 	}
 	
@@ -90,5 +79,17 @@ public class GameScene extends Scene implements IGameEventHandler
 	
 	public void onGameObjectSpawnedEvent(GameObjectSpawnedEvent event) {
 		this.getTopLayer().addEntity(event.object);		
+	}
+	
+	@EventHandler
+	public void onSpawnExplosionEvent(SpawnExplosionEvent event)
+	{
+		ExplosionObject explosion = ObjectHandler.obtainItem(ExplosionObject.class);
+		
+		final float shiftX = explosion.getTextureRegion().getWidth();
+		final float shiftY = explosion.getTextureRegion().getHeight();
+		
+		explosion.setPosition(event.x - shiftX, event.y - shiftY);
+		this.getTopLayer().addEntity(explosion);
 	}
 }

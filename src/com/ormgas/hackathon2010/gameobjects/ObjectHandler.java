@@ -1,21 +1,13 @@
 package com.ormgas.hackathon2010.gameobjects;
 
 import org.anddev.andengine.entity.Entity;
-import org.anddev.andengine.entity.scene.Scene;
 
 public class ObjectHandler
 {
 	private static final BulletPool bulletPool = new BulletPool(10);
 	private static final ExplosionPool explosionPool = new ExplosionPool(10);
 	private static final ActorPool actorPool = new ActorPool();
-	
-	public static void setActiveScene(Scene scene)
-	{
-		bulletPool.setScene(scene);
-		explosionPool.setScene(scene);
-		actorPool.setScene(scene);
-	}
-	
+		
 	private static void activateObject(Entity object)
 	{
 		object.setIgnoreUpdate(false);
