@@ -5,8 +5,8 @@ import org.anddev.andengine.entity.scene.Scene;
 
 public class ObjectHandler
 {
-	private static final BulletPool bulletPool = new BulletPool();
-	private static final ExplosionPool explosionPool = new ExplosionPool();
+	private static final BulletPool bulletPool = new BulletPool(10);
+	private static final ExplosionPool explosionPool = new ExplosionPool(10);
 	private static final ActorPool actorPool = new ActorPool();
 	
 	public static void setActiveScene(Scene scene)
@@ -29,7 +29,7 @@ public class ObjectHandler
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static <T> T obtainItem(Class<T> clazz) throws Exception
+	public static <T> T obtainItem(Class<T> clazz)
 	{
 		if(clazz.equals(BulletObject.class))
 		{
@@ -50,10 +50,10 @@ public class ObjectHandler
 			return (T)actor;
 		}
 		
-		throw new Exception("Unknown class");
+		return null;
 	}
 	
-	public static <T> void recyclePoolItem(T object) throws Exception
+	public static <T> void recyclePoolItem(T object)
 	{
 		if(object instanceof BulletObject)
 		{
@@ -69,8 +69,6 @@ public class ObjectHandler
 		{
 			ObjectHandler.deActivateObject((Actor)object);
 			actorPool.recyclePoolItem((Actor)object);
-		} else {		
-			throw new Exception("Unknown class");
 		}
 	}
 	

@@ -7,6 +7,11 @@ public class ExplosionPool extends GenericPool<ExplosionObject>
 {
 	private Scene scene = null;
 
+	public ExplosionPool(int initialSize)
+	{
+		super(initialSize);
+	}
+
 	@Override
 	protected ExplosionObject onAllocatePoolItem()
 	{

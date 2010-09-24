@@ -7,6 +7,11 @@ public class BulletPool extends GenericPool<BulletObject> {
 	
 	private Scene scene = null;
 	
+	public BulletPool(int initialSize)
+	{
+		super(initialSize);
+	}
+
 	@Override
 	protected BulletObject onAllocatePoolItem() {
 		BulletObject bullet = new BulletObject(0, 0, 0, 0, 0);
