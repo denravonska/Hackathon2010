@@ -19,16 +19,13 @@ public class BulletObject extends GameObject {
 		final float y = this.getY();
 		if(x < 0 || x > GameActivity.WORLD_WIDTH ||
 		   y < 0 || y > GameActivity.WORLD_HEIGHT) {
-			try
-			{
-				ExplosionObject explosion = ObjectHandler.obtainItem(ExplosionObject.class);
-				explosion.setPosition(x - (explosion.getWidth() / 2), y - (explosion.getHeight() / 2));
-				explosion.animate(70, false, explosion);
-				Sounds.explosion1.play();
 
-				ObjectHandler.recyclePoolItem(this);
-			}
-			catch(Exception e) { }
+			ExplosionObject explosion = ObjectHandler.obtainItem(ExplosionObject.class);
+			explosion.setPosition(x - (explosion.getWidth() / 2), y - (explosion.getHeight() / 2));
+			explosion.animate(70, false, explosion);
+			Sounds.explosion1.play();
+	
+			ObjectHandler.recyclePoolItem(this);
 		}
 	}
 	

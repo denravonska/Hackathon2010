@@ -74,14 +74,14 @@ public class GameActivity extends BaseGameActivity
 		AccelerometerController controller = new AccelerometerController();
 		this.enableAccelerometerSensor(controller);
 		
+		GameScene scene = new GameScene();
+		ObjectHandler.setActiveScene(scene);
+
 		Actor player = new Actor(0, 80, 150, 0, Textures.plane);
 		player.setVelocity(50.0f, 0);
 		player.attachController(controller);
 		camera.setChaseShape(player);
 		
-		GameScene scene = new GameScene(player);
-		ObjectHandler.setActiveScene(scene);
-
 		return scene;
 	}
 

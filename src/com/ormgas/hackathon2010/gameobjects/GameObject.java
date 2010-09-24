@@ -4,6 +4,8 @@ import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 
 import com.ormgas.hackathon2010.controller.IGameObjectController;
+import com.ormgas.hackathon2010.eventbus.GameObjectSpawnedEvent;
+import com.ormgas.hackathon2010.eventbus.EventBus;
 
 public class GameObject extends Sprite {
 
@@ -13,6 +15,7 @@ public class GameObject extends Sprite {
 	public GameObject(int id, float x, float y, float velocity, float heading, TextureRegion texture)
 	{
 		super(x, y, texture.getWidth(), texture.getHeight(), texture);
+		EventBus.dispatch(new GameObjectSpawnedEvent(this));
 	}
 	
 	public void attachController(IGameObjectController controller) {

@@ -8,10 +8,12 @@ import org.anddev.andengine.input.touch.TouchEvent;
 
 import android.util.Log;
 
+import com.ormgas.hackathon2010.eventbus.GameObjectSpawnedEvent;
 import com.ormgas.hackathon2010.eventbus.EventBus;
 import com.ormgas.hackathon2010.eventbus.SpawnBulletEvent;
 import com.ormgas.hackathon2010.gameobjects.Actor;
 import com.ormgas.hackathon2010.gameobjects.BulletObject;
+import com.ormgas.hackathon2010.gameobjects.GameObject;
 import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
 import com.ormgas.hackathon2010.networking.ServerClient.GameEvent;
 import com.ormgas.hackathon2010.eventbus.EventHandler;
@@ -20,16 +22,12 @@ public class GameScene extends Scene implements IGameEventHandler
 {
 	private final static String TAG = GameScene.class.getSimpleName();
     private ScrollableParallaxBackground background = null;
-    private Actor player = null;
     public RectangularShape worldFloor;
     
-	public GameScene(Actor player)
+	public GameScene()
 	{
 		// One layer, zero-indexed...
 		super(1);
-		
-		this.player = player;
-		this.getLayer(0).addEntity(this.player);
 
 		background = new ScrollableParallaxBackground(0f, 0f, 0f);
 		background.addParallaxEntity(new ParallaxEntity(2.0f, new Sprite(0, GameActivity.WORLD_HEIGHT - (Textures.parallaxLayerSky.getHeight() *2), Textures.parallaxLayerSky.getWidth() *2, Textures.parallaxLayerSky.getHeight() *2, Textures.parallaxLayerSky)));
@@ -48,7 +46,7 @@ public class GameScene extends Scene implements IGameEventHandler
 
 	@Override
 	public void onManagedUpdate(float secondsElapsed) {
-		this.background.setParallaxValue(-this.player.getX() / 10);
+		//this.background.setParallaxValue(-this.player.getX() / 10);
 		super.onManagedUpdate(secondsElapsed);
 	}
 		
@@ -60,11 +58,11 @@ public class GameScene extends Scene implements IGameEventHandler
 		switch(action)
 		{
 		case TouchEvent.ACTION_DOWN:
-			player.shooting(true);
+			//player.shooting(true);
 			break;
 			
 		case TouchEvent.ACTION_UP:
-			player.shooting(false);
+			//player.shooting(false);
 			break;
 		}
 
@@ -80,17 +78,17 @@ public class GameScene extends Scene implements IGameEventHandler
 	
 	@EventHandler
 	public void onSpawnBulletEvent(SpawnBulletEvent event) {
-		try {
-			BulletObject bullet = ObjectHandler.obtainItem(BulletObject.class);
-			bullet.setId(event.id);
-			//bullet.setParentId(event.());
-			bullet.setPosition(event.x, event.y);
-			bullet.setVelocity(event.velX, event.velY);
-			bullet.setRotation(event.rotation);
-			this.getLayer(0).addEntity(bullet);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		BulletObject bullet = ObjectHandler.obtainItem(BulletObject.class);
+		bullet.setId(event.id);
+		//bullet.setParentId(event.());
+		bullet.setPosition(event.x, event.y);
+		bullet.setVelocity(event.velX, event.velY);
+		bullet.setRotation(event.rotation);
+	}
+	
+	@EventHandler
+	
+	public void onGameObjectSpawnedEvent(GameObjectSpawnedEvent event) {
+		this.getTopLayer().addEntity(event.object);		
 	}
 }

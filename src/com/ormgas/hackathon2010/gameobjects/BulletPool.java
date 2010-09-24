@@ -17,6 +17,11 @@ public class BulletPool extends GenericPool<BulletObject> {
 		BulletObject bullet = new BulletObject(0, 0, 0, 0, 0);
 		bullet.setIgnoreUpdate(true);
 		bullet.setVisible(false);
+		
+		if(null != this.scene) {
+			this.scene.getTopLayer().addEntity(bullet);
+		}
+		
 		return bullet;
 	}
 
