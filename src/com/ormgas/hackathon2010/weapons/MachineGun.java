@@ -44,7 +44,7 @@ public class MachineGun implements IWeapon
 		}
 		catch(Exception e)
 		{
-			Log.d(TAG, "Caught exception in doFire()");
+			Log.d(TAG, "Caught exception in doFire(): " + e);
 		}
 		
 		Sounds.shoot.play();
