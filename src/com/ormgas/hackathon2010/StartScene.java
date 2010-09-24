@@ -11,6 +11,7 @@ import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.input.touch.TouchEvent;
 
 import android.content.Intent;
+import android.util.Log;
 
 import com.ormgas.hackathon2010.networking.ServiceManager;
 
@@ -63,16 +64,18 @@ public class StartScene extends Scene implements IOnSceneTouchListener
 	}
 		
 	public class ClientListener implements ServiceListener {
+		private final String TAG = ClientListener.class.getSimpleName();
+
 		public void serviceAdded(ServiceEvent event) {
-			
+			Log.d(TAG, "Service added   : " + event.getName() + "." + event.getType());
 		}
 		
 		public void serviceRemoved(ServiceEvent event) {
-			
+			Log.d(TAG, "Service removed : " + event.getName() + "." + event.getType());
 		}
 		
 		public void serviceResolved(ServiceEvent event) {
-			
+			Log.d(TAG, "Service resolved: " + event.getInfo());
 		}
 	}
 }

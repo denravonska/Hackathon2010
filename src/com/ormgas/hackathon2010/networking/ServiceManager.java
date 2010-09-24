@@ -23,18 +23,4 @@ public class ServiceManager{
 			mJmDNS.close();
 		}
 	}
-
-//	public class ClientListener implements ServiceListener {
-//		public void serviceAdded(ServiceEvent event) {
-//			
-//		}
-//		
-//		public void serviceRemoved(ServiceEvent event) {
-//			
-//		}
-//		
-//		public void serviceResolved(ServiceEvent event) {
-//			
-//		}
-//	}
 }

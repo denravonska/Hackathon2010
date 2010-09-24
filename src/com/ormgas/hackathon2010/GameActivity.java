@@ -2,7 +2,6 @@ package com.ormgas.hackathon2010;
 
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.engine.camera.BoundCamera;
-import org.anddev.andengine.engine.camera.SmoothCamera;
 import org.anddev.andengine.engine.options.EngineOptions;
 import org.anddev.andengine.engine.options.EngineOptions.ScreenOrientation;
 import org.anddev.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
@@ -10,15 +9,13 @@ import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.util.FPSLogger;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 
-import com.ormgas.hackathon2010.controller.AccelerometerController;
-import com.ormgas.hackathon2010.eventbus.EventBus;
-import com.ormgas.hackathon2010.gameobjects.Actor;
-import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+
+import com.ormgas.hackathon2010.controller.AccelerometerController;
+import com.ormgas.hackathon2010.gameobjects.Actor;
 
 public class GameActivity extends BaseGameActivity
 {
