@@ -11,12 +11,14 @@ import android.util.Log;
 
 import com.ormgas.hackathon2010.eventbus.EntitySpawnedEvent;
 import com.ormgas.hackathon2010.eventbus.EventBus;
+import com.ormgas.hackathon2010.eventbus.PlayRelativeSoundEvent;
 import com.ormgas.hackathon2010.eventbus.SpawnBulletEvent;
 import com.ormgas.hackathon2010.eventbus.SpawnExplosionEvent;
 import com.ormgas.hackathon2010.gameobjects.BulletObject;
 import com.ormgas.hackathon2010.gameobjects.ExplosionObject;
 import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
 import com.ormgas.hackathon2010.networking.ServerClient.GameEvent;
+import com.ormgas.hackathon2010.sound.RelativeSound;
 import com.ormgas.hackathon2010.eventbus.EventHandler;
 
 public class GameScene extends Scene implements IGameEventHandler
@@ -25,6 +27,9 @@ public class GameScene extends Scene implements IGameEventHandler
     private Camera camera;
 	private ScrollableParallaxBackground background = null;
     public RectangularShape worldFloor;
+    private final static float WORLD_DISTANCE = 
+		GameActivity.WORLD_WIDTH * GameActivity.WORLD_WIDTH +
+		GameActivity.WORLD_HEIGHT * GameActivity.WORLD_HEIGHT;
     
 	public GameScene(Camera camera)
 	{
@@ -78,6 +83,11 @@ public class GameScene extends Scene implements IGameEventHandler
 	
 	public void onGameObjectSpawnedEvent(EntitySpawnedEvent event) {
 		this.getTopLayer().addEntity(event.object);		
+	}
+	
+	@EventHandler
+	public void onPlayRelativeSoundEvent(PlayRelativeSoundEvent event) {
+		RelativeSound.play(event.sound, event.x, event.y, camera.getCenterX(), camera.getCenterY(), WORLD_DISTANCE);
 	}
 	
 	@EventHandler
