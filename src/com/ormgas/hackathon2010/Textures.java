@@ -27,6 +27,7 @@ public class Textures
 	public static TextureRegion parallaxLayer1FarTrees;
 	public static TextureRegion parallaxLayer2NearTrees;
 	public static TextureRegion parallaxLayer3Ground;
+	public static TextureRegion parallaxLayer3GroundDecoration;
 	
 	
 	public static void load(BaseGameActivity activity)
@@ -47,6 +48,7 @@ public class Textures
         parallaxLayer1FarTrees = TextureRegionFactory.createFromAsset(buildableTexture, activity, "backgroundLayer0.png");
         parallaxLayer2NearTrees = TextureRegionFactory.createFromAsset(buildableTexture, activity, "backgroundLayer1.png");
         parallaxLayer3Ground = TextureRegionFactory.createFromAsset(buildableTexture, activity, "backgroundLayer2.png");
+        parallaxLayer3GroundDecoration = TextureRegionFactory.createFromAsset(buildableTexture, activity, "backgroundLayer2Decoration.png");
 
         try 
         {
