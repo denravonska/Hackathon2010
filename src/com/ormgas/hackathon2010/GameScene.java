@@ -1,9 +1,9 @@
 package com.ormgas.hackathon2010;
 
 import org.anddev.andengine.engine.camera.Camera;
+import org.anddev.andengine.entity.primitive.Rectangle;
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.scene.background.ParallaxBackground.ParallaxEntity;
-import org.anddev.andengine.entity.shape.RectangularShape;
 import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.input.touch.TouchEvent;
 
@@ -28,7 +28,7 @@ public class GameScene extends Scene implements IGameEventHandler
 	private final static String TAG = GameScene.class.getSimpleName();
     private Camera camera;
 	private ScrollableParallaxBackground background = null;
-    public RectangularShape worldFloor;
+    public Rectangle worldFloor;
     private final static float WORLD_DISTANCE = 
 		GameActivity.WORLD_WIDTH * GameActivity.WORLD_WIDTH +
 		GameActivity.WORLD_HEIGHT * GameActivity.WORLD_HEIGHT;
@@ -40,12 +40,12 @@ public class GameScene extends Scene implements IGameEventHandler
 		this.camera = camera;
 
 		background = new ScrollableParallaxBackground(0f, 0f, 0f);
-		background.addParallaxEntity(new ParallaxEntity(1.0f, new Sprite(0, GameActivity.WORLD_HEIGHT - (Textures.parallaxLayerSky.getHeight() *2), Textures.parallaxLayerSky.getWidth() *2, Textures.parallaxLayerSky.getHeight() *2, Textures.parallaxLayerSky)));
-		background.addParallaxEntity(new ParallaxEntity(2.0f, new Sprite(0, GameActivity.WORLD_HEIGHT - (Textures.parallaxLayer0.getHeight() *2), Textures.parallaxLayer0.getWidth() *2, Textures.parallaxLayer0.getHeight() *2, Textures.parallaxLayer0)));
-		background.addParallaxEntity(new ParallaxEntity(4.0f, new Sprite(0, GameActivity.WORLD_HEIGHT - (Textures.parallaxLayer1.getHeight() *2), Textures.parallaxLayer1.getWidth() *2, Textures.parallaxLayer1.getHeight() *2, Textures.parallaxLayer1)));
-		background.addParallaxEntity(new ParallaxEntity(8.0f, new Sprite(0, GameActivity.WORLD_HEIGHT - (Textures.parallaxLayer2.getHeight() *2), Textures.parallaxLayer2.getWidth() *2, Textures.parallaxLayer2.getHeight() *2, Textures.parallaxLayer2)));
+		background.addParallaxEntity(new ParallaxEntity(0.0f, new Sprite(0, GameActivity.WORLD_HEIGHT - (Textures.parallaxLayer0Sky.getHeight() *2), Textures.parallaxLayer0Sky.getWidth() *2, Textures.parallaxLayer0Sky.getHeight() *2, Textures.parallaxLayer0Sky)));
+		background.addParallaxEntity(new ParallaxEntity(2.0f, new Sprite(0, GameActivity.WORLD_HEIGHT - (Textures.parallaxLayer1FarTrees.getHeight() *2), Textures.parallaxLayer1FarTrees.getWidth() *2, Textures.parallaxLayer1FarTrees.getHeight() *2, Textures.parallaxLayer1FarTrees)));
+		background.addParallaxEntity(new ParallaxEntity(4.0f, new Sprite(0, GameActivity.WORLD_HEIGHT - (Textures.parallaxLayer2NearTrees.getHeight() *2), Textures.parallaxLayer2NearTrees.getWidth() *2, Textures.parallaxLayer2NearTrees.getHeight() *2, Textures.parallaxLayer2NearTrees)));
+		background.addParallaxEntity(new ParallaxEntity(8.0f, new Sprite(0, GameActivity.WORLD_HEIGHT - (Textures.parallaxLayer3Ground.getHeight() *2), Textures.parallaxLayer3Ground.getWidth() *2, Textures.parallaxLayer3Ground.getHeight() *2, Textures.parallaxLayer3Ground)));
 
-	//	worldFloor = new RectangularShape();
+		//worldFloor = new Rectangle(0, Textures.p);
 		
 		setBackground(background);
 		

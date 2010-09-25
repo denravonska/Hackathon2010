@@ -54,7 +54,7 @@ public class StartScene extends Scene implements IOnSceneTouchListener
 		this.registerTouchArea(optionsLabel);
 		
 		mServiceManager = new ServiceManager();
-		mServiceManager.start(new ClientListener());
+		//mServiceManager.start(new ClientListener());
 	}
 
 	@Override

@@ -23,10 +23,10 @@ public class Textures
 	public static TextureRegion plane;
 	public static TiledTextureRegion explosion;
 
-	public static TextureRegion parallaxLayerSky;
-	public static TextureRegion parallaxLayer0;
-	public static TextureRegion parallaxLayer1;
-	public static TextureRegion parallaxLayer2;
+	public static TextureRegion parallaxLayer0Sky;
+	public static TextureRegion parallaxLayer1FarTrees;
+	public static TextureRegion parallaxLayer2NearTrees;
+	public static TextureRegion parallaxLayer3Ground;
 	
 	
 	public static void load(BaseGameActivity activity)
@@ -43,10 +43,10 @@ public class Textures
 		plane = TextureRegionFactory.createFromAsset(buildableTexture, activity, "plane.png");
         explosion = TextureRegionFactory.createTiledFromAsset(buildableTexture, activity, "explosion.png", 1, 7);
 
-        parallaxLayerSky = TextureRegionFactory.createFromAsset(buildableTexture, activity, "backgroundLayerSky.png");
-        parallaxLayer0 = TextureRegionFactory.createFromAsset(buildableTexture, activity, "backgroundLayer0.png");
-        parallaxLayer1 = TextureRegionFactory.createFromAsset(buildableTexture, activity, "backgroundLayer1.png");
-        parallaxLayer2 = TextureRegionFactory.createFromAsset(buildableTexture, activity, "backgroundLayer2.png");
+        parallaxLayer0Sky = TextureRegionFactory.createFromAsset(buildableTexture, activity, "backgroundLayerSky.png");
+        parallaxLayer1FarTrees = TextureRegionFactory.createFromAsset(buildableTexture, activity, "backgroundLayer0.png");
+        parallaxLayer2NearTrees = TextureRegionFactory.createFromAsset(buildableTexture, activity, "backgroundLayer1.png");
+        parallaxLayer3Ground = TextureRegionFactory.createFromAsset(buildableTexture, activity, "backgroundLayer2.png");
 
         try 
         {
