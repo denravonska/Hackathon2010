@@ -9,6 +9,8 @@ import org.anddev.andengine.util.modifier.IModifier;
 
 import com.ormgas.hackathon2010.GameActivity;
 import com.ormgas.hackathon2010.controller.IGameObjectController;
+import com.ormgas.hackathon2010.eventbus.EventBus;
+import com.ormgas.hackathon2010.eventbus.SpawnExplosionEvent;
 import com.ormgas.hackathon2010.weapons.MachineGun;
 
 public class Actor extends AirplaneObject {
@@ -50,7 +52,7 @@ public class Actor extends AirplaneObject {
 		if(x <= 0 || x + this.getWidth() >= GameActivity.WORLD_WIDTH) {
 			newRotation = 
 				90 - MathUtils.radToDeg((float) Math.atan2(-this.getVelocityX(), this.getVelocityY()));
-		} else if (y <= 0 || y + this.getHeight() >= GameActivity.WORLD_HEIGHT) {
+		} else if (y <= 0) {
 			newRotation = 
 				90 - MathUtils.radToDeg((float) Math.atan2(this.getVelocityX(), -this.getVelocityY()));
 		}
@@ -91,6 +93,17 @@ public class Actor extends AirplaneObject {
 	
 	public void shooting(boolean shoot) {
 		isShooting = shoot;
+	}
+	
+	public void explode() {
+		this.setVisible(false);
+		this.setIgnoreUpdate(true);
+		
+		SpawnExplosionEvent event = new SpawnExplosionEvent();
+		event.set(
+				this.getX() + this.getWidth() / 2,
+				this.getY() + this.getHeight() / 2);
+		EventBus.dispatch(event);
 	}
 	
 }

@@ -1,8 +1,12 @@
 package com.ormgas.hackathon2010;
 
 import org.anddev.andengine.engine.camera.Camera;
+import org.anddev.andengine.engine.handler.collision.CollisionHandler;
+import org.anddev.andengine.engine.handler.collision.ICollisionCallback;
+import org.anddev.andengine.entity.primitive.Rectangle;
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.scene.background.ParallaxBackground.ParallaxEntity;
+import org.anddev.andengine.entity.shape.IShape;
 import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.input.touch.TouchEvent;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
@@ -117,6 +121,14 @@ public class GameScene extends Scene implements IGameEventHandler
 		actor.attachController(event.controller);
 		if(true == event.isLocalActor) {
 			this.camera.setChaseShape(actor);
+			
+			this.registerUpdateHandler(new CollisionHandler(new ICollisionCallback() {
+
+				@Override
+				public boolean onCollision(IShape actor, IShape ground) {
+					((Actor) actor).explode();
+					return true;
+				}}, actor, this.worldFloor));
 		}
 	}
 }
