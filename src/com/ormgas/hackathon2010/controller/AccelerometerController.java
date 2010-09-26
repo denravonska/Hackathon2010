@@ -24,7 +24,7 @@ public class AccelerometerController implements IGameObjectController, IAccelero
     		float rotation = 90 - MathUtils.radToDeg((float) Math.atan2(data.getX(), data.getY()));
     		rotation = Math.min(rotation, 45f);
     		rotation = Math.max(rotation, -45f);
-    		actor.setAngularVelocity(rotation * 2);
+    		actor.setAngularVelocity(rotation * 3);
         }
 	}
 
