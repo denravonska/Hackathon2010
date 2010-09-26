@@ -11,6 +11,7 @@ import org.anddev.andengine.engine.options.resolutionpolicy.RatioResolutionPolic
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.text.ChangeableText;
 import org.anddev.andengine.entity.util.FPSLogger;
+import org.anddev.andengine.extension.multiplayer.protocol.util.IPUtils;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 
 import android.content.BroadcastReceiver;
@@ -24,6 +25,10 @@ import com.ormgas.hackathon2010.assets.Textures;
 import com.ormgas.hackathon2010.controller.AccelerometerController;
 import com.ormgas.hackathon2010.eventbus.EventBus;
 import com.ormgas.hackathon2010.eventbus.SpawnActorEvent;
+import com.ormgas.hackathon2010.networking.ClientProxy;
+import com.ormgas.hackathon2010.networking.ClientServerProxy;
+import com.ormgas.hackathon2010.networking.INetworkProxy;
+import com.ormgas.hackathon2010.networking.ServerProxy;
 
 public class GameActivity extends BaseGameActivity
 {
@@ -34,7 +39,13 @@ public class GameActivity extends BaseGameActivity
 	public static final int WORLD_HEIGHT = 480;
 	//private ServerClient client;
 	private BoundCamera camera;
-
+	
+	public static String thisIP = null;
+	//public static INetworkProxy networkProxy = null;
+	
+	public static INetworkProxy serverProxy = null;
+	public static INetworkProxy clientProxy = null;
+	    
 	private final BroadcastReceiver mUpdateUiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -100,7 +111,23 @@ public class GameActivity extends BaseGameActivity
 
 	@Override
 	public void onLoadComplete() {
-		// TODO Auto-generated method stub
 		
+		thisIP = IPUtils.getIPAddress(this);
+		Log.d(TAG, thisIP);
+		
+		//networkProxy = new ClientServerProxy();
+		//networkProxy = new ServerProxy();
+		//networkProxy = new ClientProxy(thisIP);
+		
+		serverProxy = new ServerProxy();
+
+		try
+		{
+			Thread.sleep(1500);
+		}
+		catch(Exception e) {}
+		
+		
+		clientProxy = new ClientProxy(thisIP);
 	}
 }

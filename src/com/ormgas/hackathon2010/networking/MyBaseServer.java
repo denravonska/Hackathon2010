@@ -12,69 +12,74 @@ import org.anddev.andengine.extension.multiplayer.protocol.server.ClientConnecto
 import org.anddev.andengine.extension.multiplayer.protocol.server.ClientMessageExtractor;
 import org.anddev.andengine.extension.multiplayer.protocol.shared.BaseConnector;
 
+import com.ormgas.hackathon2010.networking.messages.ClientTestMessage;
+import com.ormgas.hackathon2010.networking.messages.ServerTestMessage;
+
 import android.util.Log;
 
 
 public class MyBaseServer extends BaseServer<ClientConnector>
 {
+	private final static String TAG = MyBaseServer.class.getSimpleName();
+	
 	public MyBaseServer(int SERVER_PORT)
 	{
-		super(SERVER_PORT, new ExampleClientConnectionListener(), new ExampleServerStateListener());
+		super(SERVER_PORT, new MyClientConnectionListener());
 	}
 
 	@Override
-	protected ClientConnector newClientConnector(final Socket pClientSocket, final BaseClientConnectionListener pClientConnectionListener) throws Exception {
+	protected ClientConnector newClientConnector(final Socket pClientSocket, final BaseClientConnectionListener pClientConnectionListener) throws Exception
+	{
 		return new ClientConnector(pClientSocket, pClientConnectionListener,
-				new ClientMessageExtractor(){
-			@Override
-			public BaseClientMessage readMessage(final short pFlag, final DataInputStream pDataInputStream) throws IOException {
-				return super.readMessage(pFlag, pDataInputStream);
-			}
-		},
-		new BaseClientMessageSwitch() {
-			@Override
-			public void doSwitch(final ClientConnector pClientConnector, final BaseClientMessage pClientMessage) throws IOException {
-				super.doSwitch(pClientConnector, pClientMessage);
-				Log.d("SERVER", "ClientMessage received: " + pClientMessage.toString());
-			}
-		}
+				new ClientMessageExtractor()
+				{
+					@Override
+					public BaseClientMessage readMessage(final short pFlag, final DataInputStream pDataInputStream) throws IOException
+					{
+						Log.d(TAG, "Read a client message");
+						
+						switch(pFlag)
+						{
+						case ClientTestMessage.FLAG_MESSAGE_CLIENT_TEST:
+							return new ClientTestMessage(pDataInputStream);
+						default:
+							return super.readMessage(pFlag, pDataInputStream);
+						}
+					}
+				},
+				new BaseClientMessageSwitch()
+				{
+					@Override
+					public void doSwitch(final ClientConnector pClientConnector, final BaseClientMessage pClientMessage) throws IOException
+					{
+						super.doSwitch(pClientConnector, pClientMessage);
+						Log.d(TAG, "ClientMessage received: " + pClientMessage.toString());
+						
+						// If you are the server, receive everything here
+					}
+				}
 		);
 	}
 	
-	public static class ExampleClientConnectionListener extends BaseClientConnectionListener
+	public static class MyClientConnectionListener extends BaseClientConnectionListener
 	{
+		private final static String TAG = MyClientConnectionListener.class.getSimpleName();
+		
 		@Override
 		protected void onConnectInner(final BaseConnector<BaseClientMessage> pConnector)
 		{
-			Log.d("SERVER", "Client connected: " + pConnector.getSocket().getInetAddress().getHostAddress());
+			Log.d(TAG, "Client connected: " + pConnector.getSocket().getInetAddress().getHostAddress());
+			
+			// Create an Actor with a ClientController here
 		}
 
 		@Override
 		protected void onDisconnectInner(final BaseConnector<BaseClientMessage> pConnector)
 		{
-			Log.d("SERVER", "Client disconnected: " + pConnector.getSocket().getInetAddress().getHostAddress());
+			Log.d(TAG, "Client disconnected: " + pConnector.getSocket().getInetAddress().getHostAddress());
+			
+			// Kill the previous created Actor...
 		}
 	}
 		
-	private static class ExampleServerStateListener implements IServerStateListener
-	{
-		@Override
-		public void onStarted(final int pPort)
-		{
-			Log.d("SERVER", "Started at port: " + pPort);
-		}
-
-		@Override
-		public void onTerminated(final int pPort)
-		{
-			Log.d("SERVER", "Terminated at port: " + pPort);
-		}
-
-		@Override
-		public void onException(final Throwable pThrowable)
-		{
-			Log.d("SERVER", "Exception: " + pThrowable);
-		}
-	}
-
 }

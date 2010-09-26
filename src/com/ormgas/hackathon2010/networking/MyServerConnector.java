@@ -13,7 +13,7 @@ import org.anddev.andengine.extension.multiplayer.protocol.client.ServerConnecto
 import org.anddev.andengine.extension.multiplayer.protocol.client.ServerMessageExtractor;
 import org.anddev.andengine.extension.multiplayer.protocol.shared.BaseConnector;
 
-import com.ormgas.hackathon2010.networking.servermessages.TestMessage;
+import com.ormgas.hackathon2010.networking.messages.ServerTestMessage;
 
 import android.util.Log;
 
@@ -21,33 +21,39 @@ public class MyServerConnector extends ServerConnector
 {
 	public MyServerConnector(Socket pSocket) throws IOException
 	{
-		super(pSocket, new ExampleServerConnectionListener(), new MyServerMessageExtractor(), new MyMessageSwitch());
+		super(pSocket, new MyServerConnectionListener(), new MyServerMessageExtractor(), new MyMessageSwitch());
 	}
 
-	public static class ExampleServerConnectionListener extends BaseServerConnectionListener
+	public static class MyServerConnectionListener extends BaseServerConnectionListener
 	{
+		private final static String TAG = MyServerConnectionListener.class.getSimpleName();
+		
 		@Override
 		protected void onConnectInner(final BaseConnector<BaseServerMessage> pConnector)
 		{
-			Log.d("CLIENT", "Connected to server.");
+			Log.d(TAG, "Connected to server.");
 		}
 
 		@Override
 		protected void onDisconnectInner(final BaseConnector<BaseServerMessage> pConnector)
 		{
-			Log.d("CLIENT", "Disconnected from Server...");
+			Log.d(TAG, "Disconnected from Server...");
 		}
 	}
 
 	private static class MyServerMessageExtractor extends ServerMessageExtractor
 	{
+		private final static String TAG = MyServerMessageExtractor.class.getSimpleName();
+		
 		@Override
 		public BaseServerMessage readMessage(final short pFlag, final DataInputStream pDataInputStream) throws IOException
 		{
+			Log.d(TAG, "Read a server message");
+			
 			switch(pFlag)
 			{
-			case TestMessage.FLAG_MESSAGE_SERVER_ADD_FACE:
-				return new TestMessage(pDataInputStream);
+			case ServerTestMessage.FLAG_MESSAGE_SERVER_TEST:
+				return new ServerTestMessage(pDataInputStream);
 			default:
 				return super.readMessage(pFlag, pDataInputStream);
 			}
@@ -56,13 +62,17 @@ public class MyServerConnector extends ServerConnector
 
 	private static class MyMessageSwitch extends BaseServerMessageSwitch
 	{
+		private final static String TAG = MyMessageSwitch.class.getSimpleName();
+		
 		@Override
 		public void doSwitch(final ServerConnector pServerConnector, final BaseServerMessage pServerMessage) throws IOException
 		{
 			switch(pServerMessage.getFlag())
 			{
-			case TestMessage.FLAG_MESSAGE_SERVER_ADD_FACE:
-				final TestMessage spawnAirplaneMessage = (TestMessage)pServerMessage;
+			case ServerTestMessage.FLAG_MESSAGE_SERVER_TEST:
+				final ServerTestMessage spawnAirplaneMessage = (ServerTestMessage)pServerMessage;
+				Log.d(TAG, spawnAirplaneMessage.mX + " - " + spawnAirplaneMessage.mY);
+				
 				// Do something clever with the message here.
 				break;
 			default:
@@ -73,13 +83,13 @@ public class MyServerConnector extends ServerConnector
 		@Override
 		protected void onHandleConnectionAcceptedServerMessage(final ServerConnector pServerConnector, final ConnectionAcceptedServerMessage pServerMessage)
 		{
-			Log.d("CLIENT", "Connection accepted.");
+			Log.d(TAG, "Connection accepted.");
 		}
 
 		@Override
 		protected void onHandleConnectionRefusedServerMessage(final ServerConnector pServerConnector, final ConnectionRefusedServerMessage pServerMessage)
 		{
-			Log.d("CLIENT", "Connection refused.");
+			Log.d(TAG, "Connection refused.");
 		}
 	}
 	

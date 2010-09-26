@@ -1,4 +1,4 @@
-package com.ormgas.hackathon2010.networking.servermessages;
+package com.ormgas.hackathon2010.networking.messages;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -6,20 +6,20 @@ import java.io.IOException;
 
 import org.anddev.andengine.extension.multiplayer.protocol.adt.message.server.BaseServerMessage;
 
-public class TestMessage extends BaseServerMessage
+public class ServerTestMessage extends BaseServerMessage
 {
-	public static final short FLAG_MESSAGE_SERVER_ADD_FACE = 1;
+	public static final short FLAG_MESSAGE_SERVER_TEST = 1;
 	
 	public final float mX;
 	public final float mY;
 
-	public TestMessage(final float pX, final float pY)
+	public ServerTestMessage(final float pX, final float pY)
 	{
 		this.mX = pX;
 		this.mY = pY;
 	}
 
-	public TestMessage(final DataInputStream pDataInputStream) throws IOException
+	public ServerTestMessage(final DataInputStream pDataInputStream) throws IOException
 	{
 		this.mX = pDataInputStream.readFloat();
 		this.mY = pDataInputStream.readFloat();
@@ -28,7 +28,7 @@ public class TestMessage extends BaseServerMessage
 	@Override
 	public short getFlag()
 	{
-		return FLAG_MESSAGE_SERVER_ADD_FACE;
+		return FLAG_MESSAGE_SERVER_TEST;
 	}
 
 	@Override

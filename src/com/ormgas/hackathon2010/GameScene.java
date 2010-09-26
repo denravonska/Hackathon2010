@@ -25,6 +25,8 @@ import com.ormgas.hackathon2010.gameobjects.BulletObject;
 import com.ormgas.hackathon2010.gameobjects.ExplosionObject;
 import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
 import com.ormgas.hackathon2010.networking.ServerClient.GameEvent;
+import com.ormgas.hackathon2010.networking.messages.ClientTestMessage;
+import com.ormgas.hackathon2010.networking.messages.ServerTestMessage;
 import com.ormgas.hackathon2010.sound.RelativeSound;
 import com.ormgas.hackathon2010.eventbus.EventHandler;
 
@@ -75,6 +77,14 @@ public class GameScene extends Scene implements IGameEventHandler
 	public boolean onSceneTouchEvent(TouchEvent pSceneTouchEvent)
 	{
 		EventBus.dispatch(pSceneTouchEvent);
+		
+		//GameActivity.networkProxy.send(new TestMessage(pSceneTouchEvent.getX(), pSceneTouchEvent.getY()));
+		
+		if(pSceneTouchEvent.getX() < 200)
+			GameActivity.serverProxy.send(new ServerTestMessage(pSceneTouchEvent.getX(), pSceneTouchEvent.getY()));
+		else
+			GameActivity.clientProxy.send(new ClientTestMessage(pSceneTouchEvent.getX(), pSceneTouchEvent.getY()));
+		
 		return true;
 	}
 	
