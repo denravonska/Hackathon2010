@@ -23,7 +23,7 @@ public class Actor extends AirplaneObject {
 	public Actor(int id, float x, float y, float heading, TextureRegion texture) {
 		super(id, x, y, heading, texture);
 		isFlying = true;
-		this.setVelocity(BASE_VELOCITY, 0f);
+		//this.setVelocity(BASE_VELOCITY, 0f);
 		this.setWeapon(new MachineGun(this));		
 	}
 	
@@ -39,6 +39,11 @@ public class Actor extends AirplaneObject {
 		
 		if(isShooting)
 			weapon.fire();
+	}
+	
+	public void takeOff() {
+		this.accelerate(BASE_VELOCITY / 10f, 0f);
+		//this.addShapeModifier(new Rotation)
 	}
 	
 	@Override

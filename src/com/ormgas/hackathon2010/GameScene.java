@@ -13,6 +13,7 @@ import org.anddev.andengine.opengl.texture.region.TextureRegion;
 
 import android.util.Log;
 
+import com.ormgas.hackathon2010.assets.Textures;
 import com.ormgas.hackathon2010.eventbus.EntitySpawnedEvent;
 import com.ormgas.hackathon2010.eventbus.EventBus;
 import com.ormgas.hackathon2010.eventbus.PlayRelativeSoundEvent;

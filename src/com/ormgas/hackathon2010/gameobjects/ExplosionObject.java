@@ -3,7 +3,7 @@ package com.ormgas.hackathon2010.gameobjects;
 import org.anddev.andengine.entity.sprite.AnimatedSprite;
 import org.anddev.andengine.entity.sprite.AnimatedSprite.IAnimationListener;
 
-import com.ormgas.hackathon2010.Textures;
+import com.ormgas.hackathon2010.assets.Textures;
 import com.ormgas.hackathon2010.eventbus.EntitySpawnedEvent;
 import com.ormgas.hackathon2010.eventbus.EventBus;
 

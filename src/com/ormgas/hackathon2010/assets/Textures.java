@@ -1,6 +1,8 @@
-package com.ormgas.hackathon2010;
+package com.ormgas.hackathon2010.assets;
 
+import org.anddev.andengine.opengl.font.Font;
 import org.anddev.andengine.opengl.texture.BuildableTexture;
+import org.anddev.andengine.opengl.texture.Texture;
 import org.anddev.andengine.opengl.texture.TextureOptions;
 import org.anddev.andengine.opengl.texture.builder.BlackPawnTextureBuilder;
 import org.anddev.andengine.opengl.texture.builder.ITextureBuilder.TextureSourcePackingException;
@@ -9,6 +11,8 @@ import org.anddev.andengine.opengl.texture.region.TextureRegionFactory;
 import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.util.Log;
 
 public class Textures
@@ -28,7 +32,6 @@ public class Textures
 	public static TextureRegion parallaxLayer2NearTrees;
 	public static TextureRegion parallaxLayer3Ground;
 	public static TextureRegion parallaxLayer3GroundDecoration;
-	
 	
 	public static void load(BaseGameActivity activity)
 	{

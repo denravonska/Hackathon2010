@@ -3,8 +3,8 @@ package com.ormgas.hackathon2010.Modifiers;
 import org.anddev.andengine.entity.shape.IShape;
 import org.anddev.andengine.entity.shape.modifier.IShapeModifier;
 
-import com.ormgas.hackathon2010.Sounds;
-import com.ormgas.hackathon2010.Textures;
+import com.ormgas.hackathon2010.assets.Sounds;
+import com.ormgas.hackathon2010.assets.Textures;
 import com.ormgas.hackathon2010.gameobjects.BulletObject;
 
 /*public class ExplosionModifier implements IShapeModifier {

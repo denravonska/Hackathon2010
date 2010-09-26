@@ -1,8 +1,8 @@
 package com.ormgas.hackathon2010.gameobjects;
 
 import com.ormgas.hackathon2010.GameActivity;
-import com.ormgas.hackathon2010.Sounds;
-import com.ormgas.hackathon2010.Textures;
+import com.ormgas.hackathon2010.assets.Sounds;
+import com.ormgas.hackathon2010.assets.Textures;
 import com.ormgas.hackathon2010.eventbus.EventBus;
 import com.ormgas.hackathon2010.eventbus.PlayRelativeSoundEvent;
 import com.ormgas.hackathon2010.eventbus.SpawnExplosionEvent;

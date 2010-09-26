@@ -1,4 +1,4 @@
-package com.ormgas.hackathon2010;
+package com.ormgas.hackathon2010.assets;
 
 import java.io.IOException;
 

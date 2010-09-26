@@ -2,7 +2,7 @@ package com.ormgas.hackathon2010.gameobjects;
 
 import org.anddev.andengine.util.pool.GenericPool;
 
-import com.ormgas.hackathon2010.Textures;
+import com.ormgas.hackathon2010.assets.Textures;
 
 public class ActorPool extends GenericPool<Actor>
 {

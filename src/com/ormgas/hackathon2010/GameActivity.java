@@ -2,10 +2,14 @@ package com.ormgas.hackathon2010;
 
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.engine.camera.BoundCamera;
+import org.anddev.andengine.engine.camera.hud.HUD;
+import org.anddev.andengine.engine.handler.timer.ITimerCallback;
+import org.anddev.andengine.engine.handler.timer.TimerHandler;
 import org.anddev.andengine.engine.options.EngineOptions;
 import org.anddev.andengine.engine.options.EngineOptions.ScreenOrientation;
 import org.anddev.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.anddev.andengine.entity.scene.Scene;
+import org.anddev.andengine.entity.text.ChangeableText;
 import org.anddev.andengine.entity.util.FPSLogger;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 
@@ -14,10 +18,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.ormgas.hackathon2010.assets.Fonts;
+import com.ormgas.hackathon2010.assets.Sounds;
+import com.ormgas.hackathon2010.assets.Textures;
 import com.ormgas.hackathon2010.controller.AccelerometerController;
 import com.ormgas.hackathon2010.eventbus.EventBus;
 import com.ormgas.hackathon2010.eventbus.SpawnActorEvent;
-import com.ormgas.hackathon2010.gameobjects.Actor;
 
 public class GameActivity extends BaseGameActivity
 {
@@ -28,7 +34,7 @@ public class GameActivity extends BaseGameActivity
 	public static final int WORLD_HEIGHT = 480;
 	//private ServerClient client;
 	private BoundCamera camera;
-	    
+
 	private final BroadcastReceiver mUpdateUiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -50,6 +56,8 @@ public class GameActivity extends BaseGameActivity
 		this.camera = new BoundCamera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
 		this.camera.setBounds(0, WORLD_WIDTH, 0, WORLD_HEIGHT);
 		this.camera.setBoundsEnabled(true);
+		this.camera.setHUD(new HUD());
+		
 		EngineOptions options = new EngineOptions(
 				true, // Fullscreen
 				ScreenOrientation.LANDSCAPE,
@@ -64,17 +72,28 @@ public class GameActivity extends BaseGameActivity
 	public void onLoadResources() {
 		Textures.load(this);
 		Sounds.load(this);
+		Fonts.load(this);
 	}
 
 	@Override
 	public Scene onLoadScene() {
-		this.mEngine.registerUpdateHandler(new FPSLogger());
+		final FPSLogger fpsLogger = new FPSLogger();
+		this.mEngine.registerUpdateHandler(fpsLogger);
 		
 		GameScene scene = new GameScene(this.camera);
 
 		AccelerometerController controller = new AccelerometerController();
 		this.enableAccelerometerSensor(controller);
 		EventBus.dispatch(new SpawnActorEvent(controller, true /* isLocalActor */));
+
+		final ChangeableText fpsText = new ChangeableText(5, 5, Fonts.gameFont16p, "FPS:", "FPS: XXXXX".length());
+		this.camera.getHUD().getTopLayer().addEntity(fpsText);
+        scene.registerUpdateHandler(new TimerHandler(1 / 20.0f, true, new ITimerCallback() {
+            @Override
+            public void onTimePassed(final TimerHandler pTimerHandler) {
+                    fpsText.setText("FPS: " + fpsLogger.getFPS());
+            }
+        }));
 		
 		return scene;
 	}

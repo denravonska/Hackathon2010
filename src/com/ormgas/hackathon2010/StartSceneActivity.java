@@ -8,6 +8,9 @@ import org.anddev.andengine.engine.options.resolutionpolicy.RatioResolutionPolic
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 
+import com.ormgas.hackathon2010.assets.Sounds;
+import com.ormgas.hackathon2010.assets.Textures;
+
 public class StartSceneActivity extends BaseGameActivity
 {
 	private static final int CAMERA_WIDTH = 800;

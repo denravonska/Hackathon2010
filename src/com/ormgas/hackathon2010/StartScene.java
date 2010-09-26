@@ -13,6 +13,8 @@ import org.anddev.andengine.input.touch.TouchEvent;
 import android.content.Intent;
 import android.util.Log;
 
+import com.ormgas.hackathon2010.assets.Sounds;
+import com.ormgas.hackathon2010.assets.Textures;
 import com.ormgas.hackathon2010.networking.ServiceManager;
 
 public class StartScene extends Scene implements IOnSceneTouchListener

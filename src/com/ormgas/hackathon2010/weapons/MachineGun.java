@@ -1,7 +1,7 @@
 package com.ormgas.hackathon2010.weapons;
 
 
-import com.ormgas.hackathon2010.Sounds;
+import com.ormgas.hackathon2010.assets.Sounds;
 import com.ormgas.hackathon2010.eventbus.EventBus;
 import com.ormgas.hackathon2010.eventbus.SpawnBulletEvent;
 import com.ormgas.hackathon2010.gameobjects.GameObject;
