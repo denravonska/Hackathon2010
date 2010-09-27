@@ -28,7 +28,6 @@ public class RelativeSound {
 		// Boost distance to get faster cutoff
 		float volume = (worldDistance - sqdist * 3) * (1f / worldDistance);
 		if(volume > 0) {
-			Log.d(TAG, "Playing at volume " + volume);
 			sound.setVolume(
 					distanceX >= 0 ? volume : volume * 0.75f,
 					distanceX <= 0 ? volume : volume * 0.75f);
