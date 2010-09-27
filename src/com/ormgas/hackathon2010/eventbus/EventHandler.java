@@ -10,5 +10,5 @@ import java.lang.annotation.Target;
 
 public @interface EventHandler
 {
-        //boolean canVeto() default false;
+	//boolean canVeto() default false;
 }

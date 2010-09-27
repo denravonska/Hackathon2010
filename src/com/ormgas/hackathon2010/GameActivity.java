@@ -17,9 +17,6 @@ import org.anddev.andengine.entity.util.FPSLogger;
 import org.anddev.andengine.extension.multiplayer.protocol.util.IPUtils;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 
 import com.ormgas.hackathon2010.assets.Fonts;
@@ -28,9 +25,7 @@ import com.ormgas.hackathon2010.assets.Textures;
 import com.ormgas.hackathon2010.controller.AccelerometerController;
 import com.ormgas.hackathon2010.eventbus.EventBus;
 import com.ormgas.hackathon2010.eventbus.SpawnActorEvent;
-import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
 import com.ormgas.hackathon2010.networking.ClientProxy;
-import com.ormgas.hackathon2010.networking.ClientServerProxy;
 import com.ormgas.hackathon2010.networking.INetworkProxy;
 import com.ormgas.hackathon2010.networking.ServerProxy;
 
@@ -41,31 +36,13 @@ public class GameActivity extends BaseGameActivity
 	private static final int CAMERA_HEIGHT = 240;
 	public static final int WORLD_WIDTH = 800;
 	public static final int WORLD_HEIGHT = 480;
-	//private ServerClient client;
+
 	private BoundCamera camera;
 	
 	public static String thisIP = null;
-	//public static INetworkProxy networkProxy = null;
-	
 	public static INetworkProxy serverProxy = null;
 	public static INetworkProxy clientProxy = null;
-	    
-	private final BroadcastReceiver mUpdateUiReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            //GameEvent event = intent.getParcelableExtra(ServerClient.EVENT_EXTRA);
-           // final GameEvent event = intent.getParcelableExtra(ServerClient.EVENT_EXTRA);
-            
-            
-            Log.d(TAG, "got event");
-           /* Scene scene = sceneHandler.getCurrentScene();
-            if(scene instanceof IGameEventHandler) {
-            	((IGameEventHandler) scene).onGameEventReceived(event);
-            }*/
-            // TODO: handle onEvent...
-        }
-    };
-
+	
 	@Override
 	public Engine onLoadEngine() {
 		this.camera = new BoundCamera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
@@ -118,10 +95,6 @@ public class GameActivity extends BaseGameActivity
 		
 		thisIP = IPUtils.getIPAddress(this);
 		Log.d(TAG, thisIP);
-		
-		//networkProxy = new ClientServerProxy();
-		//networkProxy = new ServerProxy();
-		//networkProxy = new ClientProxy(thisIP);
 		
 		serverProxy = new ServerProxy();
 		new Timer().schedule(new TimerTask() {

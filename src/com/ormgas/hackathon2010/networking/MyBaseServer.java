@@ -13,7 +13,6 @@ import org.anddev.andengine.extension.multiplayer.protocol.server.ClientMessageE
 import org.anddev.andengine.extension.multiplayer.protocol.shared.BaseConnector;
 
 import com.ormgas.hackathon2010.networking.messages.ClientTestMessage;
-import com.ormgas.hackathon2010.networking.messages.ServerTestMessage;
 
 import android.util.Log;
 

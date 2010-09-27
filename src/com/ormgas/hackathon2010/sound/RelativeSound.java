@@ -1,11 +1,8 @@
 package com.ormgas.hackathon2010.sound;
 
 import org.anddev.andengine.audio.sound.Sound;
-import org.anddev.andengine.entity.shape.IShape;
 
 import android.util.Log;
-
-import com.ormgas.hackathon2010.GameActivity;
 
 public class RelativeSound {
 

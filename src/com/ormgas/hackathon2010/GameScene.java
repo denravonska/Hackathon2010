@@ -3,15 +3,12 @@ package com.ormgas.hackathon2010;
 import org.anddev.andengine.engine.camera.Camera;
 import org.anddev.andengine.engine.handler.collision.CollisionHandler;
 import org.anddev.andengine.engine.handler.collision.ICollisionCallback;
-import org.anddev.andengine.entity.primitive.Rectangle;
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.scene.background.ParallaxBackground.ParallaxEntity;
 import org.anddev.andengine.entity.shape.IShape;
 import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.input.touch.TouchEvent;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
-
-import android.util.Log;
 
 import com.ormgas.hackathon2010.assets.Textures;
 import com.ormgas.hackathon2010.eventbus.EntitySpawnedEvent;
@@ -24,13 +21,12 @@ import com.ormgas.hackathon2010.gameobjects.Actor;
 import com.ormgas.hackathon2010.gameobjects.BulletObject;
 import com.ormgas.hackathon2010.gameobjects.ExplosionObject;
 import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
-import com.ormgas.hackathon2010.networking.ServerClient.GameEvent;
 import com.ormgas.hackathon2010.networking.messages.ClientTestMessage;
 import com.ormgas.hackathon2010.networking.messages.ServerTestMessage;
 import com.ormgas.hackathon2010.sound.RelativeSound;
 import com.ormgas.hackathon2010.eventbus.EventHandler;
 
-public class GameScene extends Scene implements IGameEventHandler
+public class GameScene extends Scene
 {
 	private final static String TAG = GameScene.class.getSimpleName();
     private Camera camera;
@@ -78,21 +74,12 @@ public class GameScene extends Scene implements IGameEventHandler
 	{
 		EventBus.dispatch(pSceneTouchEvent);
 		
-		//GameActivity.networkProxy.send(new TestMessage(pSceneTouchEvent.getX(), pSceneTouchEvent.getY()));
-		
 		if(pSceneTouchEvent.getX() < 200)
 			GameActivity.serverProxy.send(new ServerTestMessage(pSceneTouchEvent.getX(), pSceneTouchEvent.getY()));
 		else
 			GameActivity.clientProxy.send(new ClientTestMessage(pSceneTouchEvent.getX(), pSceneTouchEvent.getY()));
 		
 		return true;
-	}
-	
-	@Override
-	public void onGameEventReceived(GameEvent event)
-	{
-		// TODO Auto-generated method stub
-		Log.d(TAG, "GameEvent received");
 	}
 	
 	@EventHandler

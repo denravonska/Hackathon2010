@@ -14,7 +14,7 @@ import com.ormgas.hackathon2010.eventbus.SpawnExplosionEvent;
 import com.ormgas.hackathon2010.weapons.MachineGun;
 
 public class Actor extends AirplaneObject {
-	private int kills = 0;
+	//private int kills = 0;
 	private boolean isShooting;
     private boolean isFlying;
     private final static float BASE_VELOCITY = 80f;

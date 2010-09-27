@@ -8,7 +8,6 @@ import com.ormgas.hackathon2010.gameobjects.GameObject;
 
 public class MachineGun implements IWeapon
 {
-	private final static String TAG = MachineGun.class.getSimpleName();
 	private final SpawnBulletEvent spawnBulletEvent = new SpawnBulletEvent();
 	private final static long FIRE_DELAY = 150;
 	private long fireTimer = 0;
