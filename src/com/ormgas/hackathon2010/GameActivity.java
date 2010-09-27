@@ -1,5 +1,8 @@
 package com.ormgas.hackathon2010;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.engine.camera.BoundCamera;
 import org.anddev.andengine.engine.camera.hud.HUD;
@@ -25,6 +28,7 @@ import com.ormgas.hackathon2010.assets.Textures;
 import com.ormgas.hackathon2010.controller.AccelerometerController;
 import com.ormgas.hackathon2010.eventbus.EventBus;
 import com.ormgas.hackathon2010.eventbus.SpawnActorEvent;
+import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
 import com.ormgas.hackathon2010.networking.ClientProxy;
 import com.ormgas.hackathon2010.networking.ClientServerProxy;
 import com.ormgas.hackathon2010.networking.INetworkProxy;
@@ -83,7 +87,7 @@ public class GameActivity extends BaseGameActivity
 	public void onLoadResources() {
 		Textures.load(this);
 		Sounds.load(this);
-		Fonts.load(this);
+		Fonts.load(this);		
 	}
 
 	@Override
@@ -120,14 +124,11 @@ public class GameActivity extends BaseGameActivity
 		//networkProxy = new ClientProxy(thisIP);
 		
 		serverProxy = new ServerProxy();
+		new Timer().schedule(new TimerTask() {
 
-		try
-		{
-			Thread.sleep(1500);
-		}
-		catch(Exception e) {}
-		
-		
-		clientProxy = new ClientProxy(thisIP);
+			@Override
+			public void run() {
+				clientProxy = new ClientProxy(thisIP);
+			}}, 1500);	
 	}
 }
