@@ -69,6 +69,8 @@ public class GameActivity extends BaseGameActivity
 
 	@Override
 	public Scene onLoadScene() {
+		EventBus.clear();
+		
 		final FPSLogger fpsLogger = new FPSLogger();
 		this.mEngine.registerUpdateHandler(fpsLogger);
 		
@@ -77,7 +79,7 @@ public class GameActivity extends BaseGameActivity
 		AccelerometerController controller = new AccelerometerController();
 		this.enableAccelerometerSensor(controller);
 		EventBus.dispatch(new SpawnActorEvent(controller, true /* isLocalActor */));
-
+		
 		final ChangeableText fpsText = new ChangeableText(5, 5, Fonts.gameFont16p, "FPS:", "FPS: XXXXX".length());
 		this.camera.getHUD().getTopLayer().addEntity(fpsText);
         scene.registerUpdateHandler(new TimerHandler(1 / 20.0f, true, new ITimerCallback() {

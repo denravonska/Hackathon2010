@@ -10,6 +10,10 @@ public class EventBus
 	private final static String TAG = EventBus.class.getSimpleName();
 	private static ArrayList<Listener> mListeners = new ArrayList<Listener>();
  
+	public static void clear() {
+		mListeners.clear();
+	}
+	
 	public static void dispatch(Object event)
 	{
 		for(int index = 0; index < mListeners.size(); ++index)
