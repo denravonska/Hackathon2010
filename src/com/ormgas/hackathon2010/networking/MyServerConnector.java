@@ -13,7 +13,11 @@ import org.anddev.andengine.extension.multiplayer.protocol.client.ServerConnecto
 import org.anddev.andengine.extension.multiplayer.protocol.client.ServerMessageExtractor;
 import org.anddev.andengine.extension.multiplayer.protocol.shared.BaseConnector;
 
+import com.ormgas.hackathon2010.eventbus.EventBus;
+import com.ormgas.hackathon2010.eventbus.SpawnBulletEvent;
+import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
 import com.ormgas.hackathon2010.networking.messages.MessageFlags;
+import com.ormgas.hackathon2010.networking.messages.SpawnBulletMessage;
 
 import android.util.Log;
 
@@ -43,17 +47,15 @@ public class MyServerConnector extends ServerConnector
 
 	private static class MyServerMessageExtractor extends ServerMessageExtractor
 	{
-		private final static String TAG = MyServerMessageExtractor.class.getSimpleName();
-		
 		@Override
-		public BaseServerMessage readMessage(final short pFlag, final DataInputStream pDataInputStream) throws IOException
+		public BaseServerMessage readMessage(final short flag, final DataInputStream dataInputStream) throws IOException
 		{
-			Log.d(TAG, "Read a server message");
-			
-			switch(pFlag)
+			switch(flag)
 			{
+			case MessageFlags.ServerFlags.SPAWN_BULLET:
+				return new SpawnBulletMessage(dataInputStream);
 			default:
-				return super.readMessage(pFlag, pDataInputStream);
+				return super.readMessage(flag, dataInputStream);
 			}
 		}
 	}
@@ -63,13 +65,27 @@ public class MyServerConnector extends ServerConnector
 		private final static String TAG = MyMessageSwitch.class.getSimpleName();
 		
 		@Override
-		public void doSwitch(final ServerConnector pServerConnector, final BaseServerMessage pServerMessage) throws IOException
+		public void doSwitch(final ServerConnector pServerConnector, final BaseServerMessage serverMessage) throws IOException
 		{
-			switch(pServerMessage.getFlag())
+			switch(serverMessage.getFlag())
 			{
+			case MessageFlags.ServerFlags.SPAWN_BULLET:
+				this.onHandleSpawnBulletMessage((SpawnBulletMessage)serverMessage);
+				break;
+				
 			default:
-				super.doSwitch(pServerConnector, pServerMessage);
+				super.doSwitch(pServerConnector, serverMessage);
 			}
+		}
+
+		private void onHandleSpawnBulletMessage(SpawnBulletMessage message)
+		{
+			SpawnBulletEvent event = ObjectHandler.obtainItem(SpawnBulletEvent.class);
+			
+			event.set(message.id, message.x, message.y, message.velX, message.velY, message.rotation);
+			EventBus.dispatch(event);
+			
+			ObjectHandler.recyclePoolItem(event);
 		}
 
 		@Override

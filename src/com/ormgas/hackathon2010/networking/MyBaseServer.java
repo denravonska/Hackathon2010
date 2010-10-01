@@ -12,13 +12,14 @@ import org.anddev.andengine.extension.multiplayer.protocol.server.ClientConnecto
 import org.anddev.andengine.extension.multiplayer.protocol.server.ClientMessageExtractor;
 import org.anddev.andengine.extension.multiplayer.protocol.shared.BaseConnector;
 
+import com.ormgas.hackathon2010.GameActivity;
 import com.ormgas.hackathon2010.controller.RemoteClientController;
 import com.ormgas.hackathon2010.eventbus.EventBus;
 import com.ormgas.hackathon2010.eventbus.SpawnActorEvent;
-import com.ormgas.hackathon2010.eventbus.SpawnBulletEvent;
 import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
 import com.ormgas.hackathon2010.networking.messages.MessageFlags;
 import com.ormgas.hackathon2010.networking.messages.NetRequestBullet;
+import com.ormgas.hackathon2010.networking.messages.SpawnBulletMessage;
 
 import android.util.Log;
 
@@ -98,18 +99,15 @@ public class MyBaseServer extends BaseServer<ClientConnector>
 			
 			default:
 					
-			
 			}
 		}
 
 		private void onHandleRequestBulletMessage(NetRequestBullet message)
 		{
-			SpawnBulletEvent event = ObjectHandler.obtainItem(SpawnBulletEvent.class);
-			
-			event.set(message.id, message.x, message.y, message.velX, message.velY, message.rotation);
-			EventBus.dispatch(event);
-			
-			ObjectHandler.recyclePoolItem(event);
+			SpawnBulletMessage newMessage = ObjectHandler.obtainItem(SpawnBulletMessage.class);
+			newMessage.set(message.id, message.x, message.y, message.velX, message.velY, message.rotation);
+			GameActivity.serverProxy.send(newMessage);
+			ObjectHandler.recyclePoolItem(newMessage);
 		}	
 	}
 		

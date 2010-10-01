@@ -5,6 +5,7 @@ public class MessageFlags
 	public class ServerFlags
 	{
 		public static final short TEST = 1;
+		public static final short SPAWN_BULLET = 2;
 	}
 	
 	public class ClientFlags
