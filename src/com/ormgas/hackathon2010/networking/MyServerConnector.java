@@ -17,7 +17,7 @@ import com.ormgas.hackathon2010.eventbus.EventBus;
 import com.ormgas.hackathon2010.eventbus.SpawnBulletEvent;
 import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
 import com.ormgas.hackathon2010.networking.messages.MessageFlags;
-import com.ormgas.hackathon2010.networking.messages.SpawnBulletMessage;
+import com.ormgas.hackathon2010.networking.messages.NetRequestBullet;
 
 import android.util.Log;
 
@@ -53,8 +53,8 @@ public class MyServerConnector extends ServerConnector
 			switch(flag)
 			{
 			case MessageFlags.REQUEST_BULLET:
-				SpawnBulletMessage message = ObjectHandler.obtainItem(SpawnBulletMessage.class);
-				message.set(dataInputStream);
+				NetRequestBullet.Server message = ObjectHandler.obtainItem(NetRequestBullet.Server.class);
+				message.mImpl.readStream(dataInputStream);
 				return message;
 			default:
 				return super.readMessage(flag, dataInputStream);
@@ -72,7 +72,7 @@ public class MyServerConnector extends ServerConnector
 			switch(serverMessage.getFlag())
 			{
 			case MessageFlags.REQUEST_BULLET:
-				this.onHandleSpawnBulletMessage((SpawnBulletMessage)serverMessage);
+				this.onHandleSpawnBulletMessage((NetRequestBullet.Server) serverMessage);
 				break;
 				
 			default:
@@ -80,11 +80,11 @@ public class MyServerConnector extends ServerConnector
 			}
 		}
 
-		private void onHandleSpawnBulletMessage(SpawnBulletMessage message)
+		private void onHandleSpawnBulletMessage(NetRequestBullet.Server message)
 		{
 			SpawnBulletEvent event = ObjectHandler.obtainItem(SpawnBulletEvent.class);
 			
-			event.set(message.id, message.x, message.y, message.velX, message.velY, message.rotation);
+			event.set(message.mImpl.id, message.mImpl.x, message.mImpl.y, message.mImpl.velX, message.mImpl.velY, message.mImpl.rotation);
 			EventBus.dispatch(event);
 			
 			ObjectHandler.recyclePoolItem(event);
