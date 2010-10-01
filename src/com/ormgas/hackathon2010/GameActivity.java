@@ -43,8 +43,8 @@ public class GameActivity extends BaseGameActivity
 	private BoundCamera camera;
 	
 	public static String thisIP = null;
-	public static ServerProxy serverProxy = null;
-	public static ClientProxy clientProxy = null;
+	public static INetworkProxy serverProxy = null;
+	public static INetworkProxy clientProxy = null;
 	
 	@Override
 	public Engine onLoadEngine() {
