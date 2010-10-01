@@ -1,5 +1,8 @@
 package com.ormgas.hackathon2010.gameobjects;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import org.anddev.andengine.entity.shape.IShape;
 import org.anddev.andengine.entity.shape.modifier.IShapeModifier.IShapeModifierListener;
 import org.anddev.andengine.entity.shape.modifier.RotationModifier;
@@ -11,21 +14,50 @@ import com.ormgas.hackathon2010.GameActivity;
 import com.ormgas.hackathon2010.controller.IGameObjectController;
 import com.ormgas.hackathon2010.eventbus.EventBus;
 import com.ormgas.hackathon2010.eventbus.SpawnExplosionEvent;
+import com.ormgas.hackathon2010.eventbus.UpdateActorEvent;
+import com.ormgas.hackathon2010.networking.messages.NetRequestBullet;
+import com.ormgas.hackathon2010.networking.messages.NetUpdateActor;
 import com.ormgas.hackathon2010.weapons.MachineGun;
 
 public class Actor extends AirplaneObject {
+	
+	private final static int UPDATE_HZ = 10;
+	private final static float BASE_VELOCITY = 80f;
+	
 	//private int kills = 0;
 	private boolean isShooting;
-    private boolean isFlying;
-    private final static float BASE_VELOCITY = 80f;
+    private boolean isFlying;    
     private RotationModifier bounceModifier = null;
+    private Timer postActorDataTimer;
 	
 	public Actor(int id, float x, float y, float heading, TextureRegion texture) {
 		super(id, x, y, heading, texture);
+		
 		isFlying = true;
-		//this.setVelocity(BASE_VELOCITY, 0f);
-		this.setWeapon(new MachineGun(this));		
+		this.setWeapon(new MachineGun(this));
+		postActorDataTimer = new Timer();
 	}
+	
+	public void setPostPositions(boolean doPost) {
+		if(true == doPost) {						
+			// Reallocate timer since a canceled timer is dead.
+			postActorDataTimer = new Timer();
+			postActorDataTimer.scheduleAtFixedRate(sendActorTask, 0, 1000 / UPDATE_HZ);
+		} else {
+			postActorDataTimer.cancel();
+		}
+	}
+	
+	private final TimerTask sendActorTask =  new TimerTask() {
+
+		@Override
+		public void run() {
+			NetUpdateActor event = ObjectHandler.obtainItem(NetUpdateActor.class);
+			event.set(getId(), getX(), getY(), getAngularVelocity(), getRotation(), getVelocityX(), getVelocityY());
+			GameActivity.clientProxy.send(event);
+			ObjectHandler.recyclePoolItem(event);
+		}};
+	
 	
 	public boolean isFlying() {
 		return isFlying;
