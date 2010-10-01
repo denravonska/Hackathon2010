@@ -25,6 +25,7 @@ import com.ormgas.hackathon2010.assets.Textures;
 import com.ormgas.hackathon2010.controller.AccelerometerController;
 import com.ormgas.hackathon2010.eventbus.EventBus;
 import com.ormgas.hackathon2010.eventbus.SpawnActorEvent;
+import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
 import com.ormgas.hackathon2010.networking.ClientProxy;
 import com.ormgas.hackathon2010.networking.INetworkProxy;
 import com.ormgas.hackathon2010.networking.ServerProxy;
@@ -74,7 +75,7 @@ public class GameActivity extends BaseGameActivity
 		final FPSLogger fpsLogger = new FPSLogger();
 		this.mEngine.registerUpdateHandler(fpsLogger);
 		
-		GameScene scene = new GameScene(this.camera);
+		GameScene scene = new GameScene(this.camera);		
 
 		AccelerometerController controller = new AccelerometerController();
 		this.enableAccelerometerSensor(controller);
@@ -82,10 +83,10 @@ public class GameActivity extends BaseGameActivity
 		
 		final ChangeableText fpsText = new ChangeableText(5, 5, Fonts.gameFont16p, "FPS:", "FPS: XXXXX".length());
 		this.camera.getHUD().getTopLayer().addEntity(fpsText);
-        scene.registerUpdateHandler(new TimerHandler(1 / 20.0f, true, new ITimerCallback() {
+		scene.registerUpdateHandler(new TimerHandler(1 / 20.0f, true, new ITimerCallback() {
             @Override
             public void onTimePassed(final TimerHandler pTimerHandler) {
-                    fpsText.setText("FPS: " + fpsLogger.getFPS());
+            	fpsText.setText("FPS: " + fpsLogger.getFPS());
             }
         }));
 		
