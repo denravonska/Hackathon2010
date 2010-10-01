@@ -18,9 +18,9 @@ public interface SerializableMessage
 	
 	public class Client extends BaseClientMessage
 	{
-		private Serializable mData = null;
+		private Object mData = null;
 
-		public Client(Serializable data)
+		public Client(Object data)
 		{
 			this.mData = data;
 		}
@@ -30,11 +30,15 @@ public interface SerializableMessage
 			ObjectInputStream inputStream = new ObjectInputStream(pDataInputStream);
 			
 			try{
-				mData = (Serializable) inputStream.readObject();
+				mData = inputStream.readObject();
 			}
 			catch(ClassNotFoundException e){
 				e.printStackTrace();
 			}
+		}
+		
+		public Object getObject() {
+			return this.mData;
 		}
 
 		@Override
@@ -59,7 +63,7 @@ public interface SerializableMessage
 	
 	public class Server extends BaseServerMessage
 	{
-		public Serializable mData = null;
+		public Object mData = null;
 		
 		@Override
 		public short getFlag() {
@@ -83,7 +87,7 @@ public interface SerializableMessage
 			ObjectInputStream inputStream = new ObjectInputStream(dataInputStream);
 			
 			try{
-				mData = (Serializable) inputStream.readObject();
+				mData = inputStream.readObject();
 			}
 			catch(ClassNotFoundException e){
 				e.printStackTrace();
