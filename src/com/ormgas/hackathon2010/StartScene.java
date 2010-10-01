@@ -15,14 +15,14 @@ import android.util.Log;
 
 import com.ormgas.hackathon2010.assets.Sounds;
 import com.ormgas.hackathon2010.assets.Textures;
-import com.ormgas.hackathon2010.networking.ServiceManager;
+import com.ormgas.hackathon2010.networking.ServerFinder;
 
-public class StartScene extends Scene implements IOnSceneTouchListener
+public class StartScene extends Scene implements IOnSceneTouchListener, ServerFinder.ServerListener
 {
 	private StartSceneActivity activity = null;
 	private Sprite startLabel;
 	private Sprite optionsLabel;
-	private ServiceManager mServiceManager;
+	private ServerFinder serverFinder;
 
 	public StartScene(StartSceneActivity startSceneActivity)
 	{
@@ -55,8 +55,8 @@ public class StartScene extends Scene implements IOnSceneTouchListener
 		this.registerTouchArea(startLabel);
 		this.registerTouchArea(optionsLabel);
 		
-		mServiceManager = new ServiceManager();
-		//mServiceManager.start(new ClientListener());
+		//serverFinder = new ServerFinder();
+		//serverFinder.start(this);
 	}
 
 	@Override
@@ -64,20 +64,17 @@ public class StartScene extends Scene implements IOnSceneTouchListener
 	{
 		return true;
 	}
-		
-	public class ClientListener implements ServiceListener {
-		private final String TAG = ClientListener.class.getSimpleName();
 
-		public void serviceAdded(ServiceEvent event) {
-			Log.d(TAG, "Service added   : " + event.getName() + "." + event.getType());
-		}
-		
-		public void serviceRemoved(ServiceEvent event) {
-			Log.d(TAG, "Service removed : " + event.getName() + "." + event.getType());
-		}
-		
-		public void serviceResolved(ServiceEvent event) {
-			Log.d(TAG, "Service resolved: " + event.getInfo());
-		}
+	@Override
+	public void onServerFound(String host, int port) {
+		// TODO Auto-generated method stub
+		// Connect to server
+	}
+
+	@Override
+	public void onServerNotFound() {
+		// TODO Auto-generated method stub
+		// Start server and announce
+		serverFinder.announce();
 	}
 }
