@@ -43,8 +43,8 @@ public class GameActivity extends BaseGameActivity
 	private BoundCamera camera;
 	
 	public static String thisIP = null;
-	public static INetworkProxy serverProxy = null;
-	public static INetworkProxy clientProxy = null;
+	public static ServerProxy serverProxy = null;
+	public static ClientProxy clientProxy = null;
 	
 	@Override
 	public Engine onLoadEngine() {
@@ -67,7 +67,20 @@ public class GameActivity extends BaseGameActivity
 	public void onLoadResources() {
 		Textures.load(this);
 		Sounds.load(this);
-		Fonts.load(this);		
+		Fonts.load(this);
+	}
+	
+	@Override
+	public void onDestroy() {
+		if(null != clientProxy) {
+			clientProxy.disconnect();
+		}
+		
+		if(null != serverProxy) {
+			serverProxy.disconnect();
+		}
+
+		super.onDestroy();
 	}
 
 	@Override
@@ -97,12 +110,13 @@ public class GameActivity extends BaseGameActivity
 		thisIP = IPUtils.getIPAddress(this);
 		Log.d(TAG, thisIP);		
 		
-		//serverProxy = new ServerProxy();
+		serverProxy = new ServerProxy();
 		new Timer().schedule(new TimerTask() {
 
 			@Override
 			public void run() {
-				clientProxy = new ClientProxy("10.213.6.123");
+				//clientProxy = new ClientProxy("10.213.6.123");
+				clientProxy = new ClientProxy("10.213.6.42");
 				//clientProxy = new ClientProxy(thisIP);
 
 				GameActivity.this.runOnUpdateThread(new Runnable() {

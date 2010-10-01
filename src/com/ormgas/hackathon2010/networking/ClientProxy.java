@@ -12,7 +12,7 @@ public class ClientProxy implements INetworkProxy
 {
 	private static final int SERVER_PORT = 4444;
 	private String serverIP = "127.0.0.1";
-	private ServerConnector mServerConnector;
+	private ServerConnector mConnection;
 	
 	public ClientProxy(String ip)
 	{
@@ -24,8 +24,8 @@ public class ClientProxy implements INetworkProxy
 	{
 		try
 		{
-			this.mServerConnector = new MyServerConnector(new Socket(this.serverIP, SERVER_PORT));
-			this.mServerConnector.start();
+			this.mConnection = new MyServerConnector(new Socket(this.serverIP, SERVER_PORT));
+			this.mConnection.start();
 		}
 		catch(final Throwable t)
 		{
@@ -39,12 +39,15 @@ public class ClientProxy implements INetworkProxy
 		try
 		{
 			BaseClientMessage clientMessage = (BaseClientMessage)message;
-			mServerConnector.sendClientMessage(clientMessage);
+			mConnection.sendClientMessage(clientMessage);
 		}
 		catch(IOException e)
 		{
 			e.printStackTrace();
 		}
-		
+	}
+	
+	public void disconnect() {
+		this.mConnection.interrupt();
 	}
 }

@@ -36,4 +36,8 @@ public class ServerProxy implements INetworkProxy
 			e.printStackTrace();
 		}
 	}
+	
+	public void disconnect() {
+		this.mServer.interrupt();
+	}
 }
