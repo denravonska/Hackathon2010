@@ -11,6 +11,7 @@ import org.anddev.andengine.util.MathUtils;
 import org.anddev.andengine.util.modifier.IModifier;
 
 import com.ormgas.hackathon2010.GameActivity;
+import com.ormgas.hackathon2010.assets.Textures;
 import com.ormgas.hackathon2010.controller.IGameObjectController;
 import com.ormgas.hackathon2010.eventbus.EventBus;
 import com.ormgas.hackathon2010.eventbus.SpawnExplosionEvent;
@@ -31,6 +32,11 @@ public class Actor extends AirplaneObject {
     private Timer postActorDataTimer;
     private boolean shouldSendPosition = true;
 	
+    public Actor() {
+    	super(0, 0, 0, 0, Textures.plane);
+    	this.setWeapon(new MachineGun(this));
+    }
+    
 	public Actor(int id, float x, float y, float heading, TextureRegion texture) {
 		super(id, x, y, heading, texture);
 		
