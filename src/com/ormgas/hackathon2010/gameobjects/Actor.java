@@ -29,6 +29,7 @@ public class Actor extends AirplaneObject {
     private boolean isFlying;    
     private RotationModifier bounceModifier = null;
     private Timer postActorDataTimer;
+    private boolean shouldSendPosition = true;
 	
 	public Actor(int id, float x, float y, float heading, TextureRegion texture) {
 		super(id, x, y, heading, texture);
@@ -40,15 +41,22 @@ public class Actor extends AirplaneObject {
 	
 	public void setPostPositions(boolean doPost) {
 		if(true == doPost) {						
-			// Reallocate timer since a canceled timer is dead.
+			// Reallocate timer since a canceled timer is a dead
 			postActorDataTimer = new Timer();
-			postActorDataTimer.scheduleAtFixedRate(sendActorTask, 0, 1000 / UPDATE_HZ);
+			postActorDataTimer.scheduleAtFixedRate(sendActorTimerTask, 0, 1000 / UPDATE_HZ);
 		} else {
-			postActorDataTimer.cancel();
+			postActorDataTimer.cancel();			
 		}
 	}
 	
-	private final TimerTask sendActorTask =  new TimerTask() {
+	private final TimerTask sendActorTimerTask =  new TimerTask() {
+		@Override
+		public void run() {
+			shouldSendPosition = true;
+		}
+	};
+		
+	/*private final Runnable sendActorTask = new Runnable() {
 
 		@Override
 		public void run() {
@@ -56,7 +64,8 @@ public class Actor extends AirplaneObject {
 			event.set(getId(), getX(), getY(), getAngularVelocity(), getRotation(), getVelocityX(), getVelocityY());
 			GameActivity.clientProxy.send(event);
 			ObjectHandler.recyclePoolItem(event);
-		}};
+		}
+	};*/
 	
 	
 	public boolean isFlying() {
@@ -66,8 +75,16 @@ public class Actor extends AirplaneObject {
 	@Override
 	public void onManagedUpdate(float secondsElapsed) {
         super.onManagedUpdate(secondsElapsed);
-
+        
 		this.updateVelocity();
+
+        if(true == shouldSendPosition) {
+        	shouldSendPosition = false;
+			NetUpdateActor event = ObjectHandler.obtainItem(NetUpdateActor.class);
+			event.set(getId(), getX(), getY(), getAngularVelocity(), getRotation(), getVelocityX(), getVelocityY());
+			GameActivity.clientProxy.send(event);
+			ObjectHandler.recyclePoolItem(event);
+        }
 		
 		if(isShooting)
 			weapon.fire();
