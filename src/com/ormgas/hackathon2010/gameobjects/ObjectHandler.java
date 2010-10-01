@@ -1,12 +1,13 @@
 package com.ormgas.hackathon2010.gameobjects;
 
+import java.util.HashMap;
+
 import org.anddev.andengine.entity.Entity;
+import org.anddev.andengine.util.pool.GenericPool;
 
 public class ObjectHandler
 {
-	private static final BulletPool bulletPool = new BulletPool(10);
-	private static final ExplosionPool explosionPool = new ExplosionPool(10);
-	private static final ActorPool actorPool = new ActorPool(10);
+	private static HashMap<Class<?>, GenericPool<?>> poolMap = new HashMap<Class<?>, GenericPool<?>>();
 	
 	private static void activateObject(Entity object)
 	{
@@ -23,45 +24,62 @@ public class ObjectHandler
 	@SuppressWarnings("unchecked")
 	public static <T> T obtainItem(Class<T> clazz)
 	{
-		if(clazz.equals(BulletObject.class))
+		GenericPool<?> thePool = poolMap.get(clazz);
+		if(thePool == null)
 		{
-			BulletObject bullet = bulletPool.obtainPoolItem();
-			ObjectHandler.activateObject(bullet);
-			return (T)bullet;
-		}
-		else if(clazz.equals(ExplosionObject.class))
-		{
-			ExplosionObject explosion = explosionPool.obtainPoolItem();
-			ObjectHandler.activateObject(explosion);
-			return (T)explosion;
-		}
-		else if(clazz.equals(Actor.class))
-		{
-			Actor actor = actorPool.obtainPoolItem();
-			ObjectHandler.activateObject(actor);
-			return (T)actor;
+			ObjectHandler.createNewPool(clazz);
 		}
 		
-		return null;
+		thePool = poolMap.get(clazz);
+		T item = (T) thePool.obtainPoolItem();
+		
+		Entity entity = (Entity)item;
+		if(entity != null)
+			ObjectHandler.activateObject(entity);
+		
+		return item;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static <T> void recyclePoolItem(T object)
 	{
-		if(object instanceof BulletObject)
-		{
-			ObjectHandler.deActivateObject((BulletObject)object);
-			bulletPool.recyclePoolItem((BulletObject)object);
-		}
-		else if(object instanceof ExplosionObject)
-		{
-			ObjectHandler.deActivateObject((ExplosionObject)object);
-			explosionPool.recyclePoolItem((ExplosionObject)object);
-		}
-		else if(object instanceof Actor)
-		{
-			ObjectHandler.deActivateObject((Actor)object);
-			actorPool.recyclePoolItem((Actor)object);
-		}
+		GenericPool<T> pool = (GenericPool<T>) poolMap.get(object.getClass());
+		pool.recyclePoolItem(object);
+		
+		if(object instanceof Entity)
+			ObjectHandler.deActivateObject((Entity)object);
+	}
+	
+	private static <T> void createNewPool(final Class<T> clazz)
+	{
+		GenericPool<T> newPool = new GenericPool<T>()
+		{	
+			@Override
+			protected T onAllocatePoolItem()
+			{
+				try
+				{
+					T object = clazz.newInstance();
+					
+					if(object instanceof Entity)
+						ObjectHandler.deActivateObject((Entity)object);
+					
+					return object;
+				}
+				catch(IllegalAccessException e)
+				{
+					e.printStackTrace();
+				}
+				catch(InstantiationException e)
+				{
+					e.printStackTrace();
+				}
+
+				return null;
+			}
+		};
+		
+		poolMap.put(clazz, newPool);		
 	}
 	
 }

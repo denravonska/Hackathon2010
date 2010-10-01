@@ -12,9 +12,10 @@ public class BulletObject extends GameObject {
 	private final SpawnExplosionEvent explosionEvent = new SpawnExplosionEvent();
 	private final PlayRelativeSoundEvent explosionSoundEvent = new PlayRelativeSoundEvent();
 	
-	public BulletObject(int id, int ownerId, float x, float y, float heading) {
-		super(id, x, y, 3, heading, Textures.bullet);
-		this.setScale(3f, 3f);
+	public BulletObject()
+	{
+		super(0, 0, 0, 0, 0, Textures.bullet);
+		this.setScale(3.0f);
 	}
 	
 	@Override

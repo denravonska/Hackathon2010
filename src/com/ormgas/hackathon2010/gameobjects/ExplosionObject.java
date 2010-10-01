@@ -11,12 +11,12 @@ public class ExplosionObject extends AnimatedSprite implements IAnimationListene
 {
 	private static final long frameDuration = 70;
 	
-	public ExplosionObject(float x, float y)
+	public ExplosionObject()
 	{
-		super(x, y, Textures.explosion);
+		super(0, 0, Textures.explosion);
 		EventBus.dispatch(new EntitySpawnedEvent(this));
 	}
-	
+		
 	public void animate() {
 		this.animate(frameDuration, false, this);		
 	}
