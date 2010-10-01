@@ -17,7 +17,6 @@ import com.ormgas.hackathon2010.eventbus.EventBus;
 import com.ormgas.hackathon2010.eventbus.SpawnActorEvent;
 import com.ormgas.hackathon2010.eventbus.SpawnBulletEvent;
 import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
-import com.ormgas.hackathon2010.networking.messages.ClientTestMessage;
 import com.ormgas.hackathon2010.networking.messages.MessageFlags;
 import com.ormgas.hackathon2010.networking.messages.NetRequestBullet;
 
@@ -74,8 +73,6 @@ public class MyBaseServer extends BaseServer<ClientConnector>
 		{
 			switch(pFlag)
 			{
-			case MessageFlags.ClientFlags.TEST:
-				return new ClientTestMessage(pDataInputStream);
 			case MessageFlags.ClientFlags.REQUEST_BULLET:
 				return new NetRequestBullet(pDataInputStream);
 			default:

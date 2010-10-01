@@ -14,7 +14,6 @@ import org.anddev.andengine.extension.multiplayer.protocol.client.ServerMessageE
 import org.anddev.andengine.extension.multiplayer.protocol.shared.BaseConnector;
 
 import com.ormgas.hackathon2010.networking.messages.MessageFlags;
-import com.ormgas.hackathon2010.networking.messages.ServerTestMessage;
 
 import android.util.Log;
 
@@ -53,8 +52,6 @@ public class MyServerConnector extends ServerConnector
 			
 			switch(pFlag)
 			{
-			case MessageFlags.ServerFlags.TEST:
-				return new ServerTestMessage(pDataInputStream);
 			default:
 				return super.readMessage(pFlag, pDataInputStream);
 			}
@@ -70,12 +67,6 @@ public class MyServerConnector extends ServerConnector
 		{
 			switch(pServerMessage.getFlag())
 			{
-			case MessageFlags.ServerFlags.TEST:
-				final ServerTestMessage testMessage = (ServerTestMessage)pServerMessage;
-				Log.d(TAG, testMessage.mX + " - " + testMessage.mY);
-				
-				// Do something clever with the message here.
-				break;
 			default:
 				super.doSwitch(pServerConnector, pServerMessage);
 			}

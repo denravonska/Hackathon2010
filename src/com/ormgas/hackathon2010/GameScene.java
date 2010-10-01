@@ -21,8 +21,6 @@ import com.ormgas.hackathon2010.gameobjects.Actor;
 import com.ormgas.hackathon2010.gameobjects.BulletObject;
 import com.ormgas.hackathon2010.gameobjects.ExplosionObject;
 import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
-import com.ormgas.hackathon2010.networking.messages.ClientTestMessage;
-import com.ormgas.hackathon2010.networking.messages.ServerTestMessage;
 import com.ormgas.hackathon2010.sound.RelativeSound;
 import com.ormgas.hackathon2010.eventbus.EventHandler;
 
