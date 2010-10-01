@@ -78,10 +78,6 @@ public class GameActivity extends BaseGameActivity
 		this.mEngine.registerUpdateHandler(fpsLogger);
 		
 		GameScene scene = new GameScene(this.camera);		
-
-		AccelerometerController controller = new AccelerometerController();
-		this.enableAccelerometerSensor(controller);
-		EventBus.dispatch(new SpawnActorEvent(GAME_UUID, controller, true));
 		
 		final ChangeableText fpsText = new ChangeableText(5, 5, Fonts.gameFont16p, "FPS:", "FPS: XXXXX".length());
 		this.camera.getHUD().getTopLayer().addEntity(fpsText);
@@ -99,16 +95,20 @@ public class GameActivity extends BaseGameActivity
 	public void onLoadComplete() {
 		
 		thisIP = IPUtils.getIPAddress(this);
-		Log.d(TAG, thisIP);
+		Log.d(TAG, thisIP);		
 		
-		clientProxy = new ClientProxy("10.213.6.123");
-		
-		serverProxy = new ServerProxy();
+		//serverProxy = new ServerProxy();
 		new Timer().schedule(new TimerTask() {
 
 			@Override
 			public void run() {
-				clientProxy = new ClientProxy(thisIP);
+				clientProxy = new ClientProxy("10.213.6.123");
+				//clientProxy = new ClientProxy(thisIP);
+
+				AccelerometerController controller = new AccelerometerController();
+				enableAccelerometerSensor(controller);
+				EventBus.dispatch(new SpawnActorEvent(GAME_UUID, controller, true));
+				
 			}}, 1500);
 	}
 }
