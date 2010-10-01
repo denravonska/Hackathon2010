@@ -12,6 +12,7 @@ import org.anddev.andengine.extension.multiplayer.protocol.server.ClientConnecto
 import org.anddev.andengine.extension.multiplayer.protocol.server.ClientMessageExtractor;
 import org.anddev.andengine.extension.multiplayer.protocol.shared.BaseConnector;
 
+import com.ormgas.hackathon2010.eventbus.EventBus;
 import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
 import com.ormgas.hackathon2010.networking.messages.MessageFlags;
 import com.ormgas.hackathon2010.networking.messages.NetActorJoin;
@@ -110,10 +111,8 @@ public class MyBaseServer extends BaseServer<ClientConnector>
 			}
 		}
 
-		private void onHandleSerializableMessage(ClientConnector pClientConnector, SerializableMessage.Client pClientMessage)
-		{
-			// TODO Auto-generated method stub
-			
+		private void onHandleSerializableMessage(ClientConnector pClientConnector, SerializableMessage.Client pClientMessage) {
+			EventBus.dispatch(pClientMessage.getObject());
 		}
 
 		private void onHandleRequestBulletMessage(ClientConnector pClientConnector, NetRequestBullet.Client pClientMessage)
