@@ -110,13 +110,16 @@ public class GameScene extends Scene
 	
 	@EventHandler
 	public void onSpawnActorEvent(SpawnActorEvent event) {
-		Actor actor = new Actor(event.actorId, 80, 150, 0, Textures.plane);
+		Actor actor = ObjectHandler.obtainItem(Actor.class);
+		actor.setId(event.actorId);
+		actor.setPosition(80, 150);
 		actor.attachController(event.controller);
+		
 		if(true == event.isLocalActor) {
-			this.camera.setChaseShape(actor);
-			actor.setPostPositions(true);
+			this.camera.setChaseShape(actor);			
 			
 			GameActivity.clientProxy.send(new NetActorJoin(actor.getId()));
+			actor.setPostPositions(true);
 			
 			/*
 			this.registerUpdateHandler(new CollisionHandler(new ICollisionCallback() {
