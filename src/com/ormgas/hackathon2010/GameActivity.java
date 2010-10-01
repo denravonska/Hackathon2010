@@ -105,9 +105,14 @@ public class GameActivity extends BaseGameActivity
 				clientProxy = new ClientProxy("10.213.6.123");
 				//clientProxy = new ClientProxy(thisIP);
 
-				AccelerometerController controller = new AccelerometerController();
-				enableAccelerometerSensor(controller);
-				EventBus.dispatch(new SpawnActorEvent(GAME_UUID, controller, true));
+				GameActivity.this.runOnUpdateThread(new Runnable() {
+
+					@Override
+					public void run() {
+						AccelerometerController controller = new AccelerometerController();
+						enableAccelerometerSensor(controller);
+						EventBus.dispatch(new SpawnActorEvent(GAME_UUID, controller, true));
+					}});
 				
 			}}, 1500);
 	}
