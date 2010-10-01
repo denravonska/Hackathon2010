@@ -53,7 +53,9 @@ public class MyServerConnector extends ServerConnector
 			switch(flag)
 			{
 			case MessageFlags.ServerFlags.SPAWN_BULLET:
-				return new SpawnBulletMessage(dataInputStream);
+				SpawnBulletMessage message = ObjectHandler.obtainItem(SpawnBulletMessage.class);
+				message.set(dataInputStream);
+				return message;
 			default:
 				return super.readMessage(flag, dataInputStream);
 			}
@@ -86,6 +88,7 @@ public class MyServerConnector extends ServerConnector
 			EventBus.dispatch(event);
 			
 			ObjectHandler.recyclePoolItem(event);
+			ObjectHandler.recyclePoolItem(message);
 		}
 
 		@Override

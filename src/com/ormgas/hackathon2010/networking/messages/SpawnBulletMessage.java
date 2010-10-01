@@ -20,15 +20,6 @@ public class SpawnBulletMessage extends BaseServerMessage
 
 	}
 
-	public SpawnBulletMessage(DataInputStream dataInputStream) throws IOException
-	{
-		this.x = dataInputStream.readFloat();	
-		this.y = dataInputStream.readFloat();	
-		this.velX = dataInputStream.readFloat();	
-		this.velY = dataInputStream.readFloat();	
-		this.rotation = dataInputStream.readFloat();
-	}
-
 	@Override
 	public short getFlag()
 	{
@@ -50,6 +41,16 @@ public class SpawnBulletMessage extends BaseServerMessage
 		dataOutputStream.writeFloat(this.velY);	
 		dataOutputStream.writeFloat(this.rotation);	
 	}
+	
+	private void readDataStream(DataInputStream dataInputStream) throws IOException
+	{
+		this.x = dataInputStream.readFloat();	
+		this.y = dataInputStream.readFloat();	
+		this.velX = dataInputStream.readFloat();	
+		this.velY = dataInputStream.readFloat();	
+		this.rotation = dataInputStream.readFloat();
+
+	}
 
 	public void set(int id, float x, float y, float velX, float velY, float rotation)
 	{
@@ -59,6 +60,11 @@ public class SpawnBulletMessage extends BaseServerMessage
 		this.velX = velX;
 		this.velY = velY;
 		this.rotation = rotation;		
+	}
+
+	public void set(DataInputStream dataInputStream) throws IOException
+	{	
+		this.readDataStream(dataInputStream);
 	}
 
 }
