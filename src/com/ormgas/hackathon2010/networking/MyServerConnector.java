@@ -88,6 +88,8 @@ public class MyServerConnector extends ServerConnector
 			EventBus.dispatch(event);
 			
 			ObjectHandler.recyclePoolItem(event);
+			
+			// This is a bit risky but i believe that the message is finished here and thus we can recycle it. 
 			ObjectHandler.recyclePoolItem(message);
 		}
 

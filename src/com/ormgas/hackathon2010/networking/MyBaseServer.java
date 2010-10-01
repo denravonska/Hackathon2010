@@ -97,7 +97,7 @@ public class MyBaseServer extends BaseServer<ClientConnector>
 			switch(pClientMessage.getFlag())
 			{
 			case MessageFlags.ClientFlags.REQUEST_BULLET:
-				this.onHandleRequestBulletMessage((NetRequestBullet)pClientMessage);
+				this.onHandleRequestBulletMessage(pClientConnector, (NetRequestBullet)pClientMessage);
 				break;
 			case MessageFlags.ClientFlags.ACTOR_JOIN:
 				this.onHandleActorJoinMessage((NetActorJoin) pClientMessage);
@@ -110,14 +110,21 @@ public class MyBaseServer extends BaseServer<ClientConnector>
 			}
 		}
 
-		private void onHandleRequestBulletMessage(NetRequestBullet message)
+		private void onHandleRequestBulletMessage(ClientConnector pClientConnector, NetRequestBullet message)
 		{
-			SpawnBulletEvent event = ObjectHandler.obtainItem(SpawnBulletEvent.class);
+			SpawnBulletMessage bulletMessage = ObjectHandler.obtainItem(SpawnBulletMessage.class);
+			bulletMessage.set(message.id, message.x, message.y, message.velX, message.velY, message.rotation);
 			
-			event.set(message.id, message.x, message.y, message.velX, message.velY, message.rotation);
-			EventBus.dispatch(event);
-			
-			ObjectHandler.recyclePoolItem(event);
+			try
+			{
+				pClientConnector.sendServerMessage(bulletMessage);
+			}
+			catch(IOException e)
+			{
+				e.printStackTrace();
+			}
+
+			ObjectHandler.recyclePoolItem(bulletMessage);
 		}
 		
 		private void onHandleActorJoinMessage(NetActorJoin message) {
