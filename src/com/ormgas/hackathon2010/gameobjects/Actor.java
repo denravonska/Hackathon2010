@@ -86,7 +86,7 @@ public class Actor extends AirplaneObject {
 
         if(true == shouldSendPosition) {
         	shouldSendPosition = false;
-			NetUpdateActor event = ObjectHandler.obtainItem(NetUpdateActor.class);
+			NetUpdateActor.Client event = ObjectHandler.obtainItem(NetUpdateActor.Client.class);
 			event.set(getId(), getX(), getY(), getAngularVelocity(), getRotation(), getVelocityX(), getVelocityY());
 			GameActivity.clientProxy.send(event);
 			ObjectHandler.recyclePoolItem(event);

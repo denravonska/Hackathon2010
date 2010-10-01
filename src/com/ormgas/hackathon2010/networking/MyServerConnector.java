@@ -52,7 +52,7 @@ public class MyServerConnector extends ServerConnector
 		{
 			switch(flag)
 			{
-			case MessageFlags.ServerFlags.SPAWN_BULLET:
+			case MessageFlags.REQUEST_BULLET:
 				SpawnBulletMessage message = ObjectHandler.obtainItem(SpawnBulletMessage.class);
 				message.set(dataInputStream);
 				return message;
@@ -71,7 +71,7 @@ public class MyServerConnector extends ServerConnector
 		{
 			switch(serverMessage.getFlag())
 			{
-			case MessageFlags.ServerFlags.SPAWN_BULLET:
+			case MessageFlags.REQUEST_BULLET:
 				this.onHandleSpawnBulletMessage((SpawnBulletMessage)serverMessage);
 				break;
 				

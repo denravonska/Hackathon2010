@@ -118,7 +118,7 @@ public class GameScene extends Scene
 		if(true == event.isLocalActor) {
 			this.camera.setChaseShape(actor);			
 			
-			GameActivity.clientProxy.send(new NetActorJoin(actor.getId()));
+			GameActivity.clientProxy.send(new NetActorJoin.Client(actor.getId()));
 			actor.setPostPositions(true);
 			
 			/*

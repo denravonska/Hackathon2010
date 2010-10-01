@@ -41,7 +41,7 @@ public class MachineGun implements IWeapon
 		//spawnBulletEvent.set(parent.getId(), x, y, velocityX, velocityY, parent.getRotation());
 		//EventBus.dispatch(spawnBulletEvent);
 		
-		GameActivity.clientProxy.send(new NetRequestBullet(x, y, velocityX, velocityY, parent.getRotation()));
+		GameActivity.clientProxy.send(new NetRequestBullet.Client(x, y, velocityX, velocityY, parent.getRotation()));
 		
 		fireTimer = System.currentTimeMillis();
 	}
