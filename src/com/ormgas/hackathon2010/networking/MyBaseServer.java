@@ -16,9 +16,13 @@ import com.ormgas.hackathon2010.GameActivity;
 import com.ormgas.hackathon2010.controller.RemoteClientController;
 import com.ormgas.hackathon2010.eventbus.EventBus;
 import com.ormgas.hackathon2010.eventbus.SpawnActorEvent;
+import com.ormgas.hackathon2010.eventbus.SpawnBulletEvent;
+import com.ormgas.hackathon2010.eventbus.UpdateActorEvent;
 import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
 import com.ormgas.hackathon2010.networking.messages.MessageFlags;
+import com.ormgas.hackathon2010.networking.messages.NetActorJoin;
 import com.ormgas.hackathon2010.networking.messages.NetRequestBullet;
+import com.ormgas.hackathon2010.networking.messages.NetUpdateActor;
 import com.ormgas.hackathon2010.networking.messages.SpawnBulletMessage;
 
 import android.util.Log;
@@ -51,11 +55,6 @@ public class MyBaseServer extends BaseServer<ClientConnector>
 		protected void onConnectInner(final BaseConnector<BaseClientMessage> pConnector)
 		{
 			Log.d(TAG, "Client connected: " + pConnector.getSocket().getInetAddress().getHostAddress());
-			
-			// Create an Actor with a ClientController here
-			
-			SpawnActorEvent event = new SpawnActorEvent(new RemoteClientController(), false);
-			EventBus.dispatch(event);
 		}
 
 		@Override
@@ -76,6 +75,10 @@ public class MyBaseServer extends BaseServer<ClientConnector>
 			{
 			case MessageFlags.ClientFlags.REQUEST_BULLET:
 				return new NetRequestBullet(pDataInputStream);
+			case MessageFlags.ClientFlags.ACTOR_JOIN:
+				return new NetActorJoin(pDataInputStream);
+			case MessageFlags.ClientFlags.UPDATE_ACTOR:
+				return new NetUpdateActor(pDataInputStream);
 			default:
 				return super.readMessage(pFlag, pDataInputStream);
 			}
@@ -96,18 +99,39 @@ public class MyBaseServer extends BaseServer<ClientConnector>
 			case MessageFlags.ClientFlags.REQUEST_BULLET:
 				this.onHandleRequestBulletMessage((NetRequestBullet)pClientMessage);
 				break;
-			
+			case MessageFlags.ClientFlags.ACTOR_JOIN:
+				this.onHandleActorJoinMessage((NetActorJoin) pClientMessage);
+				break;
+			case MessageFlags.ClientFlags.UPDATE_ACTOR:
+				this.onHandleUpdateActorMessage((NetUpdateActor) pClientMessage);
+				break;
 			default:
-					
+				break;			
 			}
 		}
 
 		private void onHandleRequestBulletMessage(NetRequestBullet message)
 		{
-			SpawnBulletMessage newMessage = ObjectHandler.obtainItem(SpawnBulletMessage.class);
-			newMessage.set(message.id, message.x, message.y, message.velX, message.velY, message.rotation);
-			GameActivity.serverProxy.send(newMessage);
-			ObjectHandler.recyclePoolItem(newMessage);
+			SpawnBulletEvent event = ObjectHandler.obtainItem(SpawnBulletEvent.class);
+			
+			event.set(message.id, message.x, message.y, message.velX, message.velY, message.rotation);
+			EventBus.dispatch(event);
+			
+			ObjectHandler.recyclePoolItem(event);
+		}
+		
+		private void onHandleActorJoinMessage(NetActorJoin message) {
+			SpawnActorEvent event = ObjectHandler.obtainItem(SpawnActorEvent.class);
+			event.set(message.actorId, new RemoteClientController(), false);
+			EventBus.dispatch(event);
+			ObjectHandler.recyclePoolItem(event);
+		}
+		
+		private void onHandleUpdateActorMessage(NetUpdateActor message) {
+			UpdateActorEvent event = ObjectHandler.obtainItem(UpdateActorEvent.class);
+			event.set(message.actorId, message.x, message.y, message.angularVelocity, message.rotation, message.velocityX, message.velocityY);
+			EventBus.dispatch(event);
+			ObjectHandler.recyclePoolItem(event);
 		}	
 	}
 		

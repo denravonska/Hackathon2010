@@ -7,7 +7,7 @@ import java.io.IOException;
 import org.anddev.andengine.extension.multiplayer.protocol.adt.message.client.BaseClientMessage;
 
 public class NetUpdateActor extends BaseClientMessage {
-
+	
 	public int actorId;
 	public float x;
 	public float y;
@@ -16,7 +16,7 @@ public class NetUpdateActor extends BaseClientMessage {
 	public float velocityX;
 	public float velocityY;
 	
-	public NetUpdateActor() {
+	public NetUpdateActor() {		
 	}
 	
 	public NetUpdateActor(int actorId, float x, float y, float angularVelocity, float rotation, float velocityX, float velocityY) {

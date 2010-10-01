@@ -1,5 +1,7 @@
 package com.ormgas.hackathon2010;
 
+import java.util.UUID;
+
 import org.anddev.andengine.engine.camera.Camera;
 import org.anddev.andengine.engine.handler.collision.CollisionHandler;
 import org.anddev.andengine.engine.handler.collision.ICollisionCallback;
@@ -21,6 +23,7 @@ import com.ormgas.hackathon2010.gameobjects.Actor;
 import com.ormgas.hackathon2010.gameobjects.BulletObject;
 import com.ormgas.hackathon2010.gameobjects.ExplosionObject;
 import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
+import com.ormgas.hackathon2010.networking.messages.NetActorJoin;
 import com.ormgas.hackathon2010.sound.RelativeSound;
 import com.ormgas.hackathon2010.eventbus.EventHandler;
 
@@ -29,7 +32,7 @@ public class GameScene extends Scene
 	private final static String TAG = GameScene.class.getSimpleName();
     private Camera camera;
 	private ScrollableParallaxBackground background = null;
-    private Sprite worldFloor;
+    private Sprite worldFloor;    
     private final static float WORLD_DISTANCE = 
 		GameActivity.WORLD_WIDTH * GameActivity.WORLD_WIDTH +
 		GameActivity.WORLD_HEIGHT * GameActivity.WORLD_HEIGHT;
@@ -70,15 +73,7 @@ public class GameScene extends Scene
 	@Override
 	public boolean onSceneTouchEvent(TouchEvent pSceneTouchEvent)
 	{
-		EventBus.dispatch(pSceneTouchEvent);
-
-		/*
-		if(pSceneTouchEvent.getX() < 200)
-			GameActivity.serverProxy.send(new ServerTestMessage(pSceneTouchEvent.getX(), pSceneTouchEvent.getY()));
-		else
-			GameActivity.clientProxy.send(new ClientTestMessage(pSceneTouchEvent.getX(), pSceneTouchEvent.getY()));
-		*/
-		
+		EventBus.dispatch(pSceneTouchEvent);		
 		return true;
 	}
 	
@@ -115,10 +110,13 @@ public class GameScene extends Scene
 	
 	@EventHandler
 	public void onSpawnActorEvent(SpawnActorEvent event) {
-		Actor actor = new Actor(0, 80, 150, 0, Textures.plane);
+		Actor actor = new Actor(event.actorId, 80, 150, 0, Textures.plane);
 		actor.attachController(event.controller);
 		if(true == event.isLocalActor) {
 			this.camera.setChaseShape(actor);
+			actor.setPostPositions(true);
+			
+			GameActivity.clientProxy.send(new NetActorJoin(actor.getId()));
 			
 			/*
 			this.registerUpdateHandler(new CollisionHandler(new ICollisionCallback() {

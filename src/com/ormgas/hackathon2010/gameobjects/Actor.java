@@ -21,7 +21,7 @@ import com.ormgas.hackathon2010.weapons.MachineGun;
 
 public class Actor extends AirplaneObject {
 	
-	private final static int UPDATE_HZ = 10;
+	private final static int UPDATE_HZ = 5;
 	private final static float BASE_VELOCITY = 80f;
 	
 	//private int kills = 0;

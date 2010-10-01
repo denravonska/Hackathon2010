@@ -2,6 +2,7 @@ package com.ormgas.hackathon2010;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.UUID;
 
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.engine.camera.BoundCamera;
@@ -37,6 +38,7 @@ public class GameActivity extends BaseGameActivity
 	private static final int CAMERA_HEIGHT = 240;
 	public static final int WORLD_WIDTH = 800;
 	public static final int WORLD_HEIGHT = 480;
+	private final static int GAME_UUID = UUID.randomUUID().hashCode();
 
 	private BoundCamera camera;
 	
@@ -79,7 +81,7 @@ public class GameActivity extends BaseGameActivity
 
 		AccelerometerController controller = new AccelerometerController();
 		this.enableAccelerometerSensor(controller);
-		EventBus.dispatch(new SpawnActorEvent(controller, true /* isLocalActor */));
+		EventBus.dispatch(new SpawnActorEvent(GAME_UUID, controller, true));
 		
 		final ChangeableText fpsText = new ChangeableText(5, 5, Fonts.gameFont16p, "FPS:", "FPS: XXXXX".length());
 		this.camera.getHUD().getTopLayer().addEntity(fpsText);
@@ -99,12 +101,14 @@ public class GameActivity extends BaseGameActivity
 		thisIP = IPUtils.getIPAddress(this);
 		Log.d(TAG, thisIP);
 		
+		clientProxy = new ClientProxy("10.213.6.123");
+		
 		serverProxy = new ServerProxy();
 		new Timer().schedule(new TimerTask() {
 
 			@Override
 			public void run() {
 				clientProxy = new ClientProxy(thisIP);
-			}}, 1500);	
+			}}, 1500);
 	}
 }
