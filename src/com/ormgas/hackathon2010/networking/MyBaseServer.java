@@ -17,6 +17,8 @@ import com.ormgas.hackathon2010.networking.messages.MessageFlags;
 import com.ormgas.hackathon2010.networking.messages.NetActorJoin;
 import com.ormgas.hackathon2010.networking.messages.NetRequestBullet;
 import com.ormgas.hackathon2010.networking.messages.NetUpdateActor;
+import com.ormgas.hackathon2010.networking.messages.SerializableMessage;
+import com.ormgas.hackathon2010.networking.messages.SerializableMessage.Client;
 
 import android.util.Log;
 
@@ -72,6 +74,8 @@ public class MyBaseServer extends BaseServer<ClientConnector>
 				return new NetActorJoin.Client(pDataInputStream);
 			case MessageFlags.UPDATE_ACTOR:
 				return new NetUpdateActor.Client(pDataInputStream);
+			case SerializableMessage.CLIENT_FLAG:
+				return new SerializableMessage.Client(pDataInputStream);
 			default:
 				return super.readMessage(pFlag, pDataInputStream);
 			}
@@ -98,9 +102,18 @@ public class MyBaseServer extends BaseServer<ClientConnector>
 			case MessageFlags.UPDATE_ACTOR:
 				this.onHandleUpdateActorMessage(pClientConnector, (NetUpdateActor.Client) pClientMessage);
 				break;
+			case SerializableMessage.CLIENT_FLAG:
+				this.onHandleSerializableMessage(pClientConnector, (SerializableMessage.Client) pClientMessage);
+				break;
 			default:
 				break;			
 			}
+		}
+
+		private void onHandleSerializableMessage(ClientConnector pClientConnector, SerializableMessage.Client pClientMessage)
+		{
+			// TODO Auto-generated method stub
+			
 		}
 
 		private void onHandleRequestBulletMessage(ClientConnector pClientConnector, NetRequestBullet.Client pClientMessage)

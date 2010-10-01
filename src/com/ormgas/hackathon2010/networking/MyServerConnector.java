@@ -18,6 +18,8 @@ import com.ormgas.hackathon2010.eventbus.SpawnBulletEvent;
 import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
 import com.ormgas.hackathon2010.networking.messages.MessageFlags;
 import com.ormgas.hackathon2010.networking.messages.NetRequestBullet;
+import com.ormgas.hackathon2010.networking.messages.SerializableMessage;
+import com.ormgas.hackathon2010.networking.messages.SerializableMessage.Server;
 
 import android.util.Log;
 
@@ -56,6 +58,10 @@ public class MyServerConnector extends ServerConnector
 				NetRequestBullet.Server message = ObjectHandler.obtainItem(NetRequestBullet.Server.class);
 				message.mImpl.readStream(dataInputStream);
 				return message;
+			case SerializableMessage.SERVER_FLAG:
+				SerializableMessage.Server message2 = ObjectHandler.obtainItem(SerializableMessage.Server.class);
+				message2.set(dataInputStream);
+				return message2;
 			default:
 				return super.readMessage(flag, dataInputStream);
 			}
@@ -75,9 +81,18 @@ public class MyServerConnector extends ServerConnector
 				this.onHandleSpawnBulletMessage((NetRequestBullet.Server) serverMessage);
 				break;
 				
+			case SerializableMessage.SERVER_FLAG:
+				this.onHandleSerializableMessage((SerializableMessage.Server) serverMessage);
+				break;
+				
 			default:
 				super.doSwitch(pServerConnector, serverMessage);
 			}
+		}
+
+		private void onHandleSerializableMessage(SerializableMessage.Server serverMessage) {
+			// TODO Auto-generated method stub
+			
 		}
 
 		private void onHandleSpawnBulletMessage(NetRequestBullet.Server message)
