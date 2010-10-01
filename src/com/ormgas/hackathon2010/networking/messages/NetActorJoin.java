@@ -37,6 +37,6 @@ public class NetActorJoin extends BaseClientMessage {
 
 	@Override
 	protected void onWriteTransmissionData(DataOutputStream stream) throws IOException {
-		stream.writeFloat(actorId);		
+		stream.writeInt(actorId);		
 	}
 }
