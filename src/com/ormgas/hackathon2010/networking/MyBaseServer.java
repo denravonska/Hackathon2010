@@ -12,7 +12,14 @@ import org.anddev.andengine.extension.multiplayer.protocol.server.ClientConnecto
 import org.anddev.andengine.extension.multiplayer.protocol.server.ClientMessageExtractor;
 import org.anddev.andengine.extension.multiplayer.protocol.shared.BaseConnector;
 
+import com.ormgas.hackathon2010.controller.RemoteClientController;
+import com.ormgas.hackathon2010.eventbus.EventBus;
+import com.ormgas.hackathon2010.eventbus.SpawnActorEvent;
+import com.ormgas.hackathon2010.eventbus.SpawnBulletEvent;
+import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
 import com.ormgas.hackathon2010.networking.messages.ClientTestMessage;
+import com.ormgas.hackathon2010.networking.messages.MessageFlags;
+import com.ormgas.hackathon2010.networking.messages.NetRequestBullet;
 
 import android.util.Log;
 
@@ -27,40 +34,16 @@ public class MyBaseServer extends BaseServer<ClientConnector>
 	}
 
 	@Override
-	protected ClientConnector newClientConnector(final Socket pClientSocket, final BaseClientConnectionListener pClientConnectionListener) throws Exception
+	protected ClientConnector newClientConnector(final Socket pClientSocket, 
+												 final BaseClientConnectionListener pClientConnectionListener) throws Exception
 	{
-		return new ClientConnector(pClientSocket, pClientConnectionListener,
-				new ClientMessageExtractor()
-				{
-					@Override
-					public BaseClientMessage readMessage(final short pFlag, final DataInputStream pDataInputStream) throws IOException
-					{
-						Log.d(TAG, "Read a client message");
-						
-						switch(pFlag)
-						{
-						case ClientTestMessage.FLAG_MESSAGE_CLIENT_TEST:
-							return new ClientTestMessage(pDataInputStream);
-						default:
-							return super.readMessage(pFlag, pDataInputStream);
-						}
-					}
-				},
-				new BaseClientMessageSwitch()
-				{
-					@Override
-					public void doSwitch(final ClientConnector pClientConnector, final BaseClientMessage pClientMessage) throws IOException
-					{
-						super.doSwitch(pClientConnector, pClientMessage);
-						Log.d(TAG, "ClientMessage received: " + pClientMessage.toString());
-						
-						// If you are the server, receive everything here
-					}
-				}
-		);
+		return new ClientConnector(pClientSocket,
+								   pClientConnectionListener,
+								   new MyClientMessageExtractor(),
+								   new MyBaseClientMessageSwitch());
 	}
 	
-	public static class MyClientConnectionListener extends BaseClientConnectionListener
+	private static class MyClientConnectionListener extends BaseClientConnectionListener
 	{
 		private final static String TAG = MyClientConnectionListener.class.getSimpleName();
 		
@@ -70,6 +53,9 @@ public class MyBaseServer extends BaseServer<ClientConnector>
 			Log.d(TAG, "Client connected: " + pConnector.getSocket().getInetAddress().getHostAddress());
 			
 			// Create an Actor with a ClientController here
+			
+			SpawnActorEvent event = new SpawnActorEvent(new RemoteClientController(), false);
+			EventBus.dispatch(event);
 		}
 
 		@Override
@@ -79,6 +65,55 @@ public class MyBaseServer extends BaseServer<ClientConnector>
 			
 			// Kill the previous created Actor...
 		}
+	}
+	
+	private static class MyClientMessageExtractor extends ClientMessageExtractor
+	{
+		@Override
+		public BaseClientMessage readMessage(final short pFlag, final DataInputStream pDataInputStream) throws IOException
+		{
+			switch(pFlag)
+			{
+			case MessageFlags.ClientFlags.TEST:
+				return new ClientTestMessage(pDataInputStream);
+			case MessageFlags.ClientFlags.REQUEST_BULLET:
+				return new NetRequestBullet(pDataInputStream);
+			default:
+				return super.readMessage(pFlag, pDataInputStream);
+			}
+		}		
+	}
+	
+	private static class MyBaseClientMessageSwitch extends BaseClientMessageSwitch
+	{
+		@Override
+		public void doSwitch(final ClientConnector pClientConnector, final BaseClientMessage pClientMessage) throws IOException
+		{
+			super.doSwitch(pClientConnector, pClientMessage);
+			
+			Log.d(TAG, "ClientMessage received: " + pClientMessage.toString());
+			
+			switch(pClientMessage.getFlag())
+			{
+			case MessageFlags.ClientFlags.REQUEST_BULLET:
+				this.onHandleRequestBulletMessage((NetRequestBullet)pClientMessage);
+				break;
+			
+			default:
+					
+			
+			}
+		}
+
+		private void onHandleRequestBulletMessage(NetRequestBullet message)
+		{
+			SpawnBulletEvent event = ObjectHandler.obtainItem(SpawnBulletEvent.class);
+			
+			event.set(message.id, message.x, message.y, message.velX, message.velY, message.rotation);
+			EventBus.dispatch(event);
+			
+			ObjectHandler.recyclePoolItem(event);
+		}	
 	}
 		
 }

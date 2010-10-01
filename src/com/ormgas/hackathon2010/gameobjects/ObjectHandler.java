@@ -32,10 +32,9 @@ public class ObjectHandler
 		
 		thePool = poolMap.get(clazz);
 		T item = (T) thePool.obtainPoolItem();
-		
-		Entity entity = (Entity)item;
-		if(entity != null)
-			ObjectHandler.activateObject(entity);
+
+		if(item instanceof Entity)
+			ObjectHandler.activateObject((Entity)item);
 		
 		return item;
 	}

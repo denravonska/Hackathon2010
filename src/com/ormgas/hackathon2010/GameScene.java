@@ -73,11 +73,13 @@ public class GameScene extends Scene
 	public boolean onSceneTouchEvent(TouchEvent pSceneTouchEvent)
 	{
 		EventBus.dispatch(pSceneTouchEvent);
-		
+
+		/*
 		if(pSceneTouchEvent.getX() < 200)
 			GameActivity.serverProxy.send(new ServerTestMessage(pSceneTouchEvent.getX(), pSceneTouchEvent.getY()));
 		else
 			GameActivity.clientProxy.send(new ClientTestMessage(pSceneTouchEvent.getX(), pSceneTouchEvent.getY()));
+		*/
 		
 		return true;
 	}
@@ -120,6 +122,7 @@ public class GameScene extends Scene
 		if(true == event.isLocalActor) {
 			this.camera.setChaseShape(actor);
 			
+			/*
 			this.registerUpdateHandler(new CollisionHandler(new ICollisionCallback() {
 
 				@Override
@@ -127,6 +130,7 @@ public class GameScene extends Scene
 					((Actor) actor).explode();
 					return true;
 				}}, actor, this.worldFloor));
+				*/
 		}
 	}
 }

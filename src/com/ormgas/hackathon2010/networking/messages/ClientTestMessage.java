@@ -8,8 +8,6 @@ import org.anddev.andengine.extension.multiplayer.protocol.adt.message.client.Ba
 
 public class ClientTestMessage extends BaseClientMessage
 {
-	public static final short FLAG_MESSAGE_CLIENT_TEST = 1;
-	
 	public final float mX;
 	public final float mY;
 	
@@ -28,7 +26,7 @@ public class ClientTestMessage extends BaseClientMessage
 	@Override
 	public short getFlag()
 	{
-		return FLAG_MESSAGE_CLIENT_TEST;
+		return MessageFlags.ClientFlags.TEST;
 	}
 
 	@Override
