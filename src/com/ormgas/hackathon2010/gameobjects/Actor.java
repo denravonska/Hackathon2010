@@ -87,7 +87,7 @@ public class Actor extends AirplaneObject {
         	UpdateActorEvent event = ObjectHandler.obtainItem(UpdateActorEvent.class);
 			event.set(getId(), getX(), getY(), getAngularVelocity(), getRotation(), getVelocityX(), getVelocityY());
 			GameActivity.clientProxy.send(event);
-			ObjectHandler.recyclePoolItem(event);
+			ObjectHandler.recycleItem(event);
         }
 		
 		if(isShooting)

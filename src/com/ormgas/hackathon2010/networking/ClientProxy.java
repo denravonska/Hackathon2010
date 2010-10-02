@@ -64,7 +64,7 @@ public class ClientProxy implements INetworkProxy
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ObjectHandler.recyclePoolItem(message);
+		ObjectHandler.recycleItem(message);
 	}
 	
 	public void disconnect() {

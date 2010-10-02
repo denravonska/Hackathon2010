@@ -71,7 +71,7 @@ public class MyServerConnector extends ServerConnector
 			{
 			case SerializableMessage.SERVER_FLAG:
 				this.onHandleSerializableMessage((SerializableMessage.Server) serverMessage);
-				ObjectHandler.recyclePoolItem(serverMessage);
+				ObjectHandler.recycleItem(serverMessage);
 				break;
 				
 			default:

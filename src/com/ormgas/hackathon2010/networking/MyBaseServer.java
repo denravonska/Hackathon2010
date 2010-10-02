@@ -103,7 +103,7 @@ public class MyBaseServer extends BaseServer<ClientConnector>
 				catch(IOException e) {
 					e.printStackTrace();
 				}
-				ObjectHandler.recyclePoolItem(relayMessage);
+				ObjectHandler.recycleItem(relayMessage);
 			} else {
 				EventBus.dispatch(pClientMessage.getObject());
 			}

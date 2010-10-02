@@ -38,7 +38,7 @@ public class MachineGun implements IWeapon
 		SpawnBulletEvent event = ObjectHandler.obtainItem(SpawnBulletEvent.class);
 		event.set(parent.getId(), x, y, velocityX, velocityY, parent.getRotation());
 		GameActivity.clientProxy.send(event);
-		ObjectHandler.recyclePoolItem(event);
+		ObjectHandler.recycleItem(event);
 		
 		fireTimer = System.currentTimeMillis();
 	}

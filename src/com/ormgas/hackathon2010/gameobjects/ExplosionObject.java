@@ -24,7 +24,7 @@ public class ExplosionObject extends AnimatedSprite implements IAnimationListene
 	@Override
 	public void onAnimationEnd(AnimatedSprite sprite)
 	{
-		ObjectHandler.recyclePoolItem(this);
+		ObjectHandler.recycleItem(this);
 	}
 
 }

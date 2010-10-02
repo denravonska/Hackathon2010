@@ -40,7 +40,7 @@ public class ObjectHandler
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static <T> void recyclePoolItem(T object)
+	public static <T> void recycleItem(T object)
 	{
 		GenericPool<T> pool = (GenericPool<T>) poolMap.get(object.getClass());
 		pool.recyclePoolItem(object);

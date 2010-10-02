@@ -122,7 +122,7 @@ public class GameScene extends Scene
 			message.setObject(event);
 			GameActivity.clientProxy.send(message);
 			actor.setPostPositions(true);
-			ObjectHandler.recyclePoolItem(message);
+			ObjectHandler.recycleItem(message);
 			
 			/*
 			this.registerUpdateHandler(new CollisionHandler(new ICollisionCallback() {

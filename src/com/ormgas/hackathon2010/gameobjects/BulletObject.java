@@ -31,7 +31,7 @@ public class BulletObject extends GameObject {
 			explosionEvent.set(x, y);
 			EventBus.dispatch(explosionEvent);
 			
-			ObjectHandler.recyclePoolItem(this);
+			ObjectHandler.recycleItem(this);
 		}
 	}
 	
