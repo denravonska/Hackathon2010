@@ -5,5 +5,6 @@ import org.anddev.andengine.extension.multiplayer.protocol.adt.message.BaseMessa
 public interface INetworkProxy
 {
 	void send(BaseMessage message);
+	void send(Object event);
 	void disconnect();
 }

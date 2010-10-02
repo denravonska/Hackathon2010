@@ -1,12 +1,17 @@
 package com.ormgas.hackathon2010.networking;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.Socket;
+import java.security.InvalidParameterException;
 
 import org.anddev.andengine.extension.multiplayer.protocol.adt.message.BaseMessage;
 import org.anddev.andengine.extension.multiplayer.protocol.adt.message.client.BaseClientMessage;
 import org.anddev.andengine.extension.multiplayer.protocol.client.ServerConnector;
 import org.anddev.andengine.util.Debug;
+
+import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
+import com.ormgas.hackathon2010.networking.messages.SerializableMessage;
 
 public class ClientProxy implements INetworkProxy
 {
@@ -45,6 +50,21 @@ public class ClientProxy implements INetworkProxy
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	public void send(Object event) {
+		if(event instanceof Serializable == false) {
+			throw new InvalidParameterException("Can only send serializable objects");
+		}
+		SerializableMessage.Client message = ObjectHandler.obtainItem(SerializableMessage.Client.class);
+		message.setObject(event);
+		try {
+			mConnection.sendClientMessage(message);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ObjectHandler.recyclePoolItem(message);
 	}
 	
 	public void disconnect() {
