@@ -116,8 +116,8 @@ public class GameActivity extends BaseGameActivity
 			@Override
 			public void run() {
 				//clientProxy = new ClientProxy("10.213.6.123");
-				clientProxy = new ClientProxy("10.213.6.42");
-				//clientProxy = new ClientProxy(thisIP);
+				//clientProxy = new ClientProxy("10.213.6.42");
+				clientProxy = new ClientProxy(thisIP);
 
 				GameActivity.this.runOnUpdateThread(new Runnable() {
 

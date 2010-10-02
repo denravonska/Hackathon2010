@@ -23,7 +23,6 @@ import com.ormgas.hackathon2010.gameobjects.Actor;
 import com.ormgas.hackathon2010.gameobjects.BulletObject;
 import com.ormgas.hackathon2010.gameobjects.ExplosionObject;
 import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
-import com.ormgas.hackathon2010.networking.messages.NetActorJoin;
 import com.ormgas.hackathon2010.networking.messages.SerializableMessage;
 import com.ormgas.hackathon2010.sound.RelativeSound;
 import com.ormgas.hackathon2010.eventbus.EventHandler;
@@ -119,9 +118,11 @@ public class GameScene extends Scene
 		if(true == event.isLocalActor) {
 			this.camera.setChaseShape(actor);			
 			
-			//GameActivity.clientProxy.send(new NetActorJoin.Client(actor.getId()));
-			GameActivity.clientProxy.send(new SerializableMessage.Client(event));
+			SerializableMessage.Client message = ObjectHandler.obtainItem(SerializableMessage.Client.class);
+			message.setObject(event);
+			GameActivity.clientProxy.send(message);
 			actor.setPostPositions(true);
+			ObjectHandler.recyclePoolItem(message);
 			
 			/*
 			this.registerUpdateHandler(new CollisionHandler(new ICollisionCallback() {

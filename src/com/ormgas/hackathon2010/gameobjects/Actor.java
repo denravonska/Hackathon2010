@@ -16,8 +16,6 @@ import com.ormgas.hackathon2010.controller.IGameObjectController;
 import com.ormgas.hackathon2010.eventbus.EventBus;
 import com.ormgas.hackathon2010.eventbus.SpawnExplosionEvent;
 import com.ormgas.hackathon2010.eventbus.UpdateActorEvent;
-import com.ormgas.hackathon2010.networking.messages.NetRequestBullet;
-import com.ormgas.hackathon2010.networking.messages.NetUpdateActor;
 import com.ormgas.hackathon2010.weapons.MachineGun;
 
 public class Actor extends AirplaneObject {
@@ -86,7 +84,7 @@ public class Actor extends AirplaneObject {
 
         if(true == shouldSendPosition) {
         	shouldSendPosition = false;
-			NetUpdateActor.Client event = ObjectHandler.obtainItem(NetUpdateActor.Client.class);
+        	UpdateActorEvent event = ObjectHandler.obtainItem(UpdateActorEvent.class);
 			event.set(getId(), getX(), getY(), getAngularVelocity(), getRotation(), getVelocityX(), getVelocityY());
 			GameActivity.clientProxy.send(event);
 			ObjectHandler.recyclePoolItem(event);

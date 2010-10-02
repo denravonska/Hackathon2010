@@ -5,7 +5,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.io.StreamCorruptedException;
 
 import org.anddev.andengine.extension.multiplayer.protocol.adt.message.client.BaseClientMessage;
@@ -20,6 +19,9 @@ public interface SerializableMessage
 	{
 		private Object mData = null;
 
+		public Client() {
+		}
+		
 		public Client(Object data)
 		{
 			this.mData = data;
@@ -39,6 +41,10 @@ public interface SerializableMessage
 		
 		public Object getObject() {
 			return this.mData;
+		}
+		
+		public void setObject(Object object) {
+			this.mData = object;
 		}
 
 		@Override
@@ -68,6 +74,14 @@ public interface SerializableMessage
 		@Override
 		public short getFlag() {
 			return SERVER_FLAG;
+		}
+		
+		public Object getObject() {
+			return this.mData;
+		}
+		
+		public void setObject(Object object) {
+			this.mData = object;
 		}
 
 		@Override

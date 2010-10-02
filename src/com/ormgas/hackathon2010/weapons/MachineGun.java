@@ -1,16 +1,13 @@
 package com.ormgas.hackathon2010.weapons;
 
-
 import com.ormgas.hackathon2010.GameActivity;
 import com.ormgas.hackathon2010.assets.Sounds;
-import com.ormgas.hackathon2010.eventbus.EventBus;
 import com.ormgas.hackathon2010.eventbus.SpawnBulletEvent;
 import com.ormgas.hackathon2010.gameobjects.GameObject;
-import com.ormgas.hackathon2010.networking.messages.NetRequestBullet;
+import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
 
 public class MachineGun implements IWeapon
 {
-	private final SpawnBulletEvent spawnBulletEvent = new SpawnBulletEvent();
 	private final static long FIRE_DELAY = 150;
 	private long fireTimer = 0;
 	
@@ -38,10 +35,10 @@ public class MachineGun implements IWeapon
 		final float velocityY = parent.getVelocityY() * 5;
 		
 		Sounds.shoot.play();
-		//spawnBulletEvent.set(parent.getId(), x, y, velocityX, velocityY, parent.getRotation());
-		//EventBus.dispatch(spawnBulletEvent);
-		
-		GameActivity.clientProxy.send(new NetRequestBullet.Client(x, y, velocityX, velocityY, parent.getRotation()));
+		SpawnBulletEvent event = ObjectHandler.obtainItem(SpawnBulletEvent.class);
+		event.set(parent.getId(), x, y, velocityX, velocityY, parent.getRotation());
+		GameActivity.clientProxy.send(event);
+		ObjectHandler.recyclePoolItem(event);
 		
 		fireTimer = System.currentTimeMillis();
 	}

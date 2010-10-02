@@ -1,6 +1,9 @@
 package com.ormgas.hackathon2010.eventbus;
 
-public class UpdateActorEvent {
+import java.io.Serializable;
+
+public class UpdateActorEvent implements Serializable {
+	private static final long serialVersionUID = 1L;
 	public int actorId;
 	public float x;
 	public float y;

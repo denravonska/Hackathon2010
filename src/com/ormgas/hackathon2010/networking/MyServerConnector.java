@@ -14,12 +14,8 @@ import org.anddev.andengine.extension.multiplayer.protocol.client.ServerMessageE
 import org.anddev.andengine.extension.multiplayer.protocol.shared.BaseConnector;
 
 import com.ormgas.hackathon2010.eventbus.EventBus;
-import com.ormgas.hackathon2010.eventbus.SpawnBulletEvent;
 import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
-import com.ormgas.hackathon2010.networking.messages.MessageFlags;
-import com.ormgas.hackathon2010.networking.messages.NetRequestBullet;
 import com.ormgas.hackathon2010.networking.messages.SerializableMessage;
-import com.ormgas.hackathon2010.networking.messages.SerializableMessage.Server;
 
 import android.util.Log;
 
@@ -54,10 +50,6 @@ public class MyServerConnector extends ServerConnector
 		{
 			switch(flag)
 			{
-			case MessageFlags.REQUEST_BULLET:
-				NetRequestBullet.Server message = ObjectHandler.obtainItem(NetRequestBullet.Server.class);
-				message.mImpl.readStream(dataInputStream);
-				return message;
 			case SerializableMessage.SERVER_FLAG:
 				SerializableMessage.Server message2 = ObjectHandler.obtainItem(SerializableMessage.Server.class);
 				message2.set(dataInputStream);
@@ -77,12 +69,9 @@ public class MyServerConnector extends ServerConnector
 		{
 			switch(serverMessage.getFlag())
 			{
-			case MessageFlags.REQUEST_BULLET:
-				this.onHandleSpawnBulletMessage((NetRequestBullet.Server) serverMessage);
-				break;
-				
 			case SerializableMessage.SERVER_FLAG:
 				this.onHandleSerializableMessage((SerializableMessage.Server) serverMessage);
+				ObjectHandler.recyclePoolItem(serverMessage);
 				break;
 				
 			default:
@@ -91,21 +80,7 @@ public class MyServerConnector extends ServerConnector
 		}
 
 		private void onHandleSerializableMessage(SerializableMessage.Server serverMessage) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		private void onHandleSpawnBulletMessage(NetRequestBullet.Server message)
-		{
-			SpawnBulletEvent event = ObjectHandler.obtainItem(SpawnBulletEvent.class);
-			
-			event.set(message.mImpl.id, message.mImpl.x, message.mImpl.y, message.mImpl.velX, message.mImpl.velY, message.mImpl.rotation);
-			EventBus.dispatch(event);
-			
-			ObjectHandler.recyclePoolItem(event);
-			
-			// This is a bit risky but i believe that the message is finished here and thus we can recycle it. 
-			ObjectHandler.recyclePoolItem(message);
+			EventBus.dispatch(serverMessage.getObject());			
 		}
 
 		@Override

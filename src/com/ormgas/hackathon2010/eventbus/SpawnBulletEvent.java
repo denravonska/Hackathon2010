@@ -1,7 +1,10 @@
 package com.ormgas.hackathon2010.eventbus;
 
-public class SpawnBulletEvent
+import java.io.Serializable;
+
+public class SpawnBulletEvent  implements Serializable
 {
+	private static final long serialVersionUID = 1L;
 	public int id;
 	public float x;
 	public float y;
@@ -17,5 +20,4 @@ public class SpawnBulletEvent
 		this.velY = velocityY;
 		this.rotation = rotation;
 	}
-
 }

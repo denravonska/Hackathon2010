@@ -13,13 +13,9 @@ import org.anddev.andengine.extension.multiplayer.protocol.server.ClientMessageE
 import org.anddev.andengine.extension.multiplayer.protocol.shared.BaseConnector;
 
 import com.ormgas.hackathon2010.eventbus.EventBus;
+import com.ormgas.hackathon2010.eventbus.RequestBulletEvent;
 import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
-import com.ormgas.hackathon2010.networking.messages.MessageFlags;
-import com.ormgas.hackathon2010.networking.messages.NetActorJoin;
-import com.ormgas.hackathon2010.networking.messages.NetRequestBullet;
-import com.ormgas.hackathon2010.networking.messages.NetUpdateActor;
 import com.ormgas.hackathon2010.networking.messages.SerializableMessage;
-import com.ormgas.hackathon2010.networking.messages.SerializableMessage.Client;
 
 import android.util.Log;
 
@@ -69,12 +65,6 @@ public class MyBaseServer extends BaseServer<ClientConnector>
 		{
 			switch(pFlag)
 			{
-			case MessageFlags.REQUEST_BULLET:
-				return new NetRequestBullet.Client(pDataInputStream);
-			case MessageFlags.ACTOR_JOIN:
-				return new NetActorJoin.Client(pDataInputStream);
-			case MessageFlags.UPDATE_ACTOR:
-				return new NetUpdateActor.Client(pDataInputStream);
 			case SerializableMessage.CLIENT_FLAG:
 				return new SerializableMessage.Client(pDataInputStream);
 			default:
@@ -94,15 +84,6 @@ public class MyBaseServer extends BaseServer<ClientConnector>
 			
 			switch(pClientMessage.getFlag())
 			{
-			case MessageFlags.REQUEST_BULLET:
-				this.onHandleRequestBulletMessage(pClientConnector, (NetRequestBullet.Client) pClientMessage);
-				break;
-			case MessageFlags.ACTOR_JOIN:
-				this.onHandleActorJoinMessage(pClientConnector, (NetActorJoin.Client) pClientMessage);
-				break;
-			case MessageFlags.UPDATE_ACTOR:
-				this.onHandleUpdateActorMessage(pClientConnector, (NetUpdateActor.Client) pClientMessage);
-				break;
 			case SerializableMessage.CLIENT_FLAG:
 				this.onHandleSerializableMessage(pClientConnector, (SerializableMessage.Client) pClientMessage);
 				break;
@@ -112,53 +93,21 @@ public class MyBaseServer extends BaseServer<ClientConnector>
 		}
 
 		private void onHandleSerializableMessage(ClientConnector pClientConnector, SerializableMessage.Client pClientMessage) {
-			EventBus.dispatch(pClientMessage.getObject());
+			Object event = pClientMessage.getObject();
+			if(event instanceof RequestBulletEvent) {
+				SerializableMessage.Server relayMessage = ObjectHandler.obtainItem(SerializableMessage.Server.class);
+				relayMessage.setObject(event);
+				try {
+					pClientConnector.sendServerMessage(relayMessage);
+				}
+				catch(IOException e) {
+					e.printStackTrace();
+				}
+				ObjectHandler.recyclePoolItem(relayMessage);
+			} else {
+				EventBus.dispatch(pClientMessage.getObject());
+			}
 		}
-
-		private void onHandleRequestBulletMessage(ClientConnector pClientConnector, NetRequestBullet.Client pClientMessage)
-		{
-			NetRequestBullet.Server message = ObjectHandler.obtainItem(NetRequestBullet.Server.class);
-			message.mImpl = pClientMessage.mImpl;
-				
-			try {
-				pClientConnector.sendServerMessage(message);
-			}
-			catch(IOException e) {
-				e.printStackTrace();
-			}
-
-			ObjectHandler.recyclePoolItem(message);
-		}
-		
-		private void onHandleActorJoinMessage(ClientConnector pClientConnector, NetActorJoin.Client pClientMessage)
-		{
-			NetActorJoin.Server message = ObjectHandler.obtainItem(NetActorJoin.Server.class);
-			message.mImpl = pClientMessage.mImpl;
-			
-			try {
-				pClientConnector.sendServerMessage(message);
-			}
-			catch(IOException e) {
-				e.printStackTrace();
-			}
-			
-			ObjectHandler.recyclePoolItem(message);
-		}
-		
-		private void onHandleUpdateActorMessage(ClientConnector pClientConnector, NetUpdateActor.Client clientMessage)
-		{
-			NetUpdateActor.Server message = ObjectHandler.obtainItem(NetUpdateActor.Server.class);
-			message.mImpl = clientMessage.mImpl;
-			
-			try {
-				pClientConnector.sendServerMessage(message);
-			}
-			catch(IOException e) {
-				e.printStackTrace();
-			}
-			
-			ObjectHandler.recyclePoolItem(message);
-		}	
 	}
 		
 }
