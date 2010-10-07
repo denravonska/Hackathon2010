@@ -25,6 +25,8 @@ import com.ormgas.hackathon2010.assets.Sounds;
 import com.ormgas.hackathon2010.assets.Textures;
 import com.ormgas.hackathon2010.controller.AccelerometerController;
 import com.ormgas.hackathon2010.eventbus.EventBus;
+import com.ormgas.hackathon2010.eventbus.EventHandler;
+import com.ormgas.hackathon2010.eventbus.RegisterAccelerometerListenerEvent;
 import com.ormgas.hackathon2010.eventbus.SpawnActorEvent;
 import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
 import com.ormgas.hackathon2010.networking.ClientProxy;
@@ -85,6 +87,7 @@ public class GameActivity extends BaseGameActivity
 	@Override
 	public Scene onLoadScene() {
 		EventBus.clear();
+		EventBus.register(this);
 		
 		setupNetwork();
 		
@@ -139,5 +142,10 @@ public class GameActivity extends BaseGameActivity
 				clientProxy = new ClientProxy(thisIP);
 				
 			}}, 200);*/
+	}
+	
+	@EventHandler
+	void onHandleRegisterAccelerometerListenerEvent(RegisterAccelerometerListenerEvent event) {
+		enableAccelerometerSensor(event.listener);
 	}
 }
