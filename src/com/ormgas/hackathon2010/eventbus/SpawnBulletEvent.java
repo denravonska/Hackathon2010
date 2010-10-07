@@ -12,6 +12,9 @@ public class SpawnBulletEvent  implements Serializable
 	public float velY;
 	public float rotation;
 
+	public SpawnBulletEvent() {
+	}
+	
 	public void set(int id, float x, float y, float velocityX, float velocityY, float rotation) {
 		this.id = id;
 		this.x = x;
