@@ -14,6 +14,7 @@ import org.anddev.andengine.extension.multiplayer.protocol.client.ServerMessageE
 import org.anddev.andengine.extension.multiplayer.protocol.shared.BaseConnector;
 
 import com.ormgas.hackathon2010.eventbus.EventBus;
+import com.ormgas.hackathon2010.eventbus.IRequestEvent;
 import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
 import com.ormgas.hackathon2010.networking.messages.SerializableMessage;
 
@@ -51,9 +52,9 @@ public class MyServerConnector extends ServerConnector
 			switch(flag)
 			{
 			case SerializableMessage.SERVER_FLAG:
-				SerializableMessage.Server message2 = ObjectHandler.obtainItem(SerializableMessage.Server.class);
-				message2.set(dataInputStream);
-				return message2;
+				SerializableMessage.Server message = ObjectHandler.obtainItem(SerializableMessage.Server.class);
+				message.set(dataInputStream);
+				return message;
 			default:
 				return super.readMessage(flag, dataInputStream);
 			}
@@ -70,7 +71,7 @@ public class MyServerConnector extends ServerConnector
 			switch(serverMessage.getFlag())
 			{
 			case SerializableMessage.SERVER_FLAG:
-				this.onHandleSerializableMessage((SerializableMessage.Server) serverMessage);
+				this.onHandleSerializableMessage(pServerConnector, (SerializableMessage.Server) serverMessage);
 				ObjectHandler.recycleItem(serverMessage);
 				break;
 				
@@ -79,8 +80,27 @@ public class MyServerConnector extends ServerConnector
 			}
 		}
 
-		private void onHandleSerializableMessage(SerializableMessage.Server serverMessage) {
-			EventBus.dispatch(serverMessage.getObject());			
+		private void onHandleSerializableMessage(final ServerConnector pServerConnector, SerializableMessage.Server serverMessage) {
+			Object event = serverMessage.getObject();
+			
+			if(event instanceof IRequestEvent) {
+				Object response = ((IRequestEvent) event).createResponse();
+				SerializableMessage.Client message = ObjectHandler.obtainItem(SerializableMessage.Client.class);
+				message.setObject(response);
+				try {
+					pServerConnector.sendClientMessage(message);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				// RequestEvent.createResponse allocates via ObjectHandler so we have to manually destroy
+				// the events here.
+				ObjectHandler.recycleItem(response);
+				
+			} else {
+				EventBus.dispatch(event);
+			}
 		}
 
 		@Override
