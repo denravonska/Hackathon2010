@@ -2,7 +2,7 @@ package com.ormgas.hackathon2010.weapons;
 
 import com.ormgas.hackathon2010.GameActivity;
 import com.ormgas.hackathon2010.assets.Sounds;
-import com.ormgas.hackathon2010.eventbus.SpawnBulletEvent;
+import com.ormgas.hackathon2010.eventbus.RequestBulletEvent;
 import com.ormgas.hackathon2010.gameobjects.GameObject;
 import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
 
@@ -35,7 +35,7 @@ public class MachineGun implements IWeapon
 		final float velocityY = parent.getVelocityY() * 5;
 		
 		Sounds.shoot.play();
-		SpawnBulletEvent event = ObjectHandler.obtainItem(SpawnBulletEvent.class);
+		RequestBulletEvent event = ObjectHandler.obtainItem(RequestBulletEvent.class);
 		event.set(parent.getId(), x, y, velocityX, velocityY, parent.getRotation());
 		GameActivity.clientProxy.send(event);
 		ObjectHandler.recycleItem(event);
