@@ -13,6 +13,7 @@ import org.anddev.andengine.extension.multiplayer.protocol.server.ClientMessageE
 import org.anddev.andengine.extension.multiplayer.protocol.shared.BaseConnector;
 
 import com.ormgas.hackathon2010.eventbus.EventBus;
+import com.ormgas.hackathon2010.eventbus.IRequestEvent;
 import com.ormgas.hackathon2010.eventbus.RequestBulletEvent;
 import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
 import com.ormgas.hackathon2010.networking.messages.SerializableMessage;
@@ -94,18 +95,20 @@ public class MyBaseServer extends BaseServer<ClientConnector>
 
 		private void onHandleSerializableMessage(ClientConnector pClientConnector, SerializableMessage.Client pClientMessage) {
 			Object event = pClientMessage.getObject();
-			if(event instanceof RequestBulletEvent) {
-				SerializableMessage.Server relayMessage = ObjectHandler.obtainItem(SerializableMessage.Server.class);
-				relayMessage.setObject(event);
+			if(event instanceof IRequestEvent) {
+				Object response = ((IRequestEvent) event).createResponse();
+				SerializableMessage.Server message = ObjectHandler.obtainItem(SerializableMessage.Server.class);
+				message.setObject(response);
 				try {
-					pClientConnector.sendServerMessage(relayMessage);
-				}
-				catch(IOException e) {
+					pClientConnector.sendServerMessage(message);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				ObjectHandler.recycleItem(relayMessage);
-			} else {
-				EventBus.dispatch(pClientMessage.getObject());
+				
+				// RequestEvent.createResponse allocates via ObjectHandler so we have to manually destroy
+				// the events here.
+				ObjectHandler.recycleItem(response);	
 			}
 		}
 	}

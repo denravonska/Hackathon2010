@@ -82,25 +82,7 @@ public class MyServerConnector extends ServerConnector
 
 		private void onHandleSerializableMessage(final ServerConnector pServerConnector, SerializableMessage.Server serverMessage) {
 			Object event = serverMessage.getObject();
-			
-			if(event instanceof IRequestEvent) {
-				Object response = ((IRequestEvent) event).createResponse();
-				SerializableMessage.Client message = ObjectHandler.obtainItem(SerializableMessage.Client.class);
-				message.setObject(response);
-				try {
-					pServerConnector.sendClientMessage(message);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				// RequestEvent.createResponse allocates via ObjectHandler so we have to manually destroy
-				// the events here.
-				ObjectHandler.recycleItem(response);
-				
-			} else {
-				EventBus.dispatch(event);
-			}
+			EventBus.dispatch(event);
 		}
 
 		@Override
