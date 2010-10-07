@@ -1,5 +1,7 @@
 package com.ormgas.hackathon2010;
 
+import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.UUID;
@@ -26,6 +28,7 @@ import com.ormgas.hackathon2010.assets.Textures;
 import com.ormgas.hackathon2010.controller.AccelerometerController;
 import com.ormgas.hackathon2010.eventbus.EventBus;
 import com.ormgas.hackathon2010.eventbus.EventHandler;
+import com.ormgas.hackathon2010.eventbus.NetworkConnectedEvent;
 import com.ormgas.hackathon2010.eventbus.RegisterAccelerometerListenerEvent;
 import com.ormgas.hackathon2010.eventbus.SpawnActorEvent;
 import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
@@ -104,14 +107,7 @@ public class GameActivity extends BaseGameActivity
             	fpsText.setText("FPS: " + fpsLogger.getFPS());
             }
         }));
-		
-		try {
-			clientProxy.wait();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+
 		return scene;
 	}	
 
@@ -124,28 +120,29 @@ public class GameActivity extends BaseGameActivity
 		Log.d(TAG, thisIP);		
 		
 		serverProxy = new ServerProxy();
-		
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		clientProxy = new ClientProxy(thisIP);
+		//clientProxy = new ClientProxy("10.213.6.123");
+		//clientProxy = new ClientProxy("10.213.6.42");
 		
-		/*new Timer().schedule(new TimerTask() {
+		new Timer().schedule(new TimerTask() {
 
-			@Override
-			public void run() {
-				//clientProxy = new ClientProxy("10.213.6.123");
-				//clientProxy = new ClientProxy("10.213.6.42");
-				clientProxy = new ClientProxy(thisIP);
-				
-			}}, 200);*/
+		@Override
+		public void run() {
+			try {
+				((ClientProxy) clientProxy).connect();
+				EventBus.dispatch(new NetworkConnectedEvent());
+				this.cancel();
+			} catch (UnknownHostException e) {
+				Log.e(TAG, "Unknown host. Aborting");
+				this.cancel();
+			} catch (IOException e) {
+				Log.w(TAG, "Failed to connect to server. Retrying...");
+			}
+		}}, 0, 500);
 	}
 	
 	@EventHandler
-	void onHandleRegisterAccelerometerListenerEvent(RegisterAccelerometerListenerEvent event) {
+	public void onRegisterAccelerometerListenerEvent(RegisterAccelerometerListenerEvent event) {
 		enableAccelerometerSensor(event.listener);
 	}
 }

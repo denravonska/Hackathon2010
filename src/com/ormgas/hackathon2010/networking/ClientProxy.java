@@ -3,6 +3,7 @@ package com.ormgas.hackathon2010.networking;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.security.InvalidParameterException;
 
 import org.anddev.andengine.extension.multiplayer.protocol.adt.message.BaseMessage;
@@ -19,23 +20,13 @@ public class ClientProxy implements INetworkProxy
 	private String serverIP = "127.0.0.1";
 	private ServerConnector mConnection;
 	
-	public ClientProxy(String ip)
-	{
+	public ClientProxy(String ip){
 		this.serverIP = ip;
-		initClient();
 	}
 
-	private void initClient()
-	{
-		try
-		{
-			this.mConnection = new MyServerConnector(new Socket(this.serverIP, SERVER_PORT));
-			this.mConnection.start();
-		}
-		catch(final Throwable t)
-		{
-			Debug.e("Error", t);
-		}
+	public void connect() throws UnknownHostException, IOException {
+		this.mConnection = new MyServerConnector(new Socket(this.serverIP, SERVER_PORT));
+		this.mConnection.start();
 	}
 
 	@Override
@@ -56,6 +47,7 @@ public class ClientProxy implements INetworkProxy
 		if(event instanceof Serializable == false) {
 			throw new InvalidParameterException("Can only send serializable objects");
 		}
+		
 		SerializableMessage.Client message = ObjectHandler.obtainItem(SerializableMessage.Client.class);
 		message.setObject(event);
 		try {
