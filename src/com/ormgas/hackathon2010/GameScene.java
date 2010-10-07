@@ -17,8 +17,9 @@ import com.ormgas.hackathon2010.controller.AccelerometerController;
 import com.ormgas.hackathon2010.controller.RemoteClientController;
 import com.ormgas.hackathon2010.eventbus.EntitySpawnedEvent;
 import com.ormgas.hackathon2010.eventbus.EventBus;
+import com.ormgas.hackathon2010.eventbus.NetworkConnectedEvent;
 import com.ormgas.hackathon2010.eventbus.PlayRelativeSoundEvent;
-import com.ormgas.hackathon2010.eventbus.RegisterAccelerometerListener;
+import com.ormgas.hackathon2010.eventbus.RegisterAccelerometerListenerEvent;
 import com.ormgas.hackathon2010.eventbus.RequestActorEvent;
 import com.ormgas.hackathon2010.eventbus.SpawnActorEvent;
 import com.ormgas.hackathon2010.eventbus.SpawnBulletEvent;
@@ -58,10 +59,6 @@ public class GameScene extends Scene
 		setBackground(background);
 		
 		EventBus.register(this);	
-		
-		// Request an actor from the server
-		RequestActorEvent event = new RequestActorEvent(GAME_UUID);
-		GameActivity.clientProxy.send(new SerializableMessage.Client(event));
 	}
 	
 	private Sprite createParallaxSprite(float bottomY, TextureRegion texture, float scale) {
@@ -84,6 +81,13 @@ public class GameScene extends Scene
 	{
 		EventBus.dispatch(pSceneTouchEvent);		
 		return true;
+	}
+	
+	@EventHandler
+	public void onNetworkConnectedEvent(NetworkConnectedEvent e) {
+		// Request an actor from the server
+		RequestActorEvent event = new RequestActorEvent(GAME_UUID);
+		GameActivity.clientProxy.send(event);
 	}
 	
 	@EventHandler
@@ -127,7 +131,7 @@ public class GameScene extends Scene
 			// This is us
 			AccelerometerController controller = new AccelerometerController();
 			actor.attachController(controller);
-			EventBus.dispatch(new RegisterAccelerometerListener(controller));
+			EventBus.dispatch(new RegisterAccelerometerListenerEvent(controller));
 			
 			this.camera.setChaseShape(actor);
 			actor.setPostPositions(true);
