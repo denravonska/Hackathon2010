@@ -7,20 +7,16 @@ import com.ormgas.hackathon2010.controller.IGameObjectController;
 public class SpawnActorEvent implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public int actorId;
-	transient public IGameObjectController controller;
-	transient public boolean isLocalActor;	
 	
 	public SpawnActorEvent() {
 	}
 	
-	public SpawnActorEvent(int actorId, IGameObjectController controller, boolean isLocalActor) {
-		set(actorId, controller, isLocalActor);
+	public SpawnActorEvent(int actorId) {
+		set(actorId);
 	}
 
-	public void set(int actorId, IGameObjectController controller, boolean isLocalActor) {
+	public void set(int actorId) {
 		this.actorId = actorId;
-		this.controller = controller;
-		this.isLocalActor = isLocalActor;
 	}
 }
 

@@ -13,9 +13,13 @@ import org.anddev.andengine.input.touch.TouchEvent;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 
 import com.ormgas.hackathon2010.assets.Textures;
+import com.ormgas.hackathon2010.controller.AccelerometerController;
+import com.ormgas.hackathon2010.controller.RemoteClientController;
 import com.ormgas.hackathon2010.eventbus.EntitySpawnedEvent;
 import com.ormgas.hackathon2010.eventbus.EventBus;
 import com.ormgas.hackathon2010.eventbus.PlayRelativeSoundEvent;
+import com.ormgas.hackathon2010.eventbus.RegisterAccelerometerListener;
+import com.ormgas.hackathon2010.eventbus.RequestActorEvent;
 import com.ormgas.hackathon2010.eventbus.SpawnActorEvent;
 import com.ormgas.hackathon2010.eventbus.SpawnBulletEvent;
 import com.ormgas.hackathon2010.eventbus.SpawnExplosionEvent;
@@ -32,7 +36,8 @@ public class GameScene extends Scene
 	private final static String TAG = GameScene.class.getSimpleName();
     private Camera camera;
 	private ScrollableParallaxBackground background = null;
-    private Sprite worldFloor;    
+    private Sprite worldFloor;
+	private final static int GAME_UUID = UUID.randomUUID().hashCode();
     private final static float WORLD_DISTANCE = 
 		GameActivity.WORLD_WIDTH * GameActivity.WORLD_WIDTH +
 		GameActivity.WORLD_HEIGHT * GameActivity.WORLD_HEIGHT;
@@ -52,7 +57,11 @@ public class GameScene extends Scene
 		
 		setBackground(background);
 		
-		EventBus.register(this);
+		EventBus.register(this);	
+		
+		// Request an actor from the server
+		RequestActorEvent event = new RequestActorEvent(GAME_UUID);
+		GameActivity.clientProxy.send(new SerializableMessage.Client(event));
 	}
 	
 	private Sprite createParallaxSprite(float bottomY, TextureRegion texture, float scale) {
@@ -113,16 +122,15 @@ public class GameScene extends Scene
 		Actor actor = ObjectHandler.obtainItem(Actor.class);
 		actor.setId(event.actorId);
 		actor.setPosition(80, 150);
-		actor.attachController(event.controller);
 		
-		if(true == event.isLocalActor) {
-			this.camera.setChaseShape(actor);			
+		if(actor.getId() == GAME_UUID) {
+			// This is us
+			AccelerometerController controller = new AccelerometerController();
+			actor.attachController(controller);
+			EventBus.dispatch(new RegisterAccelerometerListener(controller));
 			
-			SerializableMessage.Client message = ObjectHandler.obtainItem(SerializableMessage.Client.class);
-			message.setObject(event);
-			GameActivity.clientProxy.send(message);
+			this.camera.setChaseShape(actor);
 			actor.setPostPositions(true);
-			ObjectHandler.recycleItem(message);
 			
 			/*
 			this.registerUpdateHandler(new CollisionHandler(new ICollisionCallback() {
@@ -133,6 +141,10 @@ public class GameScene extends Scene
 					return true;
 				}}, actor, this.worldFloor));
 				*/
+			
+		} else {
+			// This is a remote player
+			actor.attachController(new RemoteClientController());
 		}
 	}
 }

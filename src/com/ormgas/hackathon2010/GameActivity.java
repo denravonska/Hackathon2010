@@ -38,7 +38,6 @@ public class GameActivity extends BaseGameActivity
 	private static final int CAMERA_HEIGHT = 240;
 	public static final int WORLD_WIDTH = 800;
 	public static final int WORLD_HEIGHT = 480;
-	private final static int GAME_UUID = UUID.randomUUID().hashCode();
 
 	private BoundCamera camera;
 	
@@ -87,6 +86,8 @@ public class GameActivity extends BaseGameActivity
 	public Scene onLoadScene() {
 		EventBus.clear();
 		
+		setupNetwork();
+		
 		final FPSLogger fpsLogger = new FPSLogger();
 		this.mEngine.registerUpdateHandler(fpsLogger);
 		
@@ -101,33 +102,42 @@ public class GameActivity extends BaseGameActivity
             }
         }));
 		
+		try {
+			clientProxy.wait();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return scene;
-	}
+	}	
 
 	@Override
 	public void onLoadComplete() {
-		
+	}
+	
+	private void setupNetwork() {
 		thisIP = IPUtils.getIPAddress(this);
 		Log.d(TAG, thisIP);		
 		
 		serverProxy = new ServerProxy();
-		new Timer().schedule(new TimerTask() {
+		
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		clientProxy = new ClientProxy(thisIP);
+		
+		/*new Timer().schedule(new TimerTask() {
 
 			@Override
 			public void run() {
 				//clientProxy = new ClientProxy("10.213.6.123");
 				//clientProxy = new ClientProxy("10.213.6.42");
 				clientProxy = new ClientProxy(thisIP);
-
-				GameActivity.this.runOnUpdateThread(new Runnable() {
-
-					@Override
-					public void run() {
-						AccelerometerController controller = new AccelerometerController();
-						enableAccelerometerSensor(controller);
-						EventBus.dispatch(new SpawnActorEvent(GAME_UUID, controller, true));
-					}});
 				
-			}}, 1500);
+			}}, 200);*/
 	}
 }
