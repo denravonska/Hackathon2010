@@ -1,8 +1,5 @@
 package com.ormgas.hackathon2010;
 
-import javax.jmdns.ServiceEvent;
-import javax.jmdns.ServiceListener;
-
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.scene.Scene.IOnSceneTouchListener;
 import org.anddev.andengine.entity.scene.background.SpriteBackground;
@@ -11,7 +8,6 @@ import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.input.touch.TouchEvent;
 
 import android.content.Intent;
-import android.util.Log;
 
 import com.ormgas.hackathon2010.assets.Sounds;
 import com.ormgas.hackathon2010.assets.Textures;
@@ -39,7 +35,7 @@ public class StartScene extends Scene implements IOnSceneTouchListener, ServerFi
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent,
 					final float pTouchAreaLocalX,
 					final float pTouchAreaLocalY) {
-				Sounds.select2.play();
+				Sounds.select.play();
 				activity.startActivity(new Intent(activity, GameActivity.class));
 				activity.finish();
 				return true;

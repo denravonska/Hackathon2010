@@ -14,7 +14,7 @@ public class Sounds
 	public static Sound explosion1;
 	public static Sound explosion2;
 	public static Sound select1;
-	public static Sound select2;
+	public static Sound select;
 	public static Sound shoot;
 	
 	public static Music music1;
@@ -23,14 +23,13 @@ public class Sounds
 		//SoundFactory.setAssetBasePath("sounds/");
 		
 		try {
-			dead = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "dead.wav");
-			explosion1 = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "explosion1.wav");
-			explosion2 = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "explosion2.wav");
-			select1 = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "select1.wav");
-			select2 = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "select2.wav");
-			shoot = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "shoot.wav");
+			dead = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "dead.ogg");
+			explosion1 = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "explosion1.ogg");
+			explosion2 = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "explosion2.ogg");
+			select = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "select2.ogg");
+			shoot = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "shoot.ogg");
 			
-			music1 = MusicFactory.createMusicFromAsset(activity.getMusicManager(), activity, "startSceneMusic.mp3");
+			music1 = MusicFactory.createMusicFromAsset(activity.getMusicManager(), activity, "startSceneMusic.ogg");
 			music1.setLooping(true);
 		} catch (IOException e) {
 			e.printStackTrace();
