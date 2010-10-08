@@ -108,7 +108,9 @@ public class MyBaseServer extends BaseServer<ClientConnector>
 				
 				// RequestEvent.createResponse allocates via ObjectHandler so we have to manually destroy
 				// the events here.
-				ObjectHandler.recycleItem(response);	
+				ObjectHandler.recycleItem(response);
+				ObjectHandler.recycleItem(message);
+
 			}
 		}
 	}
