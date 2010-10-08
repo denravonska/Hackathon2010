@@ -2,6 +2,7 @@ package com.ormgas.hackathon2010.gameobjects;
 
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 
+import com.ormgas.hackathon2010.collisionhandler.ICollidableVisitor;
 import com.ormgas.hackathon2010.weapons.IWeapon;
 
 public class AirplaneObject extends GameObject {
@@ -13,12 +14,6 @@ public class AirplaneObject extends GameObject {
 		
 		hp = 100;
 	}
-	
-	/*@Override
-	public void reuseObject() {
-		show();
-		super.reuseObject();
-	}*/
 	
 	public int getHp() {
 		return hp;
@@ -53,4 +48,11 @@ public class AirplaneObject extends GameObject {
 	{
 		this.weapon = weapon;
 	}
+
+	@Override
+	public void acceptCollision(ICollidableVisitor visitor)
+	{
+		visitor.visit(this);
+	}
+	
 }

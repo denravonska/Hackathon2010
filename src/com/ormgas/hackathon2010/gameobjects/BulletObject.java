@@ -3,6 +3,7 @@ package com.ormgas.hackathon2010.gameobjects;
 import com.ormgas.hackathon2010.GameActivity;
 import com.ormgas.hackathon2010.assets.Sounds;
 import com.ormgas.hackathon2010.assets.Textures;
+import com.ormgas.hackathon2010.collisionhandler.ICollidableVisitor;
 import com.ormgas.hackathon2010.eventbus.EventBus;
 import com.ormgas.hackathon2010.eventbus.PlayRelativeSoundEvent;
 import com.ormgas.hackathon2010.eventbus.SpawnExplosionEvent;
@@ -33,6 +34,12 @@ public class BulletObject extends GameObject {
 			
 			ObjectHandler.recycleItem(this);
 		}
+	}
+
+	@Override
+	public void acceptCollision(ICollidableVisitor visitor)
+	{
+		visitor.visit(this);
 	}
 	
 }

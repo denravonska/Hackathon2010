@@ -81,7 +81,7 @@ public class MyBaseServer extends BaseServer<ClientConnector>
 		{
 			super.doSwitch(pClientConnector, pClientMessage);
 			
-			Log.d(TAG, "ClientMessage received: " + pClientMessage.toString());
+			//Log.d(TAG, "ClientMessage received: " + pClientMessage.toString());
 			
 			switch(pClientMessage.getFlag())
 			{

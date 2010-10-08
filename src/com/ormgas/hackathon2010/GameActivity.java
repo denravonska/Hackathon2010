@@ -25,12 +25,11 @@ import android.util.Log;
 import com.ormgas.hackathon2010.assets.Fonts;
 import com.ormgas.hackathon2010.assets.Sounds;
 import com.ormgas.hackathon2010.assets.Textures;
-import com.ormgas.hackathon2010.controller.AccelerometerController;
+import com.ormgas.hackathon2010.collisionhandler.CollisionHandler;
 import com.ormgas.hackathon2010.eventbus.EventBus;
 import com.ormgas.hackathon2010.eventbus.EventHandler;
 import com.ormgas.hackathon2010.eventbus.NetworkConnectedEvent;
 import com.ormgas.hackathon2010.eventbus.RegisterAccelerometerListenerEvent;
-import com.ormgas.hackathon2010.eventbus.SpawnActorEvent;
 import com.ormgas.hackathon2010.gameobjects.ObjectHandler;
 import com.ormgas.hackathon2010.networking.ClientProxy;
 import com.ormgas.hackathon2010.networking.INetworkProxy;
@@ -92,6 +91,11 @@ public class GameActivity extends BaseGameActivity
 		EventBus.clear();
 		EventBus.register(this);
 		
+		CollisionHandler.instance().clear();
+		this.getEngine().registerUpdateHandler(CollisionHandler.instance());
+		
+		ObjectHandler.clear();
+		
 		setupNetwork();
 		
 		final FPSLogger fpsLogger = new FPSLogger();
@@ -121,7 +125,7 @@ public class GameActivity extends BaseGameActivity
 		
 		serverProxy = new ServerProxy();
 		clientProxy = new ClientProxy(thisIP);
-		//clientProxy = new ClientProxy("10.213.6.123");
+		//clientProxy = new ClientProxy("ormgas.com");
 		//clientProxy = new ClientProxy("10.213.6.42");
 		
 		new Timer().schedule(new TimerTask() {

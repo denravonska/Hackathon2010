@@ -5,6 +5,9 @@ import java.util.HashMap;
 import org.anddev.andengine.entity.Entity;
 import org.anddev.andengine.util.pool.GenericPool;
 
+import com.ormgas.hackathon2010.collisionhandler.CollisionHandler;
+import com.ormgas.hackathon2010.collisionhandler.ICollidable;
+
 public class ObjectHandler
 {
 	private static HashMap<Class<?>, GenericPool<?>> poolMap = new HashMap<Class<?>, GenericPool<?>>();
@@ -35,6 +38,9 @@ public class ObjectHandler
 
 		if(item instanceof Entity)
 			ObjectHandler.activateObject((Entity)item);
+
+		if(item instanceof ICollidable)
+			CollisionHandler.instance().register((ICollidable) item);
 		
 		return item;
 	}
@@ -47,6 +53,9 @@ public class ObjectHandler
 		
 		if(object instanceof Entity)
 			ObjectHandler.deActivateObject((Entity)object);
+
+		if(object instanceof ICollidable)
+			CollisionHandler.instance().unregister((ICollidable) object);
 	}
 	
 	private static <T> void createNewPool(final Class<T> clazz)
@@ -79,6 +88,11 @@ public class ObjectHandler
 		};
 		
 		poolMap.put(clazz, newPool);		
+	}
+
+	public static void clear()
+	{
+		poolMap.clear();
 	}
 	
 }
